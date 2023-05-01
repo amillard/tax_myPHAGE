@@ -5,9 +5,12 @@ import io
 from icecream import ic
 import os
 from Bio import SeqIO
+from Bio.SeqIO.FastaIO import SimpleFastaParser
 import shutil
 import sys
 from argparse import ArgumentParser
+import gzip
+
 
 
 # Create the argument parser
@@ -26,17 +29,15 @@ if not verbose: ic.disable()
 query ="query.fasta"
 
 #write the input file to a new file with a header called "taxmyPhage" 
+handle = gzip.open(fasta_file, 'rt') if fasta_file.endswith('.gz') else open(fasta_file)
+entries = SimpleFastaParser(handle)
 
 with open(args.in_fasta, "r") as input_file:
     # Open output FASTA file
     with open(query, "w") as output_file:
         # Loop over input sequences
-        for record in SeqIO.parse(input_file, "fasta"):
-            # Modify sequence ID/name
-            record.id = "taxmyPhage" 
-            record.description =""
-            # Write modified sequence to output file
-            SeqIO.write(record, "query.fasta", "fasta")
+        for name, seq in entries:
+            print(f">taxmyPhage\n{seq}", file=output_file)
 
 
 current_directory = os.getcwd()
