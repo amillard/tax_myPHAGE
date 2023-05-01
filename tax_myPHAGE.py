@@ -1,24 +1,27 @@
+#!/usr/bin/env python3
 import pandas as pd
-import subprocess 
-import io 
+import subprocess
+import io
 from icecream import ic
-import os 
+import os
 from Bio import SeqIO
 import shutil
-import sys 
-import argparse
-
+import sys
+from argparse import ArgumentParser
 
 
 # Create the argument parser
-parser = argparse.ArgumentParser(description='Read input.fasta file')
+usage = "%prog [options] file (or - for stdin)"
+description='Read input.fasta file'
+parser = ArgumentParser(usage, description=description)
+parser.add_argument("-v", "--verbose", action="store_true", default = 0)
+parser.add_argument('-i', '--input', dest='in_fasta', type=str, help='Path to input.fasta file')
+args, nargs = parser.parse_known_args()
+verbose = args.verbose
+fasta_file = args.in_fasta
 
-# Add the input file argument
-parser.add_argument( '--input', dest='in_fasta',
-                     type=str, help='Path to input.fasta file')
+if not verbose: ic.disable()
 
-# Parse the arguments
-args = parser.parse_args()
 
 query ="query.fasta"
 
