@@ -12,6 +12,8 @@ from argparse import ArgumentParser
 import gzip
 
 
+# this is the location of where the script and the databases are (instead of current_directory which is the users current directory)
+HOME = os.path.dirname(__file__)
 
 # Create the argument parser
 usage = "%prog [options] file (or - for stdin)"
@@ -40,13 +42,13 @@ with open(args.in_fasta, "r") as input_file:
             print(f">taxmyPhage\n{seq}", file=output_file)
 
 
-current_directory = os.getcwd()
+#current_directory = os.getcwd()
 
-blastdb_path = os.path.join(current_directory, 'Bacteriophage_genomes.fasta')
+blastdb_path = os.path.join(HOME, 'Bacteriophage_genomes.fasta')
 
 
 #check the VMR is present 
-VMR_path = "VMR.xls"
+VMR_path = f"{HOME}/VMR.xls"
 
 if os.path.exists(VMR_path):
     print (f"Found {VMR_path} as expected")
