@@ -181,7 +181,7 @@ def viridic_run():
                 merged_file.write(file1.read())
                 merged_file.write(file2.read())
                 run_viridic = f" ~/viridic_v1.0_r3.6/viridic.bash projdir=/home/andy/taxa_my_phage/ in=/home/andy/taxa_my_phage/viridic_in.fa"
-                #subprocess.run(run_viridic, shell=True, check=True)
+                subprocess.run(run_viridic, shell=True, check=True)
 
 #get smallest mash distance
 min_dist = top_50['distance'].min()
@@ -197,7 +197,7 @@ elif min_dist > 0.04 and min_dist  < 0.1:
     print ("It is not clear if the phage is a new species or not. Will run further analysis now to confirm this")
     top_df = top_50[top_50['distance'] < 0.1 ]
     print(top_df)
-    get_genus_list(top_df,accession_genus_dict)
+    get_genus_list(top_df)
 
 elif min_dist > 0.1  and min_dist  < 0.2:
     print ("Phage is a new species. Will run further analysis now   ")
