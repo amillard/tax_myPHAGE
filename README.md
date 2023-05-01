@@ -21,5 +21,5 @@ Create a blast database of these with
 
 Run with 
 
-	python python tax_myPHAGE.py  --input UP30.fa
+	python tax_myPHAGE.py  --input UP30.fa
 
