@@ -12,7 +12,7 @@ Also requires MASH index of ICTV genomees. Can be downloaded from here https://m
 Also requires the ICTV classified Bacteriophage Genomes https://millardlab-inphared.s3.climb.ac.uk/Bacteriophage_genomes.fasta.gz
 
 	`wget https://millardlab-inphared.s3.climb.ac.uk/Bacteriophage_genomes.fasta.gz  `
-	`gunzip  https://millardlab-inphared.s3.climb.ac.uk/Bacteriophage_genomes.fasta.gz`
+	`gunzip Bacteriophage_genomes.fasta.gz`
 
 Create a blast database of these with 
 
