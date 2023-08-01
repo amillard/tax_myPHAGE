@@ -44,7 +44,7 @@ HOME = os.path.dirname(__file__)
 
 
 #check the files are present
-VMR_path = os.path.join(HOME, 'VMR.xls')
+VMR_path = os.path.join(HOME, 'VMR.xlsx')
 
 blastdb_path = os.path.join(HOME, 'Bacteriophage_genomes.fasta')
 ICTV_path = os.path.join(HOME, 'ICTV.msh')
@@ -128,7 +128,9 @@ else:
 
 # Create the argument parser
 usage = "%prog [options] file (or - for stdin)"
-description='Read input.fasta file'
+description= """Takes a phage genome as as fasta file and compares against all phage genomes that are currently classified 
+ by the ICTV. It does not compare against ALL phage genomes, just classified genomes. Having found the closet related phages 
+ it runs VIRIDIC and parses the output to predict the taxonomy of the phage. It is only able to classify to the Genus and species level"""
 parser = ArgumentParser(usage, description=description)
 parser.add_argument("-v", "--verbose", action="store_true", default = 0)
 parser.add_argument("-t", "--threads", dest='threads', type=str, default= "8" ,
@@ -162,6 +164,30 @@ taxa_csv_output_path = os.path.join(results_path, out_csv_of_taxonomy)
 #path the final results summary file
 summary_results = args.prefix+"Summary_file.txt"
 summary_output_path = os.path.join(results_path, summary_results)
+
+#Statments to output
+
+summary_statement1 ="""
+\n The data from the initial mash searching is below as tsv format \n
+Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc \n\n
+"""
+
+statement_current_genus_new_sp="""
+Query sequence can be classified within a current genus and represents a new species, it is in:\n
+"""
+statement_current_genus_sp="""
+\nQuery sequence can be classified within a current genus and species, it is in:\n
+"""
+summary_statement_inconsitent="""
+The number of expected genera based on current ICTV classification is less than the predicted 
+number of genus clusters as predicted by VIRIDIC. This does not mean the current ICTV classification
+is wrong (it might be)or that VIRIDIC is wrong. It could be an edge case that automated process cannot
+distinguish. It will require more manual curation to look at the output files
+\n 
+"""
+
 
 
 if not os.path.exists(results_path):
@@ -232,7 +258,8 @@ number_hits = mash_df.shape[0]
 #get the number of genomes wih mash distance < 0.2
 
 if number_hits < 1:
-    print(TerminalColors.RED +"""Error: No hits were found with the default settings
+    print(TerminalColors.RED +"""
+Error: No hits were found with the default settings
 The phage likely represents a new species and genus 
 However tax_my_phage is unable to classify it at this point as it can only classify at the 
           """)
@@ -273,14 +300,13 @@ ic(f"{value_at_50th_position}")
 
 
 #process each  row
-
 for index, row in top_50.iterrows():
     dir_accesion = row.iloc[0]
     list_of_parts = dir_accesion.split('/')
     genus = list_of_parts[1]
     acc = list_of_parts[2]
     genus = genus.replace(".", "")
-    acc = acc.replace(".fna", "")# swap fsa for fna in new ICTV.msh file 
+    acc = acc.replace(".fna", "")# swap fsa for fna in new ICTV.msh file
     matches = taxa_df['Genbank'].str.contains(acc)
     matched_rows = taxa_df[matches].values.tolist()
     #result =matched_rows[0]
@@ -326,8 +352,10 @@ keys = [k for k, v in accession_genus_dict.items() if v == unique_genera[0]]
 ic(keys)
 
 
+#Do different things depending how many unique genera were found
+
 if len(unique_genera) == 1:
-    print ("Only Found 1 genus so will proceed with getting all genomes associated with genus")
+    print (TerminalColors.BLUE+"Only Found 1 genus so will proceed with getting all genomes associated with that genus")
     keys = [k for k, v in accession_genus_dict.items() if v == unique_genera[0]]
     number_ok_keys =len(keys)
     print (f"Number of known species in the genus is {number_ok_keys} \n ")
@@ -336,7 +364,7 @@ if len(unique_genera) == 1:
     subprocess.run(get_genomes_cmd, shell=True, check=True)
 
 elif len(unique_genera) >1:
-    print("Found multiple genera that this query phage might be similar to so will proceed with processing them")
+    print(TerminalColors.BLUE+"Found multiple genera that this query phage might be similar to so will proceed with processing them all")
     list_of_genus_accessions =[]
     for i in unique_genera:
         keys = [k for k, v in accession_genus_dict.items() if v == i]
@@ -362,6 +390,7 @@ def viridic_run(path_viridic_bash, results_path , viridic_in_path ):
                 subprocess.run(run_viridic, shell=True, check=True)
 
 #get smallest mash distance
+
 min_dist = top_50['distance'].min()
 
 if  min_dist < 0.04: 
@@ -384,7 +413,7 @@ elif min_dist > 0.1  and min_dist  < 0.2:
 
 #######run viridic
 
-viridic_run(path_viridic_bash, results_path , viridic_in_path )
+#viridic_run(path_viridic_bash, results_path , viridic_in_path )
 
 
 def parse_virid():
@@ -513,13 +542,10 @@ if num_unique_ICTV_genera == num_unique_viridic_genus_clusters:
                 Species:{list_of_S_data[19]}
                  """)
         with open(summary_output_path,'a') as file:
-            file.write(f"""
-Query sequence can be classified within a current genus and species, it is in:\n
-Class:{list_of_S_data[14]}\tFamily: {list_of_S_data[15]}\tSubfamily:{list_of_S_data[16]}\tGenus:{list_of_S_data[17]}Species:{list_of_S_data[19]}
-\n The data from the initial mash searching is below as tsv format \n
-Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing determine if it represents a new 
-species or geneus. It does not tell you if it is similar to other phages that have yet to be classified
-You can do this by comparison with INPHARED database if you wish""")
+            file.write(f"""statement_current_genus_sp 
+                       Class:{list_of_S_data[14]}\tFamily: {list_of_S_data[15]}\tSubfamily:{list_of_S_data[16]}\tGenus:{list_of_S_data[17]}Species:{list_of_S_data[19]}
+            \n{summary_statement1 }""")
+
         mash_df.to_csv(summary_output_path, mode='a', header=True, index=False,sep='\t')
 
         #WRITE CODE FOR GIVING INFO ON SPECIES
@@ -544,13 +570,9 @@ You can do this by comparison with INPHARED database if you wish""")
          """)
 
         with open(summary_output_path, 'a') as file:
-            file.write(f"""
-        Query sequence can be classified within a current genus and represents a new species, it is in:\n
-        Class:{dict_exemplar_genus['Class']}\tFamily: {dict_exemplar_genus['Family']}\tSubfamily:{dict_exemplar_genus['Subfamily']}\tGenus:{dict_exemplar_genus['Genus']}\tnew_specices_name
-        \n The data from the initial mash searching is below as tsv format \n
-        Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing determine if it represents a new 
-        species or geneus. It does not tell you if it is similar to other phages that have yet to be classified
-        You can do this by comparison with INPHARED database if you wish""")
+            file.write(f""" {statement_current_genus_new_sp}
+Class:{dict_exemplar_genus['Class']}\tFamily: {dict_exemplar_genus['Family']}\tSubfamily:{dict_exemplar_genus['Subfamily']}\tGenus:{dict_exemplar_genus['Genus']}\tnew_specices_name
+{summary_statement1}""")
         mash_df.to_csv(summary_output_path, mode='a', header=True, index=False,sep='\t')
 
 
@@ -574,11 +596,8 @@ You can do this by comparison with INPHARED database if you wish""")
 
 ######if number of VIRIDIC genera is greater than ICTV genera
 elif num_unique_ICTV_genera < num_unique_viridic_genus_clusters:
-    print (TerminalColors.RED+"""The number of expected genera based on current ICTV classification is less than the predicted 
-number of genus clusters as predicted by VIRIDIC.
-This does not mean the current ICTV classification is wrong (it might be) or that VIRIDIC
-is wrong. It could be an edge case that automated process cannot distinguish. It will require
- more manual curation to look at the output files """)
+    print (TerminalColors.RED+f"""{summary_statement_inconsitent}\n""")
+
     if query_genus_cluster_number in list_ICTV_genus_clusters and query_species_cluster_number in list_ICTV_species_clusters:
         print(TerminalColors.BLUE+"""Phage is within a current genus and same as a current species 
          ....working out which one now .....""")
@@ -601,17 +620,11 @@ is wrong. It could be an edge case that automated process cannot distinguish. It
 
         with open(summary_output_path, 'a') as file:
             file.write(f"""\n
-The number of expected genera based on current ICTV classification is less than the predicted 
-number of genus clusters as predicted by VIRIDIC.
-This does not mean the current ICTV classification is wrong (it might be) or that VIRIDIC
-is wrong. It could be an edge case that automated process cannot distinguish. It will require
-more manual curation to look at the output files\n 
-Query sequence can be classified within a current genus and species, it is in:\n
+{summary_statement_inconsitent}
+{statement_current_genus_sp}
 Class:{dict_exemplar_genus['Class']}\tFamily: {dict_exemplar_genus['Family']}\tSubfamily:{dict_exemplar_genus['Genus']}\tGenus:{list_of_S_data[17]}\tnew_specices_name
-\n The data from the initial mash searching is below as tsv format \n
-Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
-species or genus. It does not tell you if it is similar to other phages that have yet to be classified
-You can do this by comparison with INPHARED database if you wish\n\n""")
+{summary_statement1}
+""")
         mash_df.to_csv(summary_output_path, mode='a', header=True, index=False,sep='\t')
 
 
@@ -639,10 +652,8 @@ You can do this by comparison with INPHARED database if you wish\n\n""")
 Query sequence can be classified within a current genus and represents a new species, it is in:\n
 Class:{dict_exemplar_genus['Class']}\tFamily: {dict_exemplar_genus['Family']}\tSubfamily:{dict_exemplar_genus['Subfamily']}\tGenus:{dict_exemplar_genus['Genus']}\tSpecies:name_your_species
 \n 
-Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you to determine if it represents a new 
-species or genuss. It does not tell you if it is similar to other phages that have yet to be classified
-You can do this by comparison with INPHARED database if you wish\n
-The data from the initial mash searching is below as tsv format \n\n""")
+{summary_statement1}
+""")
         mash_df.to_csv(summary_output_path, mode='a', header=True, index=False,sep='\t')
 
 
@@ -661,7 +672,10 @@ for dir in dirs_to_remove:
 #copy and rename heatmap files
 
 heatmap_in = os.path.join(results_path,'04_VIRIDIC_out','Heatmap.PDF')
-heatmap_out =os.path.join(results_path, 'viridic_heatmap.pdf')
+
+#append the run prefix
+viridic_pdf = args.prefix+"viridic_heatmap.pdf"
+heatmap_out =os.path.join(results_path, viridic_pdf)
 
 shutil.copy(heatmap_in, heatmap_out)
 
@@ -669,7 +683,9 @@ shutil.copy(heatmap_in, heatmap_out)
 input_pdf_path = 'viridic_heatmap.pdf'
 
 # Path to the output SVG file
-output_svg_path = os.path.join(results_path, 'output.svg')
+#copy and rename the SVG file after conversion from PDF
+svg_file = args.prefix+"VIRIDIC.svg"
+output_svg_path = os.path.join(results_path, svg_file)
 
 convert_pdf_cmd = f" pdf2svg {heatmap_out} {output_svg_path}"
 # execute the command using subprocess
@@ -686,110 +702,3 @@ if not verbose:
 
 
 
-# #print (merged_df.head(10))
-#
-# #create dictionary of key value pairs
-# dict_genome = merged_df.set_index('genome')[['species_cluster', 'genus_cluster','Species','Genus','Family']].to_dict('index')
-#
-# #get a list of unique  genera clusters
-# unique_genera = merged_df['genus_cluster'].unique().tolist()
-#
-# #get a list of unique genera names
-# unique_genera_names = merged_df['Genus'].unique().tolist()
-#
-# #get number of genus clusters
-# num_genera=len(unique_genera)
-#
-# #get number of genus names
-# num_genus_names=len(unique_genera_names)
-#
-# #get a list of unquie species clusters
-# unique_species_cluster = merged_df['species_cluster'].unique().tolist()
-#
-# #get a list of unique species  names
-# unique_species_names  = merged_df['Species'].unique().tolist()
-#
-# #get number of species clusters
-# num_species=len(unique_species_cluster)
-#
-# #get number of species names
-#
-# ic(unique_species_names)
-#
-# ic (f"Number of species is:{num_species}")
-#
-# ic(num_genus_names)
-#
-# ic (f"Number of genera is:{num_genera}")
-#
-# if num_genera+1 > num_genus_names:
-#      print("There could be a problem with classification of this phage. Further manual checking \
-# of the results might be required")
-#
-# #get a list of lists for the query genome
-# query_row_list  = merged_df.loc[merged_df['genome'] == 'taxmyPhage'].values.tolist()
-#
-# #extract the "species" cluster number from the list of lists. It is the 2nd element of the 1st list
-# query_cluster_number = query_row_list[0][1]
-#
-# count_query_cluster_in_df  = merged_df['species_cluster'].value_counts()[query_cluster_number]
-#
-# if count_query_cluster_in_df == 1:
-#     print (f"The phage represents a novel species")
-# elif count_query_cluster_in_df != 1 :
-#     print (f"The phage is the same as an existing species")
-#
-# ic(count_query_cluster_in_df)
-#
-# ic(query_cluster_number)
-#
-
-# shutil.copy('04_VIRIDIC_out/Heatmap.PDF', './viridic_heatmap.pdf')
-#
-# # Path to the input PDF file
-# input_pdf_path = 'viridic_heatmap.pdf'
-#
-# # Path to the output SVG file
-# output_svg_path = 'output.svg'
-#
-# convert_pdf_cmd = f" pdf2svg {input_pdf_path} {output_svg_path}"
-# # execute the command using subprocess
-# subprocess.run(convert_pdf_cmd, shell=True, check=True)
-#
-# #still do to
-# #cleanup files that are left over
-#
-# #merged_df = merged_df.loc[merged_df['Genus'] != 'Not Defined Yet']
-#
-# grouped = merged_df.groupby('Genus')['genus_cluster'].nunique()
-# same_cluster_numbers = len(grouped.unique()) == 1
-#
-# if same_cluster_numbers:
-#     print("All genera have the same genus_cluster numbers.")
-# else:
-#     print("Not all genera have the same genus_cluster numbers.")
-#
-# #group genus and genus_cluster
-# grouped = merged_df.groupby(['Genus']).agg({'genus_cluster': 'nunique'})
-#
-# # Filter to show only the rows where the number of unique genus_cluster values is greater than 1
-# nonuniform_clusters = grouped[grouped['genus_cluster'] >= 1]
-#
-# # Print the resulting rows
-# if len(nonuniform_clusters) > 0:
-#     print("The following genera have non-uniform genus_cluster numbers:")
-#     print(nonuniform_clusters)
-#     print ("This is inconsistent with automated taxonomy as determined using VIRIDC for cut offs \
-# there are a number of reasons for this. It could be as a result of incorrect allocation of \
-# species to a genera, the genus had not recently been updated with current cutoffs or real \
-# differences. To understand this further you will need to read the taxonomy proposal on the ICTV website ")
-# else:
-#     print("All genera have the same genus_cluster number")
-#
-# genus_cluster_matching_query = merged_df.loc[merged_df['genus_cluster'] == query_cluster_number ]
-#
-# ic(genus_cluster_matching_query)
-#
-# taxmyPhage_clusters = merged_df.loc[merged_df['genome'] == 'taxmyPhage', ['species_cluster', 'genus_cluster']].values.tolist()[0]
-#
-# ic (taxmyPhage_clusters)
