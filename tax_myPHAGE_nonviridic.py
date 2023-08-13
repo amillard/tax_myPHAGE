@@ -303,8 +303,8 @@ if __name__ == '__main__':
         with open(query, "w") as output_fid:
             name, seq = entries[0]
             with open(summary_output_path, 'a') as fid:
-                print(f"Query sequence header was:{name}", file=fid)
-                print(f">taxmyPhage\n{seq}", file=output_fid)
+                print_ok(f"Query sequence header was:{name}", file=fid)
+                print_ok(f">taxmyPhage\n{seq}", file=output_fid)
     else:
         print_error(f"\nError: The {fasta_file} FASTA file contains {num_sequences} sequences."\
               f" Only one sequence can be classified at a time ")
@@ -325,7 +325,7 @@ if __name__ == '__main__':
     accession_genus_dict = taxa_df.set_index('Genbank')['Genus'].to_dict()
 
     #run mash to get top hit and read into a pandas dataframe
-    mash_output = subprocess.check_output(['mash', 'dist', '-d' , '0.2',  '-p', threads, ICTV_path, query])
+    mash_output = subprocess.check_output(['mash', 'dist', '-d' , '0.3',  '-p', threads, ICTV_path, query])
 
     # list of names for the headers
     mash_df  = pd.read_csv(io.StringIO(mash_output.decode('utf-8')), sep='\t', header=None, names=['Reference', 'Query', 'distance', 'p-value', 'shared-hashes', 'ANI'])
@@ -357,10 +357,10 @@ if __name__ == '__main__':
 
     #set the maximum number of hits to take forward. Max is 50 or the max number in the table if <50
     filter_hits =""
-    if number_hits < 50:
+    if number_hits < 10:
         filter_hits = number_hits
     else:
-        filter_hits = 50
+        filter_hits = 10
 
     #copy top 50 hits to a new dataframe
     top_50 = mash_df.iloc[:filter_hits].copy()
@@ -381,7 +381,7 @@ if __name__ == '__main__':
     #returns the unique genera names found in the mash hits - top_50 is not the best name!
 
     unique_genera_counts = top_50.genus.value_counts()
-    print(unique_genera_counts.to_dict())
+    print_ok(unique_genera_counts.to_dict())
     unique_genera = unique_genera_counts.index.tolist()
 
     #unique_genera top_50.genus.value_counts().to_dict()
@@ -406,7 +406,7 @@ if __name__ == '__main__':
         print_ok("Only found 1 genus so will proceed with getting all genomes associated with that genus")
         keys = [k for k, v in accession_genus_dict.items() if v == unique_genera[0]]
         number_ok_keys =len(keys)
-        print (f"Number of known species in the genus is {number_ok_keys} \n ")
+        print_ok(f"Number of known species in the genus is {number_ok_keys} \n ")
         # create a command string for blastdbcmd
         get_genomes_cmd = f"blastdbcmd -db {HOME}/Bacteriophage_genomes.fasta  -entry {','.join(keys)} -out {known_taxa_path} "
         #subprocess.run(get_genomes_cmd, shell=True, check=True)
@@ -420,7 +420,7 @@ if __name__ == '__main__':
             number_of_keys = len(keys)
             #ic(keys)
             list_of_genus_accessions.extend(keys)
-            print(f"Number of known species in the genus {i} is {number_of_keys}")
+            print_ok(f"Number of known species in the genus {i} is {number_of_keys}")
         ic(list_of_genus_accessions)
         ic(len(list_of_genus_accessions))
         get_genomes_cmd = f"blastdbcmd -db {HOME}/Bacteriophage_genomes.fasta  -entry {','.join(list_of_genus_accessions)} -out {known_taxa_path}"
@@ -462,7 +462,7 @@ if __name__ == '__main__':
 
     #Print the DataFrame
     ic(taxa_df)
-    #renmae the columns again
+    #rename the columns again
     taxa_df = taxa_df.rename(columns={'Virus GENBANK accession': 'Genbank'})
     taxa_df['Genbank'].fillna('', inplace=True)
 
