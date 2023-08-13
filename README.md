@@ -31,6 +31,8 @@ What it wont do:
 
 Requires viridic can be downloaded from here: http://rhea.icbm.uni-oldenburg.de/VIRIDIC/  
 
+##DEPRECATED - No longer needed
+
 
 **MASH index**
 
@@ -56,5 +58,16 @@ A copy of the VMR.xlsx - included here
 
 Run with 
 
-	python tax_myPHAGE.py  --input UP30.fa
+	python tax_myPHAGE.py  --input UP30.fa 
 
+or 
+
+	python taxmyPHAGE.py ---h to get full options 
+
+	-v will print the output of intermediated steps to screen 
+	-p PREFIX that will be prefixed to output files
+	-t number threads 
+	-h for help ....
+
+
+If you use it .
