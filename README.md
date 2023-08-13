@@ -29,10 +29,12 @@ What it wont do:
 
 **VIRIDIC **
 
-Requires viridic can be downloaded from here: http://rhea.icbm.uni-oldenburg.de/VIRIDIC/  
+Requires viridic can be downloaded from here: http://rhea.icbm.uni-oldenburg.de/VIRIDIC/
+  
 
-##DEPRECATED - No longer needed
+**DEPRECATED - No longer needed**
 
+----------
 
 **MASH index**
 
@@ -51,6 +53,8 @@ Can be created manually or download here  Bacteriophage Genomes https://millardl
 Create a blast database of these with 
 
 	makeblastdb -in Bacteriophage_genomes.fasta -parse_seqids -dbtype nucl 
+
+----------
 
 
 A copy of the VMR.xlsx - included here 
