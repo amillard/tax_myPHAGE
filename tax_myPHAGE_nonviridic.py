@@ -226,9 +226,19 @@ if __name__ == '__main__':
 
     if os.path.exists(ICTV_path):
         print_ok(f" Found {ICTV_path} as expected")
+    #else:
+    #    print_error(f'File {ICTV_path} does not exist, was it downloaded correctly?')
     else:
-        print_error(f'File {ICTV_path} does not exist, was it downloaded correctly?')
-
+        print_error(f"File {ICTV_path} does not exist will create database now  ")
+        print_error("Will download the database now and create database")
+        url = "https://millardlab-inphared.s3.climb.ac.uk/ICTV_2023.msh"
+        file_download = "ICTV.msh"
+        download_command = f"curl -o {file_download} {url}"
+        try:
+            subprocess.run(download_command, shell=True, check=True)
+            print(f"{url} downloaded successfully!")
+        except subprocess.CalledProcessError as e:
+                print(f"An error occurred while downloading {url}: {e}")
 
     check_programs()
     check_blastDB(blastdb_path)
@@ -303,8 +313,8 @@ if __name__ == '__main__':
         with open(query, "w") as output_fid:
             name, seq = entries[0]
             with open(summary_output_path, 'a') as fid:
-                print_ok(f"Query sequence header was:{name}", file=fid)
-                print_ok(f">taxmyPhage\n{seq}", file=output_fid)
+                print (f"Query sequence header was:{name}",  file=fid)
+                print (f">taxmyPhage\n{seq}", file=output_fid)
     else:
         print_error(f"\nError: The {fasta_file} FASTA file contains {num_sequences} sequences."\
               f" Only one sequence can be classified at a time ")
@@ -374,7 +384,7 @@ if __name__ == '__main__':
     ic(f"{value_at_50th_position}")
 
     top_50['genus'] = top_50['Reference'].str.split('/').str[1]
-    top_50['acc'] = top_50['Reference'].str.split('/').str[-1].str.split('.fna').str[0]
+    top_50['acc'] = top_50['Reference'].str.split('/').str[-1].str.split('.fna|.fsa').str[0]
     top_50 = top_50.merge(taxa_df, left_on = 'acc', right_on = 'Genbank')
     top_50['ANI'] = (1 - top_50.distance)*100
 
