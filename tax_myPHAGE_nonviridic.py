@@ -222,7 +222,17 @@ if __name__ == '__main__':
     if os.path.exists(VMR_path):
         print_ok(f"Found {VMR_path} as expected")
     else:
-        print_error(f'File {VMR_path} does not exist')
+        print_error(f'File {VMR_path} does not exist will try downloading now')
+        print_error("Will download the current VMR now")
+        url = "https://ictv.global/vmr/current"
+        file_download = "VMR.xlsx"
+        download_command = f"curl -o {file_download} {url}"
+        try:
+            subprocess.run(download_command, shell=True, check=True)
+            print(f"{url} downloaded successfully!")
+        except subprocess.CalledProcessError as e:
+            print(f"An error occurred while downloading {url}: {e}")
+
 
     if os.path.exists(ICTV_path):
         print_ok(f" Found {ICTV_path} as expected")
