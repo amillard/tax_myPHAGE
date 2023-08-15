@@ -40,8 +40,7 @@ Requires viridic can be downloaded from here: http://rhea.icbm.uni-oldenburg.de/
 
 A prebuilt MASH index of ICTV genomes. Can be downloaded from here https://millardlab-inphared.s3.climb.ac.uk/ICTV.msh
 
-	wget  https://millardlab-inphared.s3.climb.ac.uk/ICTV.msh
-
+	wget  https://millardlab-inphared.s3.climb.ac.uk/ICTV_2023.msh
 
 **A database of genomes currently classified by the ICTV**
 
@@ -58,6 +57,15 @@ Create a blast database of these with
 
 
 A copy of the VMR.xlsx - included here 
+
+
+------
+
+Install python modules 
+
+
+	mamba install biopython pandas icecream networkx tqdm openpyxl
+
 
 
 Run with 
