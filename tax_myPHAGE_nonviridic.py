@@ -203,6 +203,11 @@ if __name__ == '__main__':
                         help='will add the prefix to results and summary files that will store results of MASH and comparision to the VMR Data produced by'
                         'ICTV combines both sets of this data into a single csv file. '
                         'Use this flag if you want to run multiple times and keep the results files without manual renaming of files')
+    parser.add_argument("-d", "--distance", type=str, default = "0.2",  dest="dist",
+                        help='Will change the mash distance for the intial seraching for close relatives. We suggesting keeping at 0.2'
+                        ' If this results in the phage not being classified, then increasing to 0.3 might result in an output that shows'
+                        ' the phage is a new genus. We have found increasing above 0.2 does not place the query in any current genus, only'
+                        ' provides the output files to demonstrate it falls outside of current genera')
 
 
     args, nargs = parser.parse_known_args()
@@ -258,6 +263,7 @@ if __name__ == '__main__':
     base = os.path.basename(fasta_file).removesuffix('.gz').removesuffix('.fasta').removesuffix('.fna').removesuffix('.fsa')
     cwd = os.getcwd()
     threads = args.threads
+    mash_dist = args.dist
     ic(f"Number of set threads {threads}")
     #create results folder
     results_path = os.path.join(cwd, f"{base}_taxmyphage_results")
@@ -345,7 +351,7 @@ if __name__ == '__main__':
     accession_genus_dict = taxa_df.set_index('Genbank')['Genus'].to_dict()
 
     #run mash to get top hit and read into a pandas dataframe
-    mash_output = subprocess.check_output(['mash', 'dist', '-d' , '0.3',  '-p', threads, ICTV_path, query])
+    mash_output = subprocess.check_output(['mash', 'dist', '-d' , mash_dist,  '-p', threads, ICTV_path, query])
 
     # list of names for the headers
     mash_df  = pd.read_csv(io.StringIO(mash_output.decode('utf-8')), sep='\t', header=None, names=['Reference', 'Query', 'distance', 'p-value', 'shared-hashes', 'ANI'])
@@ -451,19 +457,19 @@ if __name__ == '__main__':
     min_dist = top_50['distance'].min()
 
     if  min_dist < 0.04: 
-        print ("Phage is likely NOT a new species, will run further analysis now to to confirm this \n ")
+        print_ok ("Phage is likely NOT a new species, will run further analysis now to to confirm this \n ")
         top_df = top_50[top_50['distance'] == min_dist]
         ic(top_df)
 
 
     elif min_dist > 0.04 and min_dist  < 0.1: 
-        print ("It is not clear if the phage is a new species or not. Will run further analysis now to confirm this...\n")
+        print_ok ("It is not clear if the phage is a new species or not. Will run further analysis now to confirm this...\n")
         top_df = top_50[top_50['distance'] < 0.1 ]
         ic(top_df)
         print(top_50.genus.value_counts())
 
     elif min_dist > 0.1  and min_dist  < 0.2:
-        print ("Phage is a new species. Will run further analysis now ....\n")
+        print_ok ("Phage is a new species. Will run further analysis now ....\n")
         top_df = top_50[top_50['distance'] < 0.1 ]
         ic(top_df)
 
@@ -565,8 +571,6 @@ if __name__ == '__main__':
     predicted_genus_name = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
     print(f"Predicted genus is: {predicted_genus_name}")
     #create a dict of species to species_cluster
-
-
 
 
     #if number of ICTV genera and predicted VIRIDIC genera match:
