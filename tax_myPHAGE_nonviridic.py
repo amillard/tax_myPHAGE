@@ -658,31 +658,32 @@ if __name__ == '__main__':
         if query_genus_cluster_number in list_ICTV_genus_clusters and query_species_cluster_number in list_ICTV_species_clusters:
             print_ok("""Phage is within a current genus and same as a current species 
              ....working out which one now .....""")
-            predicted_genus = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
-            predicted_species = dict_species_cluster_2_species_name[query_species_cluster_number]
-            print(f"""QUERY is in the genus:{predicted_genus} and is species: {predicted_species}""")
-            #identify the row in the pandas data frame that is the same species
-            matching_species_row = merged_df[merged_df['Species'] == predicted_species]
-            ic (f"{matching_species_row}")
-            list_of_S_data = matching_species_row[0:].values.flatten().tolist()
-            ic(f"{list_of_S_data[14:20]}")
-            ic(f"{list_of_S_data}")
-            print_res(f"""Query sequence is in the;
-                    Class:{list_of_S_data[14]}
-                    Family: {list_of_S_data[15]}
-                    Subfamily:{list_of_S_data[16]}
-                    Genus:{list_of_S_data[17]}
-                    Species:{list_of_S_data[19]}
-                     """)
+            if query_genus_cluster_number in list_ICTV_genus_clusters and query_species_cluster_number in list_ICTV_species_clusters:
+                print(f"""Phage is within a current genus and same as a current species 
+                 ....working out which one now .....""")
+                predicted_genus = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
+                predicted_species = dict_species_cluster_2_species_name[query_species_cluster_number]
+                print(f"""QUERY is in the genus:{predicted_genus} and is species: {predicted_species}""")
+                # identify the row in the pandas data frame that is the same species
+                matching_species_row = merged_df[merged_df['Species'] == predicted_species]
+                ic(f"{matching_species_row}")
+                list_of_S_data = matching_species_row[0:].values.flatten().tolist()
+                ic(f"{list_of_S_data[14:20]}")
+                ic(f"{list_of_S_data}")
+                print_res(f"""Query sequence is: 
+                        Class:{list_of_S_data[14]}
+                        Family: {list_of_S_data[15]}
+                        Subfamily:{list_of_S_data[16]}
+                        Genus:{list_of_S_data[17]}
+                        Species:{list_of_S_data[19]}
+                         """)
+                with open(summary_output_path, 'a') as file:
+                    file.write(f"""statement_current_genus_sp 
+                               Class:{list_of_S_data[14]}\tFamily: {list_of_S_data[15]}\tSubfamily:{list_of_S_data[16]}\tGenus:{list_of_S_data[17]}Species:{list_of_S_data[19]}
+                    \n{summary_statement1}""")
 
-            with open(summary_output_path, 'a') as file:
-                file.write(f"""\n
-    {summary_statement_inconsitent}
-    {statement_current_genus_sp}
-    Class:{dict_exemplar_genus['Class']}\tFamily: {dict_exemplar_genus['Family']}\tSubfamily:{dict_exemplar_genus['Genus']}\tGenus:{list_of_S_data[17]}\tnew_specices_name
-    {summary_statement1}
-    """)
-            mash_df.to_csv(summary_output_path, mode='a', header=True, index=False,sep='\t')
+                mash_df.to_csv(summary_output_path, mode='a', header=True, index=False, sep='\t')
+
 
 
 
