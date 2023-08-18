@@ -16,6 +16,8 @@ from subprocess import getoutput
 from tqdm import tqdm
 import time
 from datetime import timedelta
+import random
+import matplotlib.pyplot as plt
 
 def print_error(txt):
     print(f"\033[31m{txt}\033[0m")
@@ -133,6 +135,40 @@ class PoorMansViridic:
         dfM['sim'] = 100 - dfM.distAB
         self.dfM = dfM
 
+    def save_similarities(self, outfile='similarities.tsv'):
+        df = self.dfM['A B sim'.split()]
+        df = df[df.A != df.B]
+        df.sort_values('sim', ascending=False)
+        df.index.name = ''
+        df.to_csv(outfile, index=False, sep='\t')
+        
+    
+def heatmap(dfM, outfile, cmap='Greens'):
+    ax = plt.gca()
+    df = dfM.pivot(index='A', columns='B', values='sim').fillna(0)
+    df = df.rename({'taxmyPhage':'query'}, axis=1).rename({'taxmyPhage':'query'}, axis=0)
+    im = plt.imshow(df.values, cmap=cmap)
+    ax.set_xticks(np.arange(df.shape[1]), labels=df.columns.tolist())
+    ax.set_yticks(np.arange(df.shape[0]), labels=df.index.tolist())
+
+    ax.tick_params(top=True, bottom=False, labeltop=True, labelbottom=False)
+
+    plt.setp(ax.get_xticklabels(), rotation=-30, ha="right", rotation_mode="anchor")
+    ax.spines[:].set_visible(False)
+
+    ax.set_xticks(np.arange(df.shape[1]+1)-.5, minor=True)
+    ax.set_yticks(np.arange(df.shape[0]+1)-.5, minor=True)
+    ax.grid(which="minor", color="w", linestyle='-', linewidth=3)
+    ax.tick_params(which="minor", bottom=False, left=False)
+    
+    for i in range(df.shape[0]):
+        for j in range(df.shape[1]):
+            text = ax.text(j, i, df.iloc[i, j], ha="center", va="center", color="w")
+
+    plt.savefig(outfile)
+    return im
+
+        
 def is_program_installed_unix(program_name):
     try:
         subprocess.check_output(f'which {program_name}', shell=True)
@@ -282,7 +318,8 @@ if __name__ == '__main__':
     #store files for VIRIDIC run- or equivalent
     viridic_in_path = os.path.join(results_path, 'viridic_in.fa')
 
-
+    heatmap_file = os.path.join(results_path, 'heatmap.jpg')
+    similarities_file = os.path.join(results_path, 'similarities.tsv')
     #Statments to output
 
     summary_statement1 ="""
@@ -399,6 +436,7 @@ if __name__ == '__main__':
     value_at_50th_position = top_50['distance'].iloc[filter_hits-1]
     ic(f"{value_at_50th_position}")
 
+    
     top_50['genus'] = top_50['Reference'].str.split('/').str[1]
     top_50['acc'] = top_50['Reference'].str.split('/').str[-1].str.split('.fna|.fsa').str[0]
     top_50 = top_50.merge(taxa_df, left_on = 'acc', right_on = 'Genbank')
@@ -484,6 +522,11 @@ if __name__ == '__main__':
     PMV = PoorMansViridic(viridic_in_path, nthreads=threads, verbose=verbose)
     df1, pmv_outfile = PMV.run()
 
+    # heatmap and distances
+    heatmap(PMV.dfM, heatmap_file)
+    PMV.save_similarities(similarities_file)
+    
+    
     taxa_df = pd.read_excel(VMR_path,sheet_name=0)
 
     #Print the DataFrame
