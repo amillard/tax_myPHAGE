@@ -145,6 +145,8 @@ class PoorMansViridic:
     
 def heatmap(dfM, outfile, cmap='Greens'):
     ax = plt.gca()
+    dfM.update(dfM.loc[dfM.A > dfM.B].rename({'A': 'B', 'B': 'A'}, axis=1))
+    dfM = dfM.round(2)
     df = dfM.pivot(index='A', columns='B', values='sim').fillna(0)
     df = df.rename({'taxmyPhage':'query'}, axis=1).rename({'taxmyPhage':'query'}, axis=0)
     im = plt.imshow(df.values, cmap=cmap)
