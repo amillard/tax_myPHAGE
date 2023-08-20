@@ -19,7 +19,7 @@ from datetime import timedelta
 import random
 import matplotlib.pyplot as plt
 import numpy as np
-
+from matplotlib.colors import ListedColormap
 
 def print_error(txt):
     print(f"\033[31m{txt}\033[0m")
@@ -145,17 +145,41 @@ class PoorMansViridic:
         df.to_csv(outfile, index=False, sep='\t')
         
     
-def heatmap(dfM, outfile, cmap='cividis'):
+def heatmap(dfM, outfile, cmap='Greens'):
 
+    #define output files
     svg_out = outfile+".svg"
     pdf_out = outfile+".pdf"
     jpg_out = outfile+".jpg"
     ax = plt.gca()
+    dfM['A'] = dfM['A'].map(lambda x: x + ':' + accession_genus_dict.get(x, ''))
+    dfM['B'] = dfM['B'].map(lambda x: x + ':' + accession_genus_dict.get(x, ''))
     dfM.update(dfM.loc[dfM.A > dfM.B].rename({'A': 'B', 'B': 'A'}, axis=1))
     dfM = dfM.round(2)
     df = dfM.pivot(index='A', columns='B', values='sim').fillna(0)
     df = df.rename({'taxmyPhage':'query'}, axis=1).rename({'taxmyPhage':'query'}, axis=0)
-    im = plt.imshow(df.values, cmap=cmap)
+
+    from matplotlib.colors import ListedColormap, BoundaryNorm
+    import matplotlib.colors as mcolors
+    # colors = ["white", "Crimson", "pink", "orange", "gold", "goldenrod"]
+    # boundaries = [0, 50, 59, 60, 70, 95, 100]
+    #colors = ["white", "Crimson", "orange", "gold", "goldenrod"]
+    #boundaries = [0, 50,  67, 70, 95, 100]
+
+    colors = ["white", "lightgray", "skyblue", "steelblue", "darkgreen"]
+    boundaries = [0, 1, 50, 70, 95, 100]
+
+    norm = mcolors.BoundaryNorm(boundaries, len(colors))
+
+
+    # Create the colormap
+    custom_cmap = mcolors.ListedColormap(colors)
+
+    #image
+    #im = plt.imshow(df.values, cmap=cmap)
+
+    im = plt.imshow(df.values, cmap=custom_cmap, norm=norm)
+
     ax.set_xticks(np.arange(df.shape[1]), labels=df.columns.tolist())
     ax.set_yticks(np.arange(df.shape[0]), labels=df.index.tolist())
 
@@ -172,7 +196,8 @@ def heatmap(dfM, outfile, cmap='cividis'):
     for i in range(df.shape[0]):
         for j in range(df.shape[1]):
             text = ax.text(j, i, df.iloc[i, j], ha="center", va="center", color="w")
-
+    #plot with padding
+    plt.tight_layout(pad=2.0)
     plt.savefig(svg_out)
     plt.savefig(pdf_out)
     plt.savefig(jpg_out)
