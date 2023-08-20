@@ -18,6 +18,8 @@ import time
 from datetime import timedelta
 import random
 import matplotlib.pyplot as plt
+import numpy as np
+
 
 def print_error(txt):
     print(f"\033[31m{txt}\033[0m")
@@ -143,7 +145,11 @@ class PoorMansViridic:
         df.to_csv(outfile, index=False, sep='\t')
         
     
-def heatmap(dfM, outfile, cmap='Greens'):
+def heatmap(dfM, outfile, cmap='cividis'):
+
+    svg_out = outfile+".svg"
+    pdf_out = outfile+".pdf"
+    jpg_out = outfile+".jpg"
     ax = plt.gca()
     dfM.update(dfM.loc[dfM.A > dfM.B].rename({'A': 'B', 'B': 'A'}, axis=1))
     dfM = dfM.round(2)
@@ -167,7 +173,9 @@ def heatmap(dfM, outfile, cmap='Greens'):
         for j in range(df.shape[1]):
             text = ax.text(j, i, df.iloc[i, j], ha="center", va="center", color="w")
 
-    plt.savefig(outfile)
+    plt.savefig(svg_out)
+    plt.savefig(pdf_out)
+    plt.savefig(jpg_out)
     return im
 
         
@@ -231,7 +239,7 @@ if __name__ == '__main__':
     usage = "%prog [options] file (or - for stdin)"
     description= """Takes a phage genome as as fasta file and compares against all phage genomes that are currently classified 
      by the ICTV. It does not compare against ALL phage genomes, just classified genomes. Having found the closet related phages 
-     it runs VIRIDIC and parses the output to predict the taxonomy of the phage. It is only able to classify to the Genus and Species level"""
+     it runs the VIRIDIC--algorithm and parses the output to predict the taxonomy of the phage. It is only able to classify to the Genus and Species level"""
     parser = ArgumentParser(usage, description=description)
     parser.add_argument("-v", "--verbose", action="store_true", default = 0)
     parser.add_argument("-t", "--threads", dest='threads', type=str, default= "8" ,
@@ -246,6 +254,8 @@ if __name__ == '__main__':
                         ' If this results in the phage not being classified, then increasing to 0.3 might result in an output that shows'
                         ' the phage is a new genus. We have found increasing above 0.2 does not place the query in any current genus, only'
                         ' provides the output files to demonstrate it falls outside of current genera')
+    parser.add_argument("--Figures", type=str, choices=["T", "F"], default = "T",  help="Specify 'T' or 'F' to produce Figures. Using F"
+                        "will speed up the time it takes to run the script - but you get no Figures. ")
 
 
     args, nargs = parser.parse_known_args()
@@ -320,7 +330,7 @@ if __name__ == '__main__':
     #store files for VIRIDIC run- or equivalent
     viridic_in_path = os.path.join(results_path, 'viridic_in.fa')
 
-    heatmap_file = os.path.join(results_path, 'heatmap.jpg')
+    heatmap_file = os.path.join(results_path, 'heatmap')
     similarities_file = os.path.join(results_path, 'similarities.tsv')
     #Statments to output
 
@@ -339,8 +349,8 @@ if __name__ == '__main__':
     """
     summary_statement_inconsitent="""
     The number of expected genera based on current ICTV classification is less than the predicted 
-    number of genus clusters as predicted by VIRIDIC. This does not mean the current ICTV classification
-    is wrong (it might be)or that VIRIDIC is wrong. It could be an edge case that automated process cannot
+    number of genus clusters as predicted by VIRIDIC-algorithm. This does not mean the current ICTV classification
+    is wrong (it might be)or that VIRIDIC-algorithm is wrong. It could be an edge case that automated process cannot
     distinguish. It will require more manual curation to look at the output files
     \n 
     """
@@ -525,7 +535,12 @@ if __name__ == '__main__':
     df1, pmv_outfile = PMV.run()
 
     # heatmap and distances
-    heatmap(PMV.dfM, heatmap_file)
+    if args.Figures != "F":
+        print_ok("Will calcualte and save heatmaps now")
+        heatmap(PMV.dfM, heatmap_file)
+    else:
+        print_error("\n Skipping calculating heatmaps and saving them \n ")
+
     PMV.save_similarities(similarities_file)
     
     
@@ -568,20 +583,20 @@ if __name__ == '__main__':
     total_num_viridic_species_clusters = copy_merged_df['genus_cluster'].nunique()
 
 
-    print(f"""\n\nTotal number of VIRIDIC genus clusters in the input including QUERY sequence was:{total_num_viridic_genus_clusters}
-    Total number of VIRIDIC species clusters inluding QUERY sequence was {total_num_viridic_species_clusters} """)
+    print(f"""\n\nTotal number of VIRIDIC-algorithm genus clusters in the input including QUERY sequence was:{total_num_viridic_genus_clusters}
+    Total number of VIRIDIC-algorithm species clusters including QUERY sequence was {total_num_viridic_species_clusters} """)
 
     print(f"""\n\nNumber of current ICTV defined genera was :{num_unique_ICTV_genera}
-    Number of VIRIDIC predicted genera (excluding query)was :{num_unique_viridic_genus_clusters} """)
+    Number of VIRIDIC-algorithm predicted genera (excluding query)was :{num_unique_viridic_genus_clusters} """)
 
 
     if num_unique_ICTV_genera == num_unique_viridic_genus_clusters:
-        print (f"""\n\nCurrent ICTV and VIRIDIC predictions are consistent for the data that was used to compare against""")
+        print (f"""\n\nCurrent ICTV and VIRIDIC-algorithm predictions are consistent for the data that was used to compare against""")
 
 
 
 
-    print_ok(f"Number of unique VIRIDIC clusters at default cutoff of 70% is:{num_unique_viridic_genus_clusters}")
+    print_ok(f"Number of unique VIRIDIC-algorithm clusters at default cutoff of 70% is:{num_unique_viridic_genus_clusters}")
     print_ok(f"""Number of current ICTV genera associated with the reference genomes
      is {num_unique_ICTV_genera}""")
 
@@ -621,7 +636,7 @@ if __name__ == '__main__':
     #if number of ICTV genera and predicted VIRIDIC genera match:
 
     if num_unique_ICTV_genera == num_unique_viridic_genus_clusters:
-        print ("""Current ICTV taxonomy and VIRIDIC output appear to be consistent at the genus level""")
+        print ("""Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level""")
 
         #GENUS CHECK FIRST- Current genus and current species
         if query_genus_cluster_number in list_ICTV_genus_clusters and query_species_cluster_number in list_ICTV_species_clusters:
