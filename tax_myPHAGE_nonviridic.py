@@ -1,31 +1,26 @@
 #!/usr/bin/env python3
-import pandas as pd
 import subprocess
-import io
-from icecream import ic
-import os
-from Bio.SeqIO.FastaIO import SimpleFastaParser
 import sys
-from argparse import ArgumentParser
+import os
+import io
 import gzip
-from itertools import combinations_with_replacement
-import networkx as nx
-from subprocess import getoutput
-from tqdm import tqdm
 import time
+from argparse import ArgumentParser
+from itertools import combinations_with_replacement
+import numpy as np
+import pandas as pd
+from icecream import ic
+from Bio.SeqIO.FastaIO import SimpleFastaParser
+import networkx as nx
+from tqdm import tqdm
 from datetime import timedelta
 import matplotlib.pyplot as plt
-import numpy as np
 from matplotlib.colors import ListedColormap, BoundaryNorm
 
-def print_error(txt):
-    print(f"\033[31m{txt}\033[0m")
-def print_warn(txt):
-    print(f"\033[94m{txt}\033[0m")
-def print_ok(txt):
-    print(f"\033[34m{txt}\033[0m")
-def print_res(txt):
-    print(f"\033[33m{txt}\033[0m")
+def print_error(txt): print(f"\033[31m{txt}\033[0m")
+def print_warn(txt): print(f"\033[94m{txt}\033[0m")
+def print_ok(txt): print(f"\033[34m{txt}\033[0m")
+def print_res(txt): print(f"\033[33m{txt}\033[0m")
 
 class PoorMansViridic:
     def __init__(self, file, genus_threshold=70, species_threshold=95, nthreads=1, verbose = True):
@@ -45,8 +40,8 @@ class PoorMansViridic:
         return self.dfT, self.pmv_outfile
 
     def cluster_all(self):
-        dfTg = self.sim2cluster(self.genus_threshold, 'genus')  #.rename({'cluster':'genus_cluster'}, axis=1)
-        dfTs = self.sim2cluster(self.species_threshold, 'species')  #.rename({'cluster':'species_cluster'}, axis=1)
+        dfTg = self.sim2cluster(self.genus_threshold, 'genus')
+        dfTs = self.sim2cluster(self.species_threshold, 'species')
         dfT = pd.merge(dfTg, dfTs, on='genome').sort_values('species_cluster genus_cluster'.split())
         dfT.reset_index(drop=True, inplace=True)
         self.pmv_outfile = os.path.join(self.result_dir, os.path.basename(self.file) + '.genus_species_clusters.tsv')
@@ -72,16 +67,16 @@ class PoorMansViridic:
         if not os.path.exists(outfile):
             cmd = f'makeblastdb -in {self.file}  -dbtype nucl'
             ic("Creating blastn database:", cmd)
-            res = getoutput(cmd)
+            res = subprocess.getoutput(cmd)
             print(res)
         
     def blastn(self):
-        outfile = os.path.join(self.result_dir, os.path.basename(self.file) + '.blastn_vs_self.tab')
+        outfile = os.path.join(self.result_dir, os.path.basename(self.file) + '.blastn_vs2_self.tab.gz')
         if not os.path.exists(outfile):
-            cmd = f'blastn -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} -word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} -db {self.file} -outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" -out {outfile}'
+            cmd = f'blastn -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} -word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} -db {self.file} -outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" | gzip -c > {outfile}'
             ic("Blasting against itself:", cmd)
             print(cmd)
-            getoutput(cmd)
+            subprocess.getoutput(cmd)
 
         self.blastn_result_file = outfile
 
@@ -115,7 +110,6 @@ class PoorMansViridic:
         # now calculating the distances
         L = []
         for gA, gB in combinations_with_replacement(genomes, 2):
-            key = (gB, gA)
             idAB = sum(M[(gA, gB)])
             idBA = sum(M[(gB, gA)])
             lA = size_dict[gA]
@@ -185,7 +179,7 @@ def heatmap(dfM, outfile, matrix_out, cmap='Greens'):
     
     for i in range(df.shape[0]):
         for j in range(df.shape[1]):
-            text = ax.text(j, i, df.iloc[i, j], ha="center", va="center", color="w", fontsize=6)
+            ax.text(j, i, df.iloc[i, j], ha="center", va="center", color="w", fontsize=6)
     #plot with padding
     plt.tight_layout(pad=2.0)
     plt.savefig(svg_out)
@@ -282,9 +276,9 @@ if __name__ == '__main__':
 
     # this is the location of where the script and the databases are (instead of current_directory which is the users current directory)
     HOME = os.path.dirname(__file__)
-    VMR_path = os.path.join(HOME, 'VMR.xlsx')
-    blastdb_path = os.path.join(HOME, 'Bacteriophage_genomes.fasta')
-    ICTV_path = os.path.join(HOME, 'ICTV.msh')
+    VMR_path = os.path.abspath(os.path.join(HOME, 'VMR.xlsx'))
+    blastdb_path = os.path.abspath(os.path.join(HOME, 'Bacteriophage_genomes.fasta'))
+    ICTV_path = os.path.abspath(os.path.join(HOME, 'ICTV.msh'))
 
     if os.path.exists(VMR_path):
         print_ok(f"Found {VMR_path} as expected")
@@ -491,7 +485,7 @@ if __name__ == '__main__':
         # create a command string for blastdbcmd
         get_genomes_cmd = f"blastdbcmd -db {HOME}/Bacteriophage_genomes.fasta  -entry {','.join(keys)} -out {known_taxa_path} "
         #subprocess.run(get_genomes_cmd, shell=True, check=True)
-        res = getoutput(get_genomes_cmd)
+        res = subprocess.getoutput(get_genomes_cmd)
 
     elif len(unique_genera) >1:
         print_ok("Found multiple genera that this query phage might be similar to so will proceed with processing them all")
@@ -505,7 +499,7 @@ if __name__ == '__main__':
         ic(list_of_genus_accessions)
         ic(len(list_of_genus_accessions))
         get_genomes_cmd = f"blastdbcmd -db {HOME}/Bacteriophage_genomes.fasta  -entry {','.join(list_of_genus_accessions)} -out {known_taxa_path}"
-        res = getoutput(get_genomes_cmd)
+        res = subprocess.getoutput(get_genomes_cmd)
 
     #get smallest mash distance
 
