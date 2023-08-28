@@ -145,7 +145,7 @@ class PoorMansViridic:
         df.to_csv(outfile, index=False, sep='\t')
         
     
-def heatmap(dfM, outfile, cmap='Greens'):
+def heatmap(dfM, outfile, matrix_out, cmap='Greens'):
 
     #define output files
     svg_out = outfile+".svg"
@@ -158,6 +158,8 @@ def heatmap(dfM, outfile, cmap='Greens'):
     dfM = dfM.round(2)
     df = dfM.pivot(index='A', columns='B', values='sim').fillna(0)
     df = df.rename({'taxmyPhage':'query'}, axis=1).rename({'taxmyPhage':'query'}, axis=0)
+
+    df.to_csv(matrix_out, sep='\t', index=True)
 
     from matplotlib.colors import ListedColormap, BoundaryNorm
     import matplotlib.colors as mcolors
@@ -195,7 +197,7 @@ def heatmap(dfM, outfile, cmap='Greens'):
     
     for i in range(df.shape[0]):
         for j in range(df.shape[1]):
-            text = ax.text(j, i, df.iloc[i, j], ha="center", va="center", color="w")
+            text = ax.text(j, i, df.iloc[i, j], ha="center", va="center", color="w", fontsize=6)
     #plot with padding
     plt.tight_layout(pad=2.0)
     plt.savefig(svg_out)
@@ -356,6 +358,7 @@ if __name__ == '__main__':
     viridic_in_path = os.path.join(results_path, 'viridic_in.fa')
 
     heatmap_file = os.path.join(results_path, 'heatmap')
+    top_right_matrix = os.path.join(results_path, 'top_right_matrix.tsv')
     similarities_file = os.path.join(results_path, 'similarities.tsv')
     #Statments to output
 
@@ -561,8 +564,8 @@ if __name__ == '__main__':
 
     # heatmap and distances
     if args.Figures != "F":
-        print_ok("Will calcualte and save heatmaps now")
-        heatmap(PMV.dfM, heatmap_file)
+        print_ok("Will calculate and save heatmaps now")
+        heatmap(PMV.dfM, heatmap_file, top_right_matrix)
     else:
         print_error("\n Skipping calculating heatmaps and saving them \n ")
 
@@ -652,11 +655,21 @@ if __name__ == '__main__':
     #create a dictionary linking genus_cluster to genus data
     dict_genus_cluster_2_genus_name = merged_df.set_index('genus_cluster')['Genus'].to_dict()
     dict_species_cluster_2_species_name = merged_df.set_index('species_cluster')['Species'].to_dict()
+    ic(f"{dict_genus_cluster_2_genus_name}")
+
+    #check query is within a current genus. If not, then new Genus
+    if query_genus_cluster_number not in dict_genus_cluster_2_genus_name:
+        print_warn (f"""
+        Cluster Number: {query_genus_cluster_number} is not in the dictionary of known Genera: {dict_genus_cluster_2_genus_name}""")
+        print_res(f"""
+        Phage is NOT within a current genus or species and therefore a both 
+        a new Genus and species.""")
+        exit()
 
     predicted_genus_name = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
+
     print(f"Predicted genus is: {predicted_genus_name}")
     #create a dict of species to species_cluster
-
 
     #if number of ICTV genera and predicted VIRIDIC genera match:
 
