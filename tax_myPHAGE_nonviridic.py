@@ -404,10 +404,13 @@ if __name__ == '__main__':
     accession_genus_dict = taxa_df.set_index('Genbank')['Genus'].to_dict()
 
     #run mash to get top hit and read into a pandas dataframe
-    mash_output = subprocess.check_output(['mash', 'dist', '-d', mash_dist, '-p', threads, ICTV_path, query])
+    cmd = f"mash dist -d {mash_dist} -p {threads} {ICTV_path} {query}"
+    ic(cmd)
+    mash_output = subprocess.getoutput(cmd)
+    #mash_output = subprocess.check_output(['mash', 'dist', '-d', mash_dist, '-p', threads, ICTV_path, query])
 
     # list of names for the headers
-    mash_df = pd.read_csv(io.StringIO(mash_output.decode('utf-8')), sep='\t', header=None, names=['Reference', 'Query', 'distance', 'p-value', 'shared-hashes', 'ANI'])
+    mash_df = pd.read_csv(io.StringIO(mash_output), sep='\t', header=None, names=['Reference', 'Query', 'distance', 'p-value', 'shared-hashes', 'ANI'])
     number_hits = mash_df.shape[0]
 
     #get the number of genomes wih mash distance < 0.2
@@ -418,6 +421,7 @@ if __name__ == '__main__':
     The phage likely represents a new species and genus 
     However tax_my_phage is unable to classify it at this point as it can only classify at the Genus/Species level
               """)
+        os.system(f"touch {taxa_csv_output_path}")
         sys.exit()
     else:
         print_res(f"""
