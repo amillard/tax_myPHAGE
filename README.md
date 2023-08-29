@@ -3,7 +3,7 @@
 ----------
 
 Workflow to assign Taxonomy to a bacteriophage at the genus and species level.Briefly, the workflow will identify the most similar genomes in the set of currently classified ICTV genomes that are present in the VMR. 
-Read about the VMR [here](https://ictv.global/vmr). It will compare the query genome against these genomes and run [VIRIDIC](https://doi.org/10.3390/v12111268) on the closest relatives. Interpret the output of VIRIDIC to determine if the phage falls within a current genus and or species. 
+Read about the VMR [here](https://ictv.global/vmr). It will compare the query genome against these genomes and run a [VIRIDIC](https://doi.org/10.3390/v12111268)-like analysis on the closest relatives. Interpret the output of VIRIDIC-like analysis to determine if the phage falls within a current genus and or species. 
 
 
 
@@ -76,10 +76,29 @@ or
 
 	python taxmyPHAGE.py ---h to get full options 
 
-	-v will print the output of intermediated steps to screen 
-	-p PREFIX that will be prefixed to output files
-	-t number threads 
-	-h for help ....
 
 
-If you use it .
+	-h, --help            show this help message and exit
+
+
+	  -v, --verbose
+	  -t THREADS, --threads THREADS
+	                        Maximum number of threads that will be used
+
+	  -i IN_FASTA, --input IN_FASTA
+	                        Path to an input fasta file
+
+	  -p PREFIX, --prefix PREFIX
+	                        will add the prefix to results and summary files that will store results of MASH and comparision
+	                        to the VMR Data produced byICTV combines both sets of this data into a single csv file. Use this
+	                        flag if you want to run multiple times and keep the results files without manual renaming of files
+
+	  -d DIST, --distance DIST
+	                        Will change the mash distance for the intial seraching for close relatives. We suggesting keeping
+	                        at 0.2 If this results in the phage not being classified, then increasing to 0.3 might result in
+	                        an output that shows the phage is a new genus. We have found increasing above 0.2 does not place
+	                        the query in any current genus, only provides the output files to demonstrate it falls outside of
+	                        current genera
+
+	  --Figures {T,F}       Specify 'T' or 'F' to produce Figures. Using Fwill speed up the time it takes to run the script -
+	                        but you get no Figures. Default is with Figures 
