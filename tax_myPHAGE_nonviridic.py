@@ -83,7 +83,8 @@ class PoorMansViridic:
     def parse_blastn_file(self):
         ic("Reading", self.blastn_result_file)
         df = pd.read_table(self.blastn_result_file, names='qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore'.split())
-
+        self.blastn_df = df
+        
         self.size_dict = dict(df['qseqid qlen'.split()].values) | dict(df['sseqid slen'.split()].values)
 
         # this part is slow ... filling the genome with all the matches
@@ -110,6 +111,11 @@ class PoorMansViridic:
         # now calculating the distances
         L = []
         for gA, gB in combinations_with_replacement(genomes, 2):
+            if (gA, gB) not in M and (gB, gB) not in M: continue
+            if (gA, gB) not in M: M[(gA, gB)] = M[(gB, gB)]
+            if (gB, gA) not in M: M[(gB, gA)] = M[(gA, gA)]
+            
+            
             idAB = sum(M[(gA, gB)])
             idBA = sum(M[(gB, gA)])
             lA = size_dict[gA]
