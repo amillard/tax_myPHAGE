@@ -158,15 +158,14 @@ The time to classify a phage will depend on the number of hits and number of pha
 
 eg
 
-	Query sequence header was:test1 
+Query sequence header was:test1 
 	
 	
-	    Query sequence can be classified within a current genus and represents a new species, it is in:
+Query sequence can be classified within a current genus and represents a new species, it is in:
 	
-	    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Vequintavirinae	Genus:Certrevirus	Species:name_your_species
+Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Vequintavirinae	Genus:Certrevirus	Species:name_your_species
 
-
-
+---------
 
 - **Output_of_taxonomy.csv** - Provides Cluster and Species numbers for you query phage, merged with data from the VMR for the closest relatives to you query
 
