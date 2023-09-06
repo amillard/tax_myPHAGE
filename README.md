@@ -119,8 +119,8 @@ or
 
 
 
-| Genus | Number of genomes in Genera|Time
-| ------------- | ------------- |
+| Genus | Number of genomes in Genera|Time(H:M:S)
+| ------------- | ------------- |-------
 |Cheoctovirus |96|00:07:44
 |Tequatrovirus|83|00:26:19|
 |Peduovirus |27|00:00:23|
