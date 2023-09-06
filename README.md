@@ -110,10 +110,7 @@ or
 	                        but you get no Figures. Default is with Figures 
 
 
-
-
-
-
+----------
 
 
 
