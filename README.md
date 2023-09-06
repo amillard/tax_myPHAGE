@@ -2,14 +2,20 @@
 
 ----------
 
-Workflow to assign Taxonomy to a bacteriophage at the genus and species level.Briefly, the workflow will identify the most similar genomes in the set of currently classified ICTV genomes that are present in the VMR. 
+Workflow to assign Taxonomy to a bacteriophage at the genus and species level.Briefly, the work flow will identify the most similar genomes in the set of currently classified ICTV genomes that are present in the VMR. 
 Read about the VMR [here](https://ictv.global/vmr). It will compare the query genome against these genomes and run a [VIRIDIC](https://doi.org/10.3390/v12111268)-**like analysis** on the closest relatives. Interpret the output of VIRIDIC-like analysis to determine if the phage falls within a current genus and or species. 
-
 
 
 Designed for:
 
 - Individual complete phage genomes 
+
+What it will do:
+
+- Classify a dsDNA phage genomes at the Genus and or species level against ICTV genomes 
+- Tell you if your genome represents a new genus 
+- Use current ICTV cutoffs for Genera and Species 
+
 
 
 What it wont do:
@@ -20,6 +26,7 @@ What it wont do:
 - RNA phages - it will give a result - not necessarily the correct one 
 - ssDNA phages - again a result but likely not accurate 
 - Classify a phage into a new family 
+- Compare against every single phage genome in Genbank. It is designed for classification , so compares against currently classified phages.
 
 
 
@@ -131,3 +138,33 @@ or
 
 
 
+##### Output files 
+
+
+
+
+- **Summary_file.txt** - summarises what was printed to screen 
+
+
+eg
+
+	Query sequence header was:test1 
+	
+	
+	    Query sequence can be classified within a current genus and represents a new species, it is in:
+	
+	    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Vequintavirinae	Genus:Certrevirus	Species:name_your_species
+
+
+
+
+- **Output_of_taxonomy.csv** - Provides Cluster and Species numbers for you query phage, merged with data from the VMR for the closest relatives to you query
+
+- ***pdf, *svg, *jpg**  - image files of top right matrix of similarity to closest currently classified phages 
+
+
+
+ ![HeatMap](/img/heatmap.jpg)
+  
+
+-     
