@@ -29,11 +29,19 @@ What it wont do:
 - Compare against every single phage genome in Genbank. It is designed for classification , so compares against currently classified phages.
 
 
+- ### A web version will be available soon. 
+
+
 
 
 ## Requirements 
 
 ----------
+
+It can be run on a standard laptop in a reasonable time. 
+
+
+
 
 ### MASH  
 
@@ -121,8 +129,9 @@ or
 
 
 
-#### Basic benchmarks 
+#### Indicative run time  
 
+The time to classify a phage will depend on the number of hits and number of phages currently classified within a particular genus. The more species within a genus, the longer the time for classification. The numbers below are from running on a 16 core server. We have been running the process on a MAC book and Windows laptop in reasonable time periods. 
 
 
 
@@ -138,9 +147,10 @@ or
 
 
 
+
+
+
 ##### Output files 
-
-
 
 
 - **Summary_file.txt** - summarises what was printed to screen 
