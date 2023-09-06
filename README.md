@@ -2,8 +2,9 @@
 
 ----------
 
-Workflow to assign Taxonomy to a bacteriophage at the genus and species level.Briefly, the work flow will identify the most similar genomes in the set of currently classified ICTV genomes that are present in the VMR. 
-Read about the VMR [here](https://ictv.global/vmr). It will compare the query genome against these genomes and run a [VIRIDIC](https://doi.org/10.3390/v12111268)-**like analysis** on the closest relatives. Interpret the output of VIRIDIC-like analysis to determine if the phage falls within a current genus and or species. 
+Script to assign taxonomy to a bacteriophage at the genus and species level. It will identify the most similar genomes in the set of currently classified ICTV genomes that are present in the VMR. 
+Read about the VMR [here](https://ictv.global/vmr). It will compare the query genome against these genomes and run a [VIRIDIC](https://doi.org/10.3390/v12111268)-**like analysis** on the closest relatives. Interpret the output of VIRIDIC-like analysis to determine if the phage falls within a current genus and or species. It does not run VIRIDIC, but utilises the same formula for comparison of genomes.  The input is a single genome sequence. The remainder of the analysis is automated 
+
 
 
 Designed for:
@@ -95,7 +96,7 @@ Again will download a version if none is not detected
 
 ### Run with 
 
-	python tax_myPHAGE.py  --input UP30.fa 
+	python tax_myPHAGE.py  --input input.fa 
 
 or 
 
@@ -175,5 +176,4 @@ Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Vequintavirinae	Genus:Cer
 
  ![HeatMap](/img/heatmap.jpg)
   
-
--     
+    
