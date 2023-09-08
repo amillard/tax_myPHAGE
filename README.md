@@ -32,28 +32,6 @@ What it wont do:
 
 - ### A web version will be available soon. 
 
-------
-
-#### QUICK start and test
-
-
-	git clone https://github.com/amillard/tax_myPHAGE
-
-	cd tax_myPHAGE
-
-	mamba install biopython pandas icecream networkx tqdm openpyxl matplotlib
-
-	python tax_myPHAGE.py -i test.fna -t 8 
-
-
-This should check the required software is installed and give a warning if not. It will also download the required fasta database and MASH file for comparison. These will be installed in the cloned tax_myPHAGE directory. If you download manually then please move them into tax_myPHAGE  directory.
-
-
-Output of the test should have the following lines at the bottom 
-
- ![example](/img/example_result1.jpg)
-
-
 
 
 
@@ -77,7 +55,7 @@ A prebuilt MASH index of ICTV genomes. Can be downloaded from here https://milla
 
 	wget  https://millardlab-inphared.s3.climb.ac.uk/ICTV_2023.msh
 
-Will attempt to install automatically if you haven't downloaded in advance of running 
+Will attempt to install automatically if you haven't downloaded in advance of running in the folder ~/.taxmyPHAGE/
 
 
 ### **A database of genomes currently classified by the ICTV**
@@ -86,10 +64,6 @@ Can be created manually or download here [Bacteriophage Genomes](https://millard
 
 	wget https://millardlab-inphared.s3.climb.ac.uk/Bacteriophage_genomes.fasta.gz
 	gunzip Bacteriophage_genomes.fasta.gz
-
-Should be included in the cloned tax_myPHAGE directory 
-
-
 
 Create a blast database of these with 
 
@@ -114,7 +88,7 @@ Again will download a version if none is not detected
 ### Install python modules 
 
 
-	mamba install biopython pandas icecream networkx tqdm openpyxl matplotlib
+	mamba install  -c conda-forge -c bioconda biopython pandas icecream networkx tqdm openpyxl matplotlib python-wget
 
 
 
