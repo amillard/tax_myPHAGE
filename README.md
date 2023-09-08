@@ -46,7 +46,7 @@ What it wont do:
 	python tax_myPHAGE.py -i test.fna -t 8 
 
 
-This should check the required software is installed and give warn you if not. It will also download the required fasta database and MASH file for comparison. These will be installed in the cloned tax_myPHAGE directory. If you download manually then please move them into tax_myPHAGE  directory.
+This should check the required software is installed and give a warning if not. It will also download the required fasta database and MASH file for comparison. These will be installed in the cloned tax_myPHAGE directory. If you download manually then please move them into tax_myPHAGE  directory.
 
 
 Output of the test should have the following lines at the bottom 
