@@ -41,7 +41,7 @@ What it wont do:
 
 	cd tax_myPHAGE
 
-	mamba install biopython pandas icecream networkx tqdm openpyxl matplotlib
+	mamba install  -c conda-forge -c bioconda biopython pandas icecream networkx tqdm openpyxl matplotlib
 
 	python tax_myPHAGE.py -i test.fna -t 8 
 
