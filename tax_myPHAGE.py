@@ -16,11 +16,16 @@ from tqdm import tqdm
 from datetime import timedelta
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
+plt.rcParams["text.color"] = "#131516"
+plt.rcParams["svg.fonttype"] = "none"  # Editable SVG text
+plt.rcParams["font.family"] = "Arial"
+plt.rcParams["font.weight"] = "light"
 
 def print_error(txt): print(f"\033[31m{txt}\033[0m")
 def print_warn(txt): print(f"\033[94m{txt}\033[0m")
 def print_ok(txt): print(f"\033[34m{txt}\033[0m")
 def print_res(txt): print(f"\033[33m{txt}\033[0m")
+
 
 class PoorMansViridic:
     def __init__(self, file, genus_threshold=70, species_threshold=95, nthreads=1, verbose = True):
@@ -68,14 +73,12 @@ class PoorMansViridic:
             cmd = f'makeblastdb -in {self.file}  -dbtype nucl'
             ic("Creating blastn database:", cmd)
             res = subprocess.getoutput(cmd)
-            print(res)
         
     def blastn(self):
         outfile = os.path.join(self.result_dir, os.path.basename(self.file) + '.blastn_vs2_self.tab.gz')
         if not os.path.exists(outfile):
             cmd = f'blastn -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} -word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} -db {self.file} -outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" | gzip -c > {outfile}'
             ic("Blasting against itself:", cmd)
-            print(cmd)
             subprocess.getoutput(cmd)
 
         self.blastn_result_file = outfile
@@ -165,9 +168,6 @@ def heatmap(dfM, outfile, matrix_out, cmap='Greens'):
     # Create the colormap
     custom_cmap = mcolors.ListedColormap(colors)
 
-    #image
-    #im = plt.imshow(df.values, cmap=cmap)
-
     im = plt.imshow(df.values, cmap=custom_cmap, norm=norm)
 
     ax.set_xticks(np.arange(df.shape[1]), labels=df.columns.tolist())
@@ -182,10 +182,16 @@ def heatmap(dfM, outfile, matrix_out, cmap='Greens'):
     ax.set_yticks(np.arange(df.shape[0]+1)-.5, minor=True)
     ax.grid(which="minor", color="w", linestyle='-', linewidth=3)
     ax.tick_params(which="minor", bottom=False, left=False)
+
+    # adjust figure size based on number of rows and columns
+    fig_width = max(4, df.shape[1] * 0.75)
+    fig_height = max(4, df.shape[0] * 0.75)
+    plt.gcf().set_size_inches(fig_width, fig_height)
     
     for i in range(df.shape[0]):
         for j in range(df.shape[1]):
-            ax.text(j, i, df.iloc[i, j], ha="center", va="center", color="w", fontsize=6)
+            font_size = min(fig_width, fig_height) * 0.9
+            ax.text(j, i, df.iloc[i, j], ha="center", va="center", color="w", fontsize=font_size)
     #plot with padding
     plt.tight_layout(pad=2.0)
     plt.savefig(svg_out)
@@ -271,6 +277,7 @@ if __name__ == '__main__':
                         ' provides the output files to demonstrate it falls outside of current genera')
     parser.add_argument("--Figures", type=str, choices=["T", "F"], default = "T", help="Specify 'T' or 'F' to produce Figures. Using F"
                         "will speed up the time it takes to run the script - but you get no Figures. ")
+    parser.add_argument('-o', "--outdir", type=str, default = None, help="Change the path to the output directory")
 
     args, nargs = parser.parse_known_args()
     verbose = args.verbose
@@ -327,7 +334,7 @@ if __name__ == '__main__':
     mash_dist = args.dist
     ic(f"Number of set threads {threads}")
     #create results folder
-    results_path = os.path.join(cwd, f"{base}_taxmyphage_results")
+    results_path = args.outdir if args.outdir else os.path.join(cwd, f"{base}_taxmyphage_results")
     query = os.path.join(results_path,'query.fasta')
 
     #path to the combined df containing mash and VMR data
@@ -397,15 +404,11 @@ if __name__ == '__main__':
 
     #Read the viral master species record into a DataFrame
     taxa_df = pd.read_excel(VMR_path,sheet_name=0)
-
-    #Print the DataFrame and rename a column
-    ic("taxa_df")
+    ic(taxa_df)
 
     taxa_df = taxa_df.rename(columns={'Virus GENBANK accession': 'Genbank'})
     taxa_df['Genbank'].fillna('', inplace=True)
-    # Get the column headings as a list
 
-    #headings = list(taxa_df.columns)
     #create a dictionary of Accessions linking to Genus
     accession_genus_dict = taxa_df.set_index('Genbank')['Genus'].to_dict()
 
@@ -431,7 +434,7 @@ if __name__ == '__main__':
         sys.exit()
     else:
         print_res(f"""
-        Number of phage genomes detected with mash distance of < 0.2 is:{number_hits}""")
+        Number of phage genomes detected with mash distance of < {mash_dist} is:{number_hits}""")
 
     #sort dataframe by distance so they are at the top
     mash_df = mash_df.sort_values(by='distance', ascending=True)
@@ -452,13 +455,13 @@ if __name__ == '__main__':
     #copy top 50 hits to a new dataframe
     top_50 = mash_df.iloc[:filter_hits].copy()
 
-    ic(f"{mash_df.head(10)}")
-    ic(f"{top_50}")
+    ic(mash_df.head(10))
+    ic(top_50)
     #reindex
     top_50.reset_index(drop=True, inplace=True)
 
     value_at_50th_position = top_50['distance'].iloc[filter_hits-1]
-    ic(f"{value_at_50th_position}")
+    ic(value_at_50th_position)
     
     top_50['genus'] = top_50['Reference'].str.split('/').str[1]
     top_50['acc'] = top_50['Reference'].str.split('/').str[-1].str.split('.fna|.fsa').str[0]
@@ -493,8 +496,8 @@ if __name__ == '__main__':
         number_ok_keys =len(keys)
         print_ok(f"Number of known species in the genus is {number_ok_keys} \n ")
         # create a command string for blastdbcmd
-        get_genomes_cmd = f"blastdbcmd -db {HOME}/Bacteriophage_genomes.fasta  -entry {','.join(keys)} -out {known_taxa_path} "
-        #subprocess.run(get_genomes_cmd, shell=True, check=True)
+        get_genomes_cmd = f"""blastdbcmd -db {blastdb_path}  -entry "{','.join(keys)}" -out {known_taxa_path} """
+        ic(f"{get_genomes_cmd=}")
         res = subprocess.getoutput(get_genomes_cmd)
 
     elif len(unique_genera) >1:
@@ -503,16 +506,15 @@ if __name__ == '__main__':
         for i in unique_genera:
             keys = [k for k, v in accession_genus_dict.items() if v == i]
             number_of_keys = len(keys)
-            #ic(keys)
             list_of_genus_accessions.extend(keys)
             print_ok(f"Number of known species in the genus {i} is {number_of_keys}")
         ic(list_of_genus_accessions)
         ic(len(list_of_genus_accessions))
-        get_genomes_cmd = f"blastdbcmd -db {HOME}/Bacteriophage_genomes.fasta  -entry {','.join(list_of_genus_accessions)} -out {known_taxa_path}"
+        get_genomes_cmd = f"""blastdbcmd -db {blastdb_path}  -entry "{','.join(list_of_genus_accessions)}" -out {known_taxa_path}"""
+        ic(f"{get_genomes_cmd=}")
         res = subprocess.getoutput(get_genomes_cmd)
 
     #get smallest mash distance
-
     min_dist = top_50['distance'].min()
 
     if min_dist < 0.04:
@@ -540,13 +542,16 @@ if __name__ == '__main__':
 
     PMV = PoorMansViridic(viridic_in_path, nthreads=threads, verbose=verbose)
     df1, pmv_outfile = PMV.run()
-
+    ic(df1)
+    ic(pmv_outfile)
+    ic(PMV.dfM)
+    
     # heatmap and distances
     if args.Figures != "F":
         print_ok("Will calculate and save heatmaps now")
         heatmap(PMV.dfM, heatmap_file, top_right_matrix)
     else:
-        print_error("\n Skipping calculating heatmaps and saving them \n ")
+        ic("\n Skipping calculating heatmaps and saving them \n ")
 
     PMV.save_similarities(similarities_file)
     
@@ -578,39 +583,38 @@ if __name__ == '__main__':
     total_num_viridic_genus_clusters = copy_merged_df['genus_cluster'].nunique()
     total_num_viridic_species_clusters = copy_merged_df['genus_cluster'].nunique()
 
-    print(f"""\n\nTotal number of VIRIDIC-algorithm genus clusters in the input including QUERY sequence was:{total_num_viridic_genus_clusters}
-    Total number of VIRIDIC-algorithm species clusters including QUERY sequence was {total_num_viridic_species_clusters} """)
+    print(f"""\n\nTotal number of VIRIDIC-algorithm genus clusters in the input including QUERY sequence was: {total_num_viridic_genus_clusters}
+    Total number of VIRIDIC-algorithm species clusters including QUERY sequence was: {total_num_viridic_species_clusters} """)
 
-    print(f"""\n\nNumber of current ICTV defined genera was :{num_unique_ICTV_genera}
-    Number of VIRIDIC-algorithm predicted genera (excluding query)was :{num_unique_viridic_genus_clusters} """)
+    print(f"""\n\nNumber of current ICTV defined genera was: {num_unique_ICTV_genera}
+    Number of VIRIDIC-algorithm predicted genera (excluding query) was: {num_unique_viridic_genus_clusters} """)
 
     if num_unique_ICTV_genera == num_unique_viridic_genus_clusters:
         print(f"""\n\nCurrent ICTV and VIRIDIC-algorithm predictions are consistent for the data that was used to compare against""")
 
-    print_ok(f"Number of unique VIRIDIC-algorithm clusters at default cutoff of 70% is:{num_unique_viridic_genus_clusters}")
-    print_ok(f"""Number of current ICTV genera associated with the reference genomes
-     is {num_unique_ICTV_genera}""")
+    print_ok(f"Number of unique VIRIDIC-algorithm clusters at default cutoff of 70% is: {num_unique_viridic_genus_clusters}")
+    print_ok(f"Number of current ICTV genera associated with the reference genomes is: {num_unique_ICTV_genera}")
 
     #unique_viridic_genus_clusters = merged_df['genus_cluster'].unique().tolist()
     #num_unique_ICTV_genera = merged_df['Genus'].unique().tolist()
 
     species_genus_dict = merged_df.set_index('species_cluster')['Species'].to_dict()
-
+    ic(species_genus_dict)
     #get information on the query from the dataframe
     #get species and genus cluster number
     query_row = copy_merged_df[copy_merged_df['genome'] == 'taxmyPhage']
     query_genus_cluster_number = query_row['genus_cluster'].values[0]
     query_species_cluster_number = query_row['species_cluster'].values[0]
 
-    print(f"Cluster number of species is:{query_species_cluster_number} and cluster of genus is: {query_genus_cluster_number}")
-    print(f"Genus cluster number is {query_genus_cluster_number}  ")
+    print(f"Cluster number of species is: {query_species_cluster_number} and cluster of genus is: {query_genus_cluster_number}")
+    print(f"Genus cluster number is: {query_genus_cluster_number}")
 
     #list of VIRIDIC genus and species numbers
     list_ICTV_genus_clusters = merged_df['genus_cluster'].unique().tolist()
     list_ICTV_species_clusters = merged_df['species_cluster'].unique().tolist()
 
-    ic(f"{list_ICTV_genus_clusters}")
-    ic(f"{list_ICTV_species_clusters}")
+    ic(list_ICTV_genus_clusters)
+    ic(list_ICTV_species_clusters)
 
     #create a dictionary linking genus_cluster to genus data
     dict_genus_cluster_2_genus_name = merged_df.set_index('genus_cluster')['Genus'].to_dict()
@@ -629,7 +633,6 @@ if __name__ == '__main__':
     predicted_genus_name = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
 
     print(f"Predicted genus is: {predicted_genus_name}")
-    #create a dict of species to species_cluster
 
     #if number of ICTV genera and predicted VIRIDIC genera match:
 
@@ -642,7 +645,7 @@ if __name__ == '__main__':
              ....working out which one now .....""")
             predicted_genus = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
             predicted_species = dict_species_cluster_2_species_name[query_species_cluster_number]
-            print(f"""QUERY is in the genus:{predicted_genus} and is species: {predicted_species}""")
+            print(f"""QUERY is in the genus: {predicted_genus} and is species: {predicted_species}""")
             #identify the row in the pandas data frame that is the same species
             matching_species_row = merged_df[merged_df['Species'] == predicted_species]
             ic(f"{matching_species_row}")
@@ -673,8 +676,8 @@ if __name__ == '__main__':
             matching_genus_rows = merged_df[merged_df['genus_cluster'] == query_genus_cluster_number]
             dict_exemplar_genus = matching_genus_rows.iloc[0].to_dict()
             genus_value =dict_exemplar_genus['Genus']
-            ic(f"f{matching_genus_rows}")
-            ic(f"{genus_value}")
+            ic(matching_genus_rows)
+            ic(genus_value)
 
             print_res(f"""Query sequence is: 
             Class:{dict_exemplar_genus['Class']}
