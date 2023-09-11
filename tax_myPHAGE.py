@@ -649,19 +649,21 @@ if __name__ == '__main__':
             #identify the row in the pandas data frame that is the same species
             matching_species_row = merged_df[merged_df['Species'] == predicted_species]
             ic(f"{matching_species_row}")
-            list_of_S_data = matching_species_row[0:].values.flatten().tolist()
-            ic(f"{list_of_S_data[14:20]}")
-            ic(f"{list_of_S_data}")
-            print_res(f"""Query sequence is: 
-                    Class:{list_of_S_data[14]}
-                    Family: {list_of_S_data[15]}
-                    Subfamily:{list_of_S_data[16]}
-                    Genus:{list_of_S_data[17]}
-                    Species:{list_of_S_data[19]}
+
+            list_of_S_data = matching_species_row.iloc[0].to_dict()
+            ic(list_of_S_data)
+            print_res(f"""\nQuery sequence is: 
+                    Class: {list_of_S_data["Class"]}
+                    Family: {list_of_S_data["Family"]}
+                    Subfamily: {list_of_S_data["Subfamily"]}
+                    Genus: {list_of_S_data["Genus"]}
+                    Species: {list_of_S_data["Species"]}
                      """)
+
+
             with open(summary_output_path,'a') as file:
                 file.write(f"""statement_current_genus_sp 
-                           Class:{list_of_S_data[14]}\tFamily: {list_of_S_data[15]}\tSubfamily:{list_of_S_data[16]}\tGenus:{list_of_S_data[17]}Species:{list_of_S_data[19]}
+                           Class:{list_of_S_data["Class"]}\tFamily: {list_of_S_data["Family"]}\tSubfamily:{list_of_S_data["Subfamily"]}\tGenus:{list_of_S_data["Genus"]}Species:{list_of_S_data["Species"]}
                 \n{summary_statement1 }""")
 
             mash_df.to_csv(summary_output_path, mode='a', header=True, index=False,sep='\t')
@@ -724,19 +726,21 @@ if __name__ == '__main__':
                 # identify the row in the pandas data frame that is the same species
                 matching_species_row = merged_df[merged_df['Species'] == predicted_species]
                 ic(f"{matching_species_row}")
-                list_of_S_data = matching_species_row[0:].values.flatten().tolist()
-                ic(f"{list_of_S_data[14:20]}")
+                list_of_S_data = matching_species_row.iloc[0].to_dict()
                 ic(f"{list_of_S_data}")
-                print_res(f"""Query sequence is: 
-                        Class:{list_of_S_data[14]}
-                        Family: {list_of_S_data[15]}
-                        Subfamily:{list_of_S_data[16]}
-                        Genus:{list_of_S_data[17]}
-                        Species:{list_of_S_data[19]}
+                print_res(f"""\nQuery sequence is: 
+                        Class: {list_of_S_data["Class"]}
+                        Family: {list_of_S_data["Family"]}
+                        Subfamily: {list_of_S_data["Subfamily"]}
+                        Genus: {list_of_S_data["Genus"]}
+                        Species: {list_of_S_data["Species"]}
                          """)
+
+
+
                 with open(summary_output_path, 'a') as file:
                     file.write(f"""statement_current_genus_sp 
-                               Class:{list_of_S_data[14]}\tFamily: {list_of_S_data[15]}\tSubfamily:{list_of_S_data[16]}\tGenus:{list_of_S_data[17]}Species:{list_of_S_data[19]}
+                               Class:{list_of_S_data["Class"]}\tFamily: {list_of_S_data["Family"]}\tSubfamily:{list_of_S_data["Subfamily"]}\tGenus:{list_of_S_data["Genus"]}Species:{list_of_S_data["Species"]}
                     \n{summary_statement1}""")
 
                 mash_df.to_csv(summary_output_path, mode='a', header=True, index=False, sep='\t')
