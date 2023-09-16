@@ -628,6 +628,12 @@ if __name__ == '__main__':
         print_res("""
         Phage is NOT within a current genus or species and therefore a both 
         a new Genus and species.""")
+
+        with open(summary_output_path, 'a') as file:
+            file.write(f"""{args.prefix}\tNew genus\tnew genus\n
+             """)
+
+
         sys.exit()
 
     predicted_genus_name = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
@@ -691,7 +697,7 @@ if __name__ == '__main__':
 
             with open(summary_output_path, 'a') as file:
                 file.write(f""" {statement_current_genus_new_sp}
-    Class:{dict_exemplar_genus['Class']}\tFamily: {dict_exemplar_genus['Family']}\tSubfamily:{dict_exemplar_genus['Subfamily']}\tGenus:{dict_exemplar_genus['Genus']}\tnew_specices_name
+    Class:{dict_exemplar_genus['Class']}\tFamily: {dict_exemplar_genus['Family']}\tSubfamily:{dict_exemplar_genus['Subfamily']}\tGenus:{dict_exemplar_genus['Genus']}\tnew_species_name
     {summary_statement1}""")
             mash_df.to_csv(summary_output_path, mode='a', header=True, index=False,sep='\t')
 
