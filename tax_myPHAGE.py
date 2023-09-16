@@ -630,7 +630,9 @@ if __name__ == '__main__':
         a new Genus and species.""")
 
         with open(summary_output_path, 'a') as file:
-            file.write(f"""{args.prefix}\tNew genus\tnew genus\n
+            file.write(f"""Try running again with if you larger distance if you want a Figure.
+            The query is both a new genus and species\n
+            {args.prefix}\tNew genus\tnew species\n
              """)
 
 
