@@ -1,0 +1,16 @@
+Query sequence header was:LK392619
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Salasmaviridae	Subfamily:Not Defined Yet	Genus:CepunavirusSpecies:Cepunavirus Cp7
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Cepunavirus/LK392619.fna	/shared/team/taxamyphage/2023_VMR/LK392619_taxmyphage_results/query.fasta	0.0	0	5000/5000	
+./Cepunavirus/Z47794.fna	/shared/team/taxamyphage/2023_VMR/LK392619_taxmyphage_results/query.fasta	0.0705543	0	641/5000	

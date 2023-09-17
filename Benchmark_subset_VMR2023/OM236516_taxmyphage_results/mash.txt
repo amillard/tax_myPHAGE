@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Zhangjivirus/OM634653.fna,/shared/team/taxamyphage/2023_VMR/OM236516_taxmyphage_results/query.fasta,0.0229011,0,2237/5000,

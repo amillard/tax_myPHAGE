@@ -1,0 +1,25 @@
+Query sequence header was:DQ150593
+
+
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:Wbetavirus	Species:name_your_species
+    
+ 
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Wbetavirus/DQ289555.fna	/shared/team/taxamyphage/2023_VMR/DQ150593_taxmyphage_results/query.fasta	0.00478758	0.0	4127/5000	
+./Camtrevirus/JQ062992.fna	/shared/team/taxamyphage/2023_VMR/DQ150593_taxmyphage_results/query.fasta	0.192791	4.28462e-259	44/5000	
+./Hubeivirus/KX227757.fna	/shared/team/taxamyphage/2023_VMR/DQ150593_taxmyphage_results/query.fasta	0.192791	2.4735899999999998e-259	44/5000	
+./Hubeivirus/KT725776.fna	/shared/team/taxamyphage/2023_VMR/DQ150593_taxmyphage_results/query.fasta	0.193877	9.31598e-253	43/5000	
+./Camtrevirus/KF296718.fna	/shared/team/taxamyphage/2023_VMR/DQ150593_taxmyphage_results/query.fasta	0.194988	1.0023e-247	42/5000	
+./Camtrevirus/JN191664.fna	/shared/team/taxamyphage/2023_VMR/DQ150593_taxmyphage_results/query.fasta	0.197292	1.73271e-234	40/5000	

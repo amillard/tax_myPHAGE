@@ -1,0 +1,11 @@
+A	B	sim
+JQ307387:Septimatrevirus	taxmyPhage:	79.92573710002212
+HG962376:Septimatrevirus	taxmyPhage:	77.43924387213636
+JF939047:Kilunavirus	taxmyPhage:	58.050734001559974
+DQ163913:Septimatrevirus	taxmyPhage:	78.892942625427
+HG962376:Septimatrevirus	JQ307387:Septimatrevirus	92.03958090803259
+JF939047:Kilunavirus	JQ307387:Septimatrevirus	55.74956814043606
+DQ163913:Septimatrevirus	JQ307387:Septimatrevirus	92.42803723075848
+HG962376:Septimatrevirus	JF939047:Kilunavirus	54.262527943368106
+DQ163913:Septimatrevirus	HG962376:Septimatrevirus	91.11498460287025
+DQ163913:Septimatrevirus	JF939047:Kilunavirus	56.00890121284851

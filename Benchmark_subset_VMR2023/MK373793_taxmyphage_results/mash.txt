@@ -1,0 +1,9 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Guelphvirus/JN986845.fna,/shared/team/taxamyphage/2023_VMR/MK373793_taxmyphage_results/query.fasta,0.134163,0.0,154/5000,
+./Christensenvirus/MK372342.fna,/shared/team/taxamyphage/2023_VMR/MK373793_taxmyphage_results/query.fasta,0.144959,0.0,122/5000,
+./Guelphvirus/KY398841.fna,/shared/team/taxamyphage/2023_VMR/MK373793_taxmyphage_results/query.fasta,0.152392,0.0,104/5000,
+./Loudonvirus/MG050172.fna,/shared/team/taxamyphage/2023_VMR/MK373793_taxmyphage_results/query.fasta,0.162937,0.0,83/5000,
+./Rtpvirus/AM156909.fna,/shared/team/taxamyphage/2023_VMR/MK373793_taxmyphage_results/query.fasta,0.166453,0.0,77/5000,
+./Rtpvirus/KX130960.fna,/shared/team/taxamyphage/2023_VMR/MK373793_taxmyphage_results/query.fasta,0.167688,0.0,75/5000,
+./Veterinaerplatzvirus/MK907226.fna,/shared/team/taxamyphage/2023_VMR/MK373793_taxmyphage_results/query.fasta,0.172984,0.0,67/5000,
+./Rogunavirus/KJ668713.fna,/shared/team/taxamyphage/2023_VMR/MK373793_taxmyphage_results/query.fasta,0.187713,1.32669e-288,49/5000,

@@ -1,0 +1,11 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Kagunavirus/GU196278.fna,/shared/team/taxamyphage/2023_VMR/MZ234048_taxmyphage_results/query.fasta,0.0342925,0.0,1608/5000,
+./Kagunavirus/GU196277.fna,/shared/team/taxamyphage/2023_VMR/MZ234048_taxmyphage_results/query.fasta,0.040475,0.0,1359/5000,
+./Kagunavirus/GU196280.fna,/shared/team/taxamyphage/2023_VMR/MZ234048_taxmyphage_results/query.fasta,0.0561305,0.0,909/5000,
+./Kagunavirus/GU196279.fna,/shared/team/taxamyphage/2023_VMR/MZ234048_taxmyphage_results/query.fasta,0.0628995,0.0,770/5000,
+./Kagunavirus/MG099933.fna,/shared/team/taxamyphage/2023_VMR/MZ234048_taxmyphage_results/query.fasta,0.100986,0.0,319/5000,
+./Kagunavirus/MK737937.fna,/shared/team/taxamyphage/2023_VMR/MZ234048_taxmyphage_results/query.fasta,0.104495,0.0,295/5000,
+./Jerseyvirus/KC139511.fna,/shared/team/taxamyphage/2023_VMR/MZ234048_taxmyphage_results/query.fasta,0.172288,0.0,68/5000,
+./Jerseyvirus/KM272358.fna,/shared/team/taxamyphage/2023_VMR/MZ234048_taxmyphage_results/query.fasta,0.175137,0.0,64/5000,
+./Jerseyvirus/KF148055.fna,/shared/team/taxamyphage/2023_VMR/MZ234048_taxmyphage_results/query.fasta,0.175878,0.0,63/5000,
+./Jerseyvirus/KF562864.fna,/shared/team/taxamyphage/2023_VMR/MZ234048_taxmyphage_results/query.fasta,0.196126,7.57622e-240,41/5000,

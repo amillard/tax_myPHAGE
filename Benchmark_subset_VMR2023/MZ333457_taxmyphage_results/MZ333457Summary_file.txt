@@ -1,0 +1,21 @@
+Query sequence header was:MZ333457
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:Saphexavirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Saphexavirus/KF192053.fna	/shared/team/taxamyphage/2023_VMR/MZ333457_taxmyphage_results/query.fasta	0.0469028	0	1148/5000	
+./Saphexavirus/HE962497.fna	/shared/team/taxamyphage/2023_VMR/MZ333457_taxmyphage_results/query.fasta	0.052474	0	996/5000	
+./Saphexavirus/KJ094032.fna	/shared/team/taxamyphage/2023_VMR/MZ333457_taxmyphage_results/query.fasta	0.0572566	0	884/5000	
+./Saphexavirus/JF731128.fna	/shared/team/taxamyphage/2023_VMR/MZ333457_taxmyphage_results/query.fasta	0.0588483	0	850/5000	
+./Saphexavirus/AB712291.fna	/shared/team/taxamyphage/2023_VMR/MZ333457_taxmyphage_results/query.fasta	0.064656	0	738/5000	

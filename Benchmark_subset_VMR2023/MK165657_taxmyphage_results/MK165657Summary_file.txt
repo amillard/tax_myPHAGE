@@ -1,0 +1,20 @@
+Query sequence header was:MK165657
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:Septimatrevirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Septimatrevirus/JQ307387.fna	/shared/team/taxamyphage/2023_VMR/MK165657_taxmyphage_results/query.fasta	0.0326803	0.0	1682/5000	
+./Septimatrevirus/DQ163913.fna	/shared/team/taxamyphage/2023_VMR/MK165657_taxmyphage_results/query.fasta	0.0337817	0.0	1631/5000	
+./Septimatrevirus/HG962376.fna	/shared/team/taxamyphage/2023_VMR/MK165657_taxmyphage_results/query.fasta	0.0377613	0.0	1462/5000	
+./Kilunavirus/JF939047.fna	/shared/team/taxamyphage/2023_VMR/MK165657_taxmyphage_results/query.fasta	0.183134	2.1e-321	54/5000	

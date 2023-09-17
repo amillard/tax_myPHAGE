@@ -1,0 +1,16 @@
+Query sequence header was:KX397364
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:ErskinevirusSpecies:Erskinevirus asesino
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Erskinevirus/KX397364.fna	/shared/team/taxamyphage/2023_VMR/KX397364_taxmyphage_results/query.fasta	0.0	0	5000/5000	
+./Erskinevirus/JX316028.fna	/shared/team/taxamyphage/2023_VMR/KX397364_taxmyphage_results/query.fasta	0.110193	0	260/5000	

@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Mementomorivirus/MH271303.fna,/shared/team/taxamyphage/2023_VMR/MK937591_taxmyphage_results/query.fasta,0.0331287,0,1661/5000,

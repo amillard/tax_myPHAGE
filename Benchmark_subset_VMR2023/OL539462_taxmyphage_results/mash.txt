@@ -1,0 +1,12 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Tlsvirus/MH729819.fna,/shared/team/taxamyphage/2023_VMR/OL539462_taxmyphage_results/query.fasta,0.0192698,0.0,2503/5000,
+./Tlsvirus/KX015770.fna,/shared/team/taxamyphage/2023_VMR/OL539462_taxmyphage_results/query.fasta,0.0241214,0.0,2156/5000,
+./Tlsvirus/KM236241.fna,/shared/team/taxamyphage/2023_VMR/OL539462_taxmyphage_results/query.fasta,0.0297077,0.0,1830/5000,
+./Tlsvirus/KY694971.fna,/shared/team/taxamyphage/2023_VMR/OL539462_taxmyphage_results/query.fasta,0.040365,0.0,1363/5000,
+./Tlsvirus/AY308796.fna,/shared/team/taxamyphage/2023_VMR/OL539462_taxmyphage_results/query.fasta,0.0470719,0.0,1143/5000,
+./Tlsvirus/MG241338.fna,/shared/team/taxamyphage/2023_VMR/OL539462_taxmyphage_results/query.fasta,0.0492083,0.0,1082/5000,
+./Tlsvirus/MH491968.fna,/shared/team/taxamyphage/2023_VMR/OL539462_taxmyphage_results/query.fasta,0.0494991,0.0,1074/5000,
+./Tlsvirus/KC139513.fna,/shared/team/taxamyphage/2023_VMR/OL539462_taxmyphage_results/query.fasta,0.0573482,0.0,882/5000,
+./Tlsvirus/MH102284.fna,/shared/team/taxamyphage/2023_VMR/OL539462_taxmyphage_results/query.fasta,0.0582312,0.0,863/5000,
+./Tlsvirus/KR296690.fna,/shared/team/taxamyphage/2023_VMR/OL539462_taxmyphage_results/query.fasta,0.0618432,0.0,790/5000,
+./Changchunvirus/MK778457.fna,/shared/team/taxamyphage/2023_VMR/OL539462_taxmyphage_results/query.fasta,0.184912,2.79602e-305,52/5000,

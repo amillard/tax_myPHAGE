@@ -1,0 +1,42 @@
+Query sequence header was:MN432485
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Drexlerviridae	Subfamily:Tempevirinae	Genus:Hanrivervirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Hanrivervirus/MN850640.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0342254	0.0	1611/5000	
+./Hanrivervirus/MN850607.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0342925	0.0	1608/5000	
+./Hanrivervirus/MN850569.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0351567	0.0	1570/5000	
+./Hanrivervirus/MK373798.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0357395	0.0	1545/5000	
+./Hanrivervirus/MT074433.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.03699	0.0	1493/5000	
+./Hanrivervirus/KC710998.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0375103	0.0	1472/5000	
+./Hanrivervirus/MN850602.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0393125	0.0	1402/5000	
+./Hanrivervirus/MN850591.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0394455	0.0	1397/5000	
+./Hanrivervirus/MN850600.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0414831	0.0	1323/5000	
+./Hanrivervirus/MN055691.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0416257	0.0	1318/5000	
+./Hanrivervirus/MN850567.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0440624	0.0	1236/5000	
+./Hanrivervirus/MN850572.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0442173	0.0	1231/5000	
+./Hanrivervirus/MT127619.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0446548	0.0	1217/5000	
+./Hanrivervirus/MT360681.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.0573482	0.0	882/5000	
+./Warwickvirus/MN850596.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.134163	0.0	154/5000	
+./Warwickvirus/MN850643.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.170926	0.0	70/5000	
+./Warwickvirus/MF564201.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.171602	0.0	69/5000	
+./Warwickvirus/MN850620.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.174408	0.0	65/5000	
+./Warwickvirus/LT961732.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.177395	0.0	61/5000	
+./Warwickvirus/MN850638.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.178173	0.0	60/5000	
+./Warwickvirus/LR027388.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.179768	0.0	58/5000	
+./Warwickvirus/MN850613.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.180587	0.0	57/5000	
+./Warwickvirus/MK962751.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.181421	0.0	56/5000	
+./Warwickvirus/MN850641.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.182269	2.5e-323	55/5000	
+./Warwickvirus/LT841304.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.187713	6.264080000000001e-286	49/5000	
+./Warwickvirus/LR596614.fna	/shared/team/taxamyphage/2023_VMR/MN432485_taxmyphage_results/query.fasta	0.199716	2.5488799999999997e-218	38/5000	

@@ -1,0 +1,3 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Hollowayvirus/KC262634.fna,/shared/team/taxamyphage/2023_VMR/MZ285879_taxmyphage_results/query.fasta,0.0389172,0,1417/5000,
+./Hollowayvirus/AY625898.fna,/shared/team/taxamyphage/2023_VMR/MZ285879_taxmyphage_results/query.fasta,0.0424074,0,1291/5000,

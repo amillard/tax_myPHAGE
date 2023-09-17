@@ -1,0 +1,5 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Sparkyvirus/KM083128.fna,/shared/team/taxamyphage/2023_VMR/MN234184_taxmyphage_results/query.fasta,0.146509,0.0,118/5000,
+./Chenonavirus/AY129333.fna,/shared/team/taxamyphage/2023_VMR/MN234184_taxmyphage_results/query.fasta,0.170926,0.0,70/5000,
+./Purkyvirus/MN096355.fna,/shared/team/taxamyphage/2023_VMR/MN234184_taxmyphage_results/query.fasta,0.181421,0.0,56/5000,
+./Chenonavirus/KP027201.fna,/shared/team/taxamyphage/2023_VMR/MN234184_taxmyphage_results/query.fasta,0.186761,1.06336e-294,50/5000,

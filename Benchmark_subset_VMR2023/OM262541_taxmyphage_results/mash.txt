@@ -1,0 +1,8 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Dhillonvirus/GQ502199.fna,/shared/team/taxamyphage/2023_VMR/OM262541_taxmyphage_results/query.fasta,0.0585147,0,857/5000,
+./Dhillonvirus/KM233151.fna,/shared/team/taxamyphage/2023_VMR/OM262541_taxmyphage_results/query.fasta,0.0641534,0,747/5000,
+./Dhillonvirus/JN984867.fna,/shared/team/taxamyphage/2023_VMR/OM262541_taxmyphage_results/query.fasta,0.0816138,0,495/5000,
+./Dhillonvirus/JX865427.fna,/shared/team/taxamyphage/2023_VMR/OM262541_taxmyphage_results/query.fasta,0.0896287,0,412/5000,
+./Dhillonvirus/KM896878.fna,/shared/team/taxamyphage/2023_VMR/OM262541_taxmyphage_results/query.fasta,0.0911516,0,398/5000,
+./Dhillonvirus/JQ086375.fna,/shared/team/taxamyphage/2023_VMR/OM262541_taxmyphage_results/query.fasta,0.0911516,0,398/5000,
+./Dhillonvirus/FJ750948.fna,/shared/team/taxamyphage/2023_VMR/OM262541_taxmyphage_results/query.fasta,0.0919348,0,391/5000,

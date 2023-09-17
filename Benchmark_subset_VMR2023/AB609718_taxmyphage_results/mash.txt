@@ -1,0 +1,5 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Kochikohdavirus/AB609718.fna,/shared/team/taxamyphage/2023_VMR/AB609718_taxmyphage_results/query.fasta,0.0,0,5000/5000,
+./Kochikohdavirus/AP009390.fna,/shared/team/taxamyphage/2023_VMR/AB609718_taxmyphage_results/query.fasta,1.90591e-05,0,4996/5000,
+./Kochikohdavirus/KJ801817.fna,/shared/team/taxamyphage/2023_VMR/AB609718_taxmyphage_results/query.fasta,0.0190552,0,2520/5000,
+./Kochikohdavirus/KR049063.fna,/shared/team/taxamyphage/2023_VMR/AB609718_taxmyphage_results/query.fasta,0.025338,0,2079/5000,

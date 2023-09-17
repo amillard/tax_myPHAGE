@@ -1,0 +1,6 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Anayavirus/MN284895.fna,/shared/team/taxamyphage/2023_VMR/MW291017_taxmyphage_results/query.fasta,0.372583,4.21791e-05,1/5000,
+./Burrovirus/MT024863.fna,/shared/team/taxamyphage/2023_VMR/MW291017_taxmyphage_results/query.fasta,0.372583,3.87899e-05,1/5000,
+./Gibbetvirus/FM207411.fna,/shared/team/taxamyphage/2023_VMR/MW291017_taxmyphage_results/query.fasta,0.372583,7.18344e-05,1/5000,
+./Woodruffvirus/KP876465.fna,/shared/team/taxamyphage/2023_VMR/MW291017_taxmyphage_results/query.fasta,0.372583,4.00673e-05,1/5000,
+./Yushanluvirus/MW147367.fna,/shared/team/taxamyphage/2023_VMR/MW291017_taxmyphage_results/query.fasta,0.372583,7.09563e-05,1/5000,

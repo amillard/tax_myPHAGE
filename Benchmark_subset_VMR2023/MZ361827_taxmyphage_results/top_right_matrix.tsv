@@ -1,0 +1,7 @@
+A	AJ312240:Psavirus	DQ003639:Jelitavirus	JX120799:Psavirus	KJ094023:Slepowronvirus	MT500540:Slepowronvirus	taxmyPhage:
+AJ312240:Psavirus	100.0	28.61	82.68	31.0	27.44	5.25
+DQ003639:Jelitavirus	0.0	100.0	30.54	56.58	58.22	11.4
+JX120799:Psavirus	0.0	0.0	100.0	29.2	28.72	8.07
+KJ094023:Slepowronvirus	0.0	0.0	0.0	100.0	68.93	4.93
+MT500540:Slepowronvirus	0.0	0.0	0.0	0.0	100.0	1.77
+taxmyPhage:	0.0	0.0	0.0	0.0	0.0	100.0

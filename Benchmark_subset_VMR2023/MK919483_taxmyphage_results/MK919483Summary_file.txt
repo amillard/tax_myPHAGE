@@ -1,0 +1,52 @@
+Query sequence header was:MK919483
+statement_current_genus_sp 
+                               Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Nymbaxtervirinae	Genus:NymphadoravirusSpecies:Nymphadoravirus kita
+                    
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Nymphadoravirus/KU963257.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.000100316	0.0	4979/5000	
+./Nymphadoravirus/MK820642.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.00319852	0.0	4390/5000	
+./Nymphadoravirus/MK112547.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0181313	0.0	2595/5000	
+./Nymphadoravirus/KX557287.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0298031	0.0	1825/5000	
+./Nymphadoravirus/MW712717.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.039286	0.0	1403/5000	
+./Nymphadoravirus/MZ274304.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0453226	0.0	1196/5000	
+./Nymphadoravirus/MT952844.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0469703	0.0	1146/5000	
+./Nymphadoravirus/KU963255.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0479656	0.0	1117/5000	
+./Nymphadoravirus/MT889398.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0480005	0.0	1116/5000	
+./Nymphadoravirus/MK919469.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0575323	0.0	878/5000	
+./Attisvirus/OM203160.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0600164	0.0	826/5000	
+./Attisvirus/MZ150788.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0652797	0.0	727/5000	
+./Attisvirus/KU963247.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0730721	0.0	604/5000	
+./Baxterfoxvirus/KU963263.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0742869	0.0	587/5000	
+./Baxterfoxvirus/KU963249.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0744324	0.0	585/5000	
+./Baxterfoxvirus/MT639650.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0766828	0.0	555/5000	
+./Nymphadoravirus/MT723938.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0819654	0.0	491/5000	
+./Nymphadoravirus/MK801727.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.0925035	0.0	386/5000	
+./Attisvirus/MG099941.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.11676	0.0	225/5000	
+./Attisvirus/MW055908.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.121234	0.0	204/5000	
+./Attisvirus/MH271295.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.122833	0.0	197/5000	
+./Sidiousvirus/MK967384.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.1233	0.0	195/5000	
+./Attisvirus/MZ171371.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.124733	0.0	189/5000	
+./Howevirus/MN428055.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.125964	0.0	184/5000	
+./Attisvirus/MT771342.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.136948	0.0	145/5000	
+./Beenievirus/MZ681517.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.152392	0.0	104/5000	
+./Beenievirus/MK937609.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.165251	0.0	79/5000	
+./Beenievirus/MK279848.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.168956	0.0	73/5000	
+./Powerballvirus/MN234218.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.17026	0.0	71/5000	
+./Beenievirus/MH155867.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.170926	0.0	70/5000	
+./Beenievirus/MZ456039.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.171602	0.0	69/5000	
+./Beenievirus/MN428057.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.171602	0.0	69/5000	
+./Beenievirus/MK801729.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.172984	0.0	67/5000	
+./Beenievirus/MT771346.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.175137	0.0	64/5000	
+./Beenievirus/MG845393.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.175878	0.0	63/5000	
+./Howevirus/KU252585.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.177395	0.0	61/5000	
+./Beenievirus/MN428048.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.185827	3.1425e-299	51/5000	
+./Attisvirus/MK359313.fna	/shared/team/taxamyphage/2023_VMR/MK919483_taxmyphage_results/query.fasta	0.196126	2.49068e-237	41/5000	

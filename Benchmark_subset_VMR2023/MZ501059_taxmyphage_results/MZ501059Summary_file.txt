@@ -1,0 +1,26 @@
+Query sequence header was:MZ501059
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Drexlerviridae	Subfamily:Tempevirinae	Genus:Tlsvirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Tlsvirus/AY308796.fna	/shared/team/taxamyphage/2023_VMR/MZ501059_taxmyphage_results/query.fasta	0.0330642	0	1664/5000	
+./Tlsvirus/MH102284.fna	/shared/team/taxamyphage/2023_VMR/MZ501059_taxmyphage_results/query.fasta	0.0371624	0	1486/5000	
+./Tlsvirus/MG241338.fna	/shared/team/taxamyphage/2023_VMR/MZ501059_taxmyphage_results/query.fasta	0.038527	0	1432/5000	
+./Tlsvirus/KR296690.fna	/shared/team/taxamyphage/2023_VMR/MZ501059_taxmyphage_results/query.fasta	0.0415686	0	1320/5000	
+./Tlsvirus/KY694971.fna	/shared/team/taxamyphage/2023_VMR/MZ501059_taxmyphage_results/query.fasta	0.0458735	0	1179/5000	
+./Tlsvirus/MH491968.fna	/shared/team/taxamyphage/2023_VMR/MZ501059_taxmyphage_results/query.fasta	0.0459717	0	1176/5000	
+./Tlsvirus/MH729819.fna	/shared/team/taxamyphage/2023_VMR/MZ501059_taxmyphage_results/query.fasta	0.0478612	0	1120/5000	
+./Tlsvirus/KM236241.fna	/shared/team/taxamyphage/2023_VMR/MZ501059_taxmyphage_results/query.fasta	0.0480354	0	1115/5000	
+./Tlsvirus/KC139513.fna	/shared/team/taxamyphage/2023_VMR/MZ501059_taxmyphage_results/query.fasta	0.0517638	0	1014/5000	
+./Tlsvirus/KX015770.fna	/shared/team/taxamyphage/2023_VMR/MZ501059_taxmyphage_results/query.fasta	0.0527944	0	988/5000	

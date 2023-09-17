@@ -1,0 +1,21 @@
+Query sequence header was:MZ348426
+
+
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:Otagovirus	Species:name_your_species
+    
+ 
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Otagovirus/KJ409772.fna	/shared/team/taxamyphage/2023_VMR/MZ348426_taxmyphage_results/query.fasta	0.0246043	0	2125/5000	
+./Otagovirus/LN887844.fna	/shared/team/taxamyphage/2023_VMR/MZ348426_taxmyphage_results/query.fasta	0.169604	0	72/5000	

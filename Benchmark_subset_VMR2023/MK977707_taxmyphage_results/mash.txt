@@ -1,0 +1,9 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Charlievirus/JN256079.fna,/shared/team/taxamyphage/2023_VMR/MK977707_taxmyphage_results/query.fasta,0.102268,0.0,310/5000,
+./Charlievirus/KU935730.fna,/shared/team/taxamyphage/2023_VMR/MK977707_taxmyphage_results/query.fasta,0.103293,0.0,303/5000,
+./Charlievirus/MH697576.fna,/shared/team/taxamyphage/2023_VMR/MK977707_taxmyphage_results/query.fasta,0.104801,0.0,293/5000,
+./Charlievirus/MG099948.fna,/shared/team/taxamyphage/2023_VMR/MK977707_taxmyphage_results/query.fasta,0.108487,0.0,270/5000,
+./Charlievirus/MH697593.fna,/shared/team/taxamyphage/2023_VMR/MK977707_taxmyphage_results/query.fasta,0.108654,0.0,269/5000,
+./Tortellinivirus/KX648391.fna,/shared/team/taxamyphage/2023_VMR/MK977707_taxmyphage_results/query.fasta,0.153298,0.0,102/5000,
+./Squirtyvirus/KM101124.fna,/shared/team/taxamyphage/2023_VMR/MK977707_taxmyphage_results/query.fasta,0.170926,0.0,70/5000,
+./Charlievirus/MK977708.fna,/shared/team/taxamyphage/2023_VMR/MK977707_taxmyphage_results/query.fasta,0.197292,4.3872e-232,40/5000,

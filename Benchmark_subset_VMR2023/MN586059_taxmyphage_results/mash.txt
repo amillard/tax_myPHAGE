@@ -1,0 +1,7 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Metamorphoovirus/MH271304.fna,/shared/team/taxamyphage/2023_VMR/MN586059_taxmyphage_results/query.fasta,0.109161,0,266/5000,
+./Metamorphoovirus/MH271312.fna,/shared/team/taxamyphage/2023_VMR/MN586059_taxmyphage_results/query.fasta,0.109846,0,262/5000,
+./Metamorphoovirus/MK524510.fna,/shared/team/taxamyphage/2023_VMR/MN586059_taxmyphage_results/query.fasta,0.110895,0,256/5000,
+./Quhwahvirus/MH271321.fna,/shared/team/taxamyphage/2023_VMR/MN586059_taxmyphage_results/query.fasta,0.121234,0,204/5000,
+./Quhwahvirus/MH155873.fna,/shared/team/taxamyphage/2023_VMR/MN586059_taxmyphage_results/query.fasta,0.1233,0,195/5000,
+./Quhwahvirus/MH590600.fna,/shared/team/taxamyphage/2023_VMR/MN586059_taxmyphage_results/query.fasta,0.129065,0,172/5000,

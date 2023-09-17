@@ -1,0 +1,3 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Gordonvirus/KU160646.fna,/shared/team/taxamyphage/2023_VMR/MH399789_taxmyphage_results/query.fasta,0.0508395,0,1038/5000,
+./Gordonvirus/KU160641.fna,/shared/team/taxamyphage/2023_VMR/MH399789_taxmyphage_results/query.fasta,0.0713528,0,629/5000,

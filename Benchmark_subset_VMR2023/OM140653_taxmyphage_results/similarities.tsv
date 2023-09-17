@@ -1,0 +1,11 @@
+A	B	sim
+OM046628:Duonihilunusvirus	OM140653:Graikaemvirus	68.68999984184472
+OM140653:Graikaemvirus	taxmyPhage:	100.0
+OM046627:Duonihilunusvirus	OM140653:Graikaemvirus	65.53568191431506
+OM046626:Duonihilunusvirus	OM140653:Graikaemvirus	69.4199535962877
+OM046628:Duonihilunusvirus	taxmyPhage:	68.68999984184472
+OM046627:Duonihilunusvirus	OM046628:Duonihilunusvirus	88.98263730382357
+OM046626:Duonihilunusvirus	OM046628:Duonihilunusvirus	79.34342927824024
+OM046627:Duonihilunusvirus	taxmyPhage:	65.53568191431506
+OM046626:Duonihilunusvirus	taxmyPhage:	69.4199535962877
+OM046626:Duonihilunusvirus	OM046627:Duonihilunusvirus	74.73125985380535

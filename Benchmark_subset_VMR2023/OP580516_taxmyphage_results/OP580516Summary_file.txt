@@ -1,0 +1,5 @@
+Query sequence header was:OP580516
+Try running again with if you larger distance if you want a Figure.
+The query is both a new genus and species
+
+OP580516	New genus	new species

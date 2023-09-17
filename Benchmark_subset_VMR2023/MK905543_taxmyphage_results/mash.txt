@@ -1,0 +1,5 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Aphroditevirus/MK905543.fna,/shared/team/taxamyphage/2023_VMR/MK905543_taxmyphage_results/query.fasta,0.0,0,5000/5000,
+./Aphroditevirus/MG720308.fna,/shared/team/taxamyphage/2023_VMR/MK905543_taxmyphage_results/query.fasta,0.048992,0,1088/5000,
+./Aphroditevirus/MN562221.fna,/shared/team/taxamyphage/2023_VMR/MK905543_taxmyphage_results/query.fasta,0.136948,0,145/5000,
+./Aphroditevirus/MK368614.fna,/shared/team/taxamyphage/2023_VMR/MK905543_taxmyphage_results/query.fasta,0.15863,0,91/5000,

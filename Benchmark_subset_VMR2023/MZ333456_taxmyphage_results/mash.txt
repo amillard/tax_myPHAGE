@@ -1,0 +1,4 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Phifelvirus/GQ478086.fna,/shared/team/taxamyphage/2023_VMR/MZ333456_taxmyphage_results/query.fasta,0.13759,0.0,143/5000,
+./Phifelvirus/GQ478084.fna,/shared/team/taxamyphage/2023_VMR/MZ333456_taxmyphage_results/query.fasta,0.164079,0.0,81/5000,
+./Phifelvirus/GQ478081.fna,/shared/team/taxamyphage/2023_VMR/MZ333456_taxmyphage_results/query.fasta,0.190693,1.32032e-272,46/5000,

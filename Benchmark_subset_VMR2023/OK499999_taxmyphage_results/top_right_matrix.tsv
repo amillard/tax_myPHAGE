@@ -1,0 +1,8 @@
+A	DQ289555:Wbetavirus	JN191664:Camtrevirus	JQ062992:Camtrevirus	KF296718:Camtrevirus	KT725776:Hubeivirus	KX227757:Hubeivirus	taxmyPhage:
+DQ289555:Wbetavirus	100.0	24.65	29.24	27.27	16.7	13.32	71.03
+JN191664:Camtrevirus	0.0	100.0	64.75	83.01	20.59	21.34	25.75
+JQ062992:Camtrevirus	0.0	0.0	100.0	69.4	16.05	17.57	28.24
+KF296718:Camtrevirus	0.0	0.0	0.0	100.0	19.33	20.26	25.47
+KT725776:Hubeivirus	0.0	0.0	0.0	0.0	100.0	80.83	15.92
+KX227757:Hubeivirus	0.0	0.0	0.0	0.0	0.0	100.0	12.42
+taxmyPhage:	0.0	0.0	0.0	0.0	0.0	0.0	100.0

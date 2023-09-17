@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Cornellvirus/KC139518.fna,/shared/team/taxamyphage/2023_VMR/MN070121_taxmyphage_results/query.fasta,0.0656822,0,720/5000,

@@ -1,0 +1,18 @@
+Query sequence header was:AB609718
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Herelleviridae	Subfamily:Brockvirinae	Genus:KochikohdavirusSpecies:Kochikohdavirus EF24C
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Kochikohdavirus/AB609718.fna	/shared/team/taxamyphage/2023_VMR/AB609718_taxmyphage_results/query.fasta	0.0	0	5000/5000	
+./Kochikohdavirus/AP009390.fna	/shared/team/taxamyphage/2023_VMR/AB609718_taxmyphage_results/query.fasta	1.90591e-05	0	4996/5000	
+./Kochikohdavirus/KJ801817.fna	/shared/team/taxamyphage/2023_VMR/AB609718_taxmyphage_results/query.fasta	0.0190552	0	2520/5000	
+./Kochikohdavirus/KR049063.fna	/shared/team/taxamyphage/2023_VMR/AB609718_taxmyphage_results/query.fasta	0.025338	0	2079/5000	

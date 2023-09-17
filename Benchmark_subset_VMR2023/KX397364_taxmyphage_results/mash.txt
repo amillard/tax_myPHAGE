@@ -1,0 +1,3 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Erskinevirus/KX397364.fna,/shared/team/taxamyphage/2023_VMR/KX397364_taxmyphage_results/query.fasta,0.0,0,5000/5000,
+./Erskinevirus/JX316028.fna,/shared/team/taxamyphage/2023_VMR/KX397364_taxmyphage_results/query.fasta,0.110193,0,260/5000,

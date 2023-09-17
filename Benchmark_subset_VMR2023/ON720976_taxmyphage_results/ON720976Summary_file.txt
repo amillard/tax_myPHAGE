@@ -1,0 +1,23 @@
+Query sequence header was:ON720976
+
+
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Guernseyvirinae	Genus:Cornellvirus	Species:name_your_species
+    
+ 
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Cornellvirus/KC139518.fna	/shared/team/taxamyphage/2023_VMR/ON720976_taxmyphage_results/query.fasta	0.0605648	0.0	815/5000	
+./Saltrevirus/KX017520.fna	/shared/team/taxamyphage/2023_VMR/ON720976_taxmyphage_results/query.fasta	0.174408	0.0	65/5000	
+./Jerseyvirus/KR270151.fna	/shared/team/taxamyphage/2023_VMR/ON720976_taxmyphage_results/query.fasta	0.185827	5.25473e-303	51/5000	
+./Jerseyvirus/AY730274.fna	/shared/team/taxamyphage/2023_VMR/ON720976_taxmyphage_results/query.fasta	0.197292	5.18011e-234	40/5000	

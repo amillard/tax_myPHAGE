@@ -1,0 +1,5 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Kisquinquevirus/GU911303.fna,/shared/team/taxamyphage/2023_VMR/ON642070_taxmyphage_results/query.fasta,0.0510682,0.0,1032/5000,
+./Aptresvirus/KP966108.fna,/shared/team/taxamyphage/2023_VMR/ON642070_taxmyphage_results/query.fasta,0.139576,0.0,137/5000,
+./Aptresvirus/MT701591.fna,/shared/team/taxamyphage/2023_VMR/ON642070_taxmyphage_results/query.fasta,0.140603,0.0,134/5000,
+./Kayeltresvirus/GU911304.fna,/shared/team/taxamyphage/2023_VMR/ON642070_taxmyphage_results/query.fasta,0.199716,2.2032299999999997e-222,38/5000,

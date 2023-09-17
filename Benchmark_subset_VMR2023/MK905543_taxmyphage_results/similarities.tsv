@@ -1,0 +1,11 @@
+A	B	sim
+MN562221:Aphroditevirus	taxmyPhage:	70.0299406233705
+MK368614:Aphroditevirus	MN562221:Aphroditevirus	85.29382962986114
+MG720308:Aphroditevirus	MN562221:Aphroditevirus	71.0048376473757
+MK905543:Aphroditevirus	MN562221:Aphroditevirus	70.0299406233705
+MK368614:Aphroditevirus	taxmyPhage:	67.99342413301564
+MG720308:Aphroditevirus	taxmyPhage:	90.05802602239078
+MK905543:Aphroditevirus	taxmyPhage:	100.0
+MG720308:Aphroditevirus	MK368614:Aphroditevirus	68.27506206161176
+MK368614:Aphroditevirus	MK905543:Aphroditevirus	67.99342413301564
+MG720308:Aphroditevirus	MK905543:Aphroditevirus	90.05802602239078

@@ -1,0 +1,4 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Otagovirus/LN887844.fna,/shared/team/taxamyphage/2023_VMR/MZ826350_taxmyphage_results/query.fasta,0.102851,0.0,306/5000,
+./Otagovirus/KJ409772.fna,/shared/team/taxamyphage/2023_VMR/MZ826350_taxmyphage_results/query.fasta,0.17026,0.0,71/5000,
+./Flaumdravirus/KU130129.fna,/shared/team/taxamyphage/2023_VMR/MZ826350_taxmyphage_results/query.fasta,0.196126,3.4916e-225,41/5000,

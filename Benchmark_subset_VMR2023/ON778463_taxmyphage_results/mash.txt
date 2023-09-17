@@ -1,0 +1,5 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Carltongylesvirus/MF044458.fna,/shared/team/taxamyphage/2023_VMR/ON778463_taxmyphage_results/query.fasta,0.0506879,0,1042/5000,
+./Carltongylesvirus/MN850594.fna,/shared/team/taxamyphage/2023_VMR/ON778463_taxmyphage_results/query.fasta,0.0534035,0,973/5000,
+./Carltongylesvirus/EF460875.fna,/shared/team/taxamyphage/2023_VMR/ON778463_taxmyphage_results/query.fasta,0.0663236,0,709/5000,
+./Carltongylesvirus/MN045229.fna,/shared/team/taxamyphage/2023_VMR/ON778463_taxmyphage_results/query.fasta,0.0817014,0,494/5000,
