@@ -1,0 +1,42 @@
+Query sequence header was:MZ501090
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Drexlerviridae	Subfamily:Tempevirinae	Genus:Hanrivervirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Hanrivervirus/MN055691.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.0366967	0.0	1505/5000	
+./Hanrivervirus/KC710998.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.0385011	0.0	1433/5000	
+./Hanrivervirus/MN850607.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.0401461	0.0	1371/5000	
+./Hanrivervirus/MN850567.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.0405301	0.0	1357/5000	
+./Hanrivervirus/MN850640.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.0410871	0.0	1337/5000	
+./Hanrivervirus/MT074433.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.0413694	0.0	1327/5000	
+./Hanrivervirus/MN850569.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.04288	0.0	1275/5000	
+./Hanrivervirus/MK373798.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.0440007	0.0	1238/5000	
+./Hanrivervirus/MN850602.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.0470041	0.0	1145/5000	
+./Hanrivervirus/MN850591.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.047038	0.0	1144/5000	
+./Hanrivervirus/MN850572.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.0474814	0.0	1131/5000	
+./Hanrivervirus/MN850600.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.0488843	0.0	1091/5000	
+./Hanrivervirus/MT127619.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.0494626	0.0	1075/5000	
+./Hanrivervirus/MT360681.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.060969	0.0	807/5000	
+./Warwickvirus/MN850596.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.132111	0.0	161/5000	
+./Warwickvirus/MN850638.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.168956	0.0	73/5000	
+./Warwickvirus/MK962751.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.169604	0.0	72/5000	
+./Warwickvirus/MF564201.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.170926	0.0	70/5000	
+./Warwickvirus/MN850641.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.170926	0.0	70/5000	
+./Warwickvirus/LT841304.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.171602	0.0	69/5000	
+./Warwickvirus/LR027388.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.174408	0.0	65/5000	
+./Warwickvirus/MN850643.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.175137	0.0	64/5000	
+./Warwickvirus/MN850620.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.175137	0.0	64/5000	
+./Warwickvirus/MN850613.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.175137	0.0	64/5000	
+./Warwickvirus/LT961732.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.175878	0.0	63/5000	
+./Warwickvirus/LR596614.fna	/shared/team/taxamyphage/2023_VMR/MZ501090_taxmyphage_results/query.fasta	0.185827	6.32435e-299	51/5000	

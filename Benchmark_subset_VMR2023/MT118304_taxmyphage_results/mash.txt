@@ -1,0 +1,5 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Septimatrevirus/DQ163913.fna,/shared/team/taxamyphage/2023_VMR/MT118304_taxmyphage_results/query.fasta,0.0219913,0,2300/5000,
+./Septimatrevirus/JQ307387.fna,/shared/team/taxamyphage/2023_VMR/MT118304_taxmyphage_results/query.fasta,0.0246515,0,2122/5000,
+./Septimatrevirus/HG962376.fna,/shared/team/taxamyphage/2023_VMR/MT118304_taxmyphage_results/query.fasta,0.0273899,0,1957/5000,
+./Kilunavirus/JF939047.fna,/shared/team/taxamyphage/2023_VMR/MT118304_taxmyphage_results/query.fasta,0.180587,0,57/5000,

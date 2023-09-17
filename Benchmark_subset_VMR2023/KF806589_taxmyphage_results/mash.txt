@@ -1,0 +1,7 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Agricanvirus/KF806589.fna,/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta,0.0,0,5000/5000,
+./Agricanvirus/MG655268.fna,/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta,0.0154542,0,2830/5000,
+./Agricanvirus/KU886224.fna,/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta,0.015954,0,2784/5000,
+./Agricanvirus/KU886223.fna,/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta,0.0162081,0,2761/5000,
+./Agricanvirus/KU886225.fna,/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta,0.016657,0,2721/5000,
+./Agricanvirus/KU886222.fna,/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta,0.0191686,0,2511/5000,

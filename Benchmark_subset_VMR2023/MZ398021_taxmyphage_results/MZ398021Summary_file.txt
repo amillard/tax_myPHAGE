@@ -1,0 +1,23 @@
+Query sequence header was:MZ398021
+
+
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:Jedunavirus	Species:name_your_species
+    
+ 
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Jedunavirus/JX866719.fna	/shared/team/taxamyphage/2023_VMR/MZ398021_taxmyphage_results/query.fasta	0.065798	0	718/5000	
+./Jedunavirus/KX237516.fna	/shared/team/taxamyphage/2023_VMR/MZ398021_taxmyphage_results/query.fasta	0.0731425	0	603/5000	
+./Jedunavirus/MF663761.fna	/shared/team/taxamyphage/2023_VMR/MZ398021_taxmyphage_results/query.fasta	0.0947388	0	367/5000	
+./Peatvirus/MG432137.fna	/shared/team/taxamyphage/2023_VMR/MZ398021_taxmyphage_results/query.fasta	0.0985328	0	337/5000	

@@ -1,0 +1,9 @@
+A	AB609718:Kochikohdavirus	AP009390:Kochikohdavirus	KJ801817:Kochikohdavirus	KP339049:Schiekvirus	KR049063:Kochikohdavirus	KY549443:Schiekvirus	MH880817:Schiekvirus	taxmyPhage:
+AB609718:Kochikohdavirus	100.0	100.0	90.81	38.78	88.31	37.85	39.4	89.0
+AP009390:Kochikohdavirus	0.0	100.0	90.81	38.78	88.32	37.85	39.4	89.0
+KJ801817:Kochikohdavirus	0.0	0.0	100.0	39.46	86.91	40.19	40.23	93.56
+KP339049:Schiekvirus	0.0	0.0	0.0	100.0	38.29	76.96	91.15	38.81
+KR049063:Kochikohdavirus	0.0	0.0	0.0	0.0	100.0	38.32	39.71	87.8
+KY549443:Schiekvirus	0.0	0.0	0.0	0.0	0.0	100.0	78.78	39.46
+MH880817:Schiekvirus	0.0	0.0	0.0	0.0	0.0	0.0	100.0	39.9
+taxmyPhage:	0.0	0.0	0.0	0.0	0.0	0.0	0.0	100.0

@@ -1,0 +1,10 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Kayeltresvirus/GU911304.fna,/shared/team/taxamyphage/2023_VMR/OM638610_taxmyphage_results/query.fasta,0.0621569,0.0,784/5000,
+./Aptresvirus/MT701591.fna,/shared/team/taxamyphage/2023_VMR/OM638610_taxmyphage_results/query.fasta,0.132399,0.0,160/5000,
+./Aptresvirus/KP966108.fna,/shared/team/taxamyphage/2023_VMR/OM638610_taxmyphage_results/query.fasta,0.152843,0.0,103/5000,
+./Tigrvirus/MW072790.fna,/shared/team/taxamyphage/2023_VMR/OM638610_taxmyphage_results/query.fasta,0.159146,0.0,90/5000,
+./Tigrvirus/CP000623.fna,/shared/team/taxamyphage/2023_VMR/OM638610_taxmyphage_results/query.fasta,0.161274,0.0,86/5000,
+./Tigrvirus/OM304382.fna,/shared/team/taxamyphage/2023_VMR/OM638610_taxmyphage_results/query.fasta,0.161274,0.0,86/5000,
+./Tigrvirus/DQ087285.fna,/shared/team/taxamyphage/2023_VMR/OM638610_taxmyphage_results/query.fasta,0.168956,0.0,73/5000,
+./Duodecimduovirus/CP000624.fna,/shared/team/taxamyphage/2023_VMR/OM638610_taxmyphage_results/query.fasta,0.184912,1.57731e-311,52/5000,
+./Kisquinquevirus/GU911303.fna,/shared/team/taxamyphage/2023_VMR/OM638610_taxmyphage_results/query.fasta,0.187713,3.16998e-292,49/5000,

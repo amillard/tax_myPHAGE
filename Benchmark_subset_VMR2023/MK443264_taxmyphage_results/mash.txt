@@ -1,0 +1,12 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Pakpunavirus/KC862297.fna,/shared/team/taxamyphage/2023_VMR/MK443264_taxmyphage_results/query.fasta,0.0406407,0,1353/5000,
+./Pakpunavirus/LN610572.fna,/shared/team/taxamyphage/2023_VMR/MK443264_taxmyphage_results/query.fasta,0.0439699,0,1239/5000,
+./Pakpunavirus/KU761955.fna,/shared/team/taxamyphage/2023_VMR/MK443264_taxmyphage_results/query.fasta,0.0481403,0,1112/5000,
+./Pakpunavirus/HE983845.fna,/shared/team/taxamyphage/2023_VMR/MK443264_taxmyphage_results/query.fasta,0.048777,0,1094/5000,
+./Pakpunavirus/KY073228.fna,/shared/team/taxamyphage/2023_VMR/MK443264_taxmyphage_results/query.fasta,0.0503867,0,1050/5000,
+./Pakpunavirus/KR052143.fna,/shared/team/taxamyphage/2023_VMR/MK443264_taxmyphage_results/query.fasta,0.0510682,0,1032/5000,
+./Pakpunavirus/HQ832595.fna,/shared/team/taxamyphage/2023_VMR/MK443264_taxmyphage_results/query.fasta,0.0522752,0,1001/5000,
+./Pakpunavirus/KY000083.fna,/shared/team/taxamyphage/2023_VMR/MK443264_taxmyphage_results/query.fasta,0.0527944,0,988/5000,
+./Pakpunavirus/KC862300.fna,/shared/team/taxamyphage/2023_VMR/MK443264_taxmyphage_results/query.fasta,0.0536915,0,966/5000,
+./Pakpunavirus/GU988610.fna,/shared/team/taxamyphage/2023_VMR/MK443264_taxmyphage_results/query.fasta,0.0553416,0,927/5000,
+./Pakpunavirus/KC862298.fna,/shared/team/taxamyphage/2023_VMR/MK443264_taxmyphage_results/query.fasta,0.0562637,0,906/5000,

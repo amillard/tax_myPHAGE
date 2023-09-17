@@ -1,0 +1,18 @@
+Query sequence header was:JF939047
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:KilunavirusSpecies:Kilunavirus KL1
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Kilunavirus/JF939047.fna	/shared/team/taxamyphage/2023_VMR/JF939047_taxmyphage_results/query.fasta	0.0	0.0	5000/5000	
+./Septimatrevirus/JQ307387.fna	/shared/team/taxamyphage/2023_VMR/JF939047_taxmyphage_results/query.fasta	0.178173	0.0	60/5000	
+./Septimatrevirus/HG962376.fna	/shared/team/taxamyphage/2023_VMR/JF939047_taxmyphage_results/query.fasta	0.182269	0.0	55/5000	
+./Septimatrevirus/DQ163913.fna	/shared/team/taxamyphage/2023_VMR/JF939047_taxmyphage_results/query.fasta	0.184014	5.96303e-315	53/5000	

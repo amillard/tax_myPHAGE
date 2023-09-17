@@ -1,0 +1,20 @@
+Query sequence header was:KF806589
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:AgricanvirusSpecies:Agricanvirus desertfox
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Agricanvirus/KF806589.fna	/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta	0.0	0	5000/5000	
+./Agricanvirus/MG655268.fna	/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta	0.0154542	0	2830/5000	
+./Agricanvirus/KU886224.fna	/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta	0.015954	0	2784/5000	
+./Agricanvirus/KU886223.fna	/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta	0.0162081	0	2761/5000	
+./Agricanvirus/KU886225.fna	/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta	0.016657	0	2721/5000	
+./Agricanvirus/KU886222.fna	/shared/team/taxamyphage/2023_VMR/KF806589_taxmyphage_results/query.fasta	0.0191686	0	2511/5000	

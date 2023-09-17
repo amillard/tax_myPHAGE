@@ -1,0 +1,10 @@
+A	AM156909:Rtpvirus	JN986845:Guelphvirus	KX130960:Rtpvirus	KY398841:Guelphvirus	KY619305:Nouzillyvirus	MG050172:Loudonvirus	MK372342:Christensenvirus	MK907226:Veterinaerplatzvirus	taxmyPhage:
+AM156909:Rtpvirus	100.0	61.51	75.94	65.52	28.82	64.52	61.44	67.6	67.1
+JN986845:Guelphvirus	0.0	100.0	64.06	73.93	27.69	64.69	64.62	65.64	63.33
+KX130960:Rtpvirus	0.0	0.0	100.0	67.75	30.47	64.53	63.07	68.92	67.63
+KY398841:Guelphvirus	0.0	0.0	0.0	100.0	32.2	73.2	68.18	73.55	67.28
+KY619305:Nouzillyvirus	0.0	0.0	0.0	0.0	100.0	32.66	28.92	31.98	30.13
+MG050172:Loudonvirus	0.0	0.0	0.0	0.0	0.0	100.0	65.74	67.6	66.59
+MK372342:Christensenvirus	0.0	0.0	0.0	0.0	0.0	0.0	100.0	65.89	62.5
+MK907226:Veterinaerplatzvirus	0.0	0.0	0.0	0.0	0.0	0.0	0.0	100.0	66.05
+taxmyPhage:	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	100.0

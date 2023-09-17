@@ -1,0 +1,27 @@
+Query sequence header was:JX495043
+statement_current_genus_sp 
+                               Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:BeetrevirusSpecies:Beetrevirus JBD67
+                    
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Beetrevirus/JX495043.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.0	0.0	5000/5000	
+./Beetrevirus/LN898172.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.0284057	0.0	1900/5000	
+./Beetrevirus/JX495041.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.0361903	0.0	1526/5000	
+./Beetrevirus/AF232233.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.0809196	0.0	503/5000	
+./Casadabanvirus/JN811560.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.162376	0.0	84/5000	
+./Casadabanvirus/KM389459.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.162937	0.0	83/5000	
+./Casadabanvirus/KU199708.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.186761	7.73504e-299	50/5000	
+./Casadabanvirus/EU272036.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.188686	3.45608e-286	48/5000	
+./Casadabanvirus/HM624080.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.191731	9.81932e-268	45/5000	
+./Casadabanvirus/KF475786.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.192791	9.27949e-261	44/5000	
+./Casadabanvirus/JX434030.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.193877	3.2693800000000003e-254	43/5000	
+./Casadabanvirus/MH643777.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.197292	1.66147e-235	40/5000	
+./Casadabanvirus/MK144667.fna	/shared/team/taxamyphage/2023_VMR/JX495043_taxmyphage_results/query.fasta	0.199716	8.330760000000001e-223	38/5000	

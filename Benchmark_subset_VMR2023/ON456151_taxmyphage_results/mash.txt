@@ -1,0 +1,3 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Psavirus/JX120799.fna,/shared/team/taxamyphage/2023_VMR/ON456151_taxmyphage_results/query.fasta,0.187713,4.36404e-291,49/5000,
+./Psavirus/AJ312240.fna,/shared/team/taxamyphage/2023_VMR/ON456151_taxmyphage_results/query.fasta,0.198488,2.63828e-228,39/5000,

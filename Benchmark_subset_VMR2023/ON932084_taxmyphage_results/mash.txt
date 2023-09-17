@@ -1,0 +1,4 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Bosavirus/LR743532.fna,/shared/team/taxamyphage/2023_VMR/ON932084_taxmyphage_results/query.fasta,0.0353652,0.0,1561/5000,
+./Xooduovirus/KX241618.fna,/shared/team/taxamyphage/2023_VMR/ON932084_taxmyphage_results/query.fasta,0.164079,0.0,81/5000,
+./Pamexvirus/JQ067093.fna,/shared/team/taxamyphage/2023_VMR/ON932084_taxmyphage_results/query.fasta,0.193877,2.66358e-245,43/5000,

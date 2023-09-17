@@ -1,0 +1,29 @@
+Query sequence header was:KJ591604
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Herelleviridae	Subfamily:Jasinkavirinae	Genus:PecentumvirusSpecies:Pecentumvirus LP064
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Pecentumvirus/KJ591604.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0	0	5000/5000	
+./Pecentumvirus/KJ094033.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0164315	0	2741/5000	
+./Pecentumvirus/JQ797329.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0186072	0	2556/5000	
+./Pecentumvirus/KJ535721.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0192952	0	2501/5000	
+./Pecentumvirus/KM373208.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.021196	0	2357/5000	
+./Pecentumvirus/DQ003638.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0213751	0	2344/5000	
+./Pecentumvirus/KJ094031.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0221193	0	2291/5000	
+./Pecentumvirus/KJ094030.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0221193	0	2291/5000	
+./Pecentumvirus/KJ094029.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.022406	0	2271/5000	
+./Pecentumvirus/JX126918.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0225216	0	2263/5000	
+./Pecentumvirus/DQ004855.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0227984	0	2244/5000	
+./Pecentumvirus/KJ535722.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0274775	0	1952/5000	
+./Pecentumvirus/KJ586794.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0274775	0	1952/5000	
+./Pecentumvirus/KJ586795.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0276359	0	1943/5000	
+./Pecentumvirus/KJ591605.fna	/shared/team/taxamyphage/2023_VMR/KJ591604_taxmyphage_results/query.fasta	0.0277066	0	1939/5000	

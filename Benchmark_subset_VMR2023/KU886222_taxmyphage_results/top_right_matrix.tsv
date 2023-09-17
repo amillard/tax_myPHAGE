@@ -1,0 +1,8 @@
+A	KF806589:Agricanvirus	KU886222:Agricanvirus	KU886223:Agricanvirus	KU886224:Agricanvirus	KU886225:Agricanvirus	MG655268:Agricanvirus	taxmyPhage:
+KF806589:Agricanvirus	100.0	95.83	95.98	96.31	95.82	95.51	95.83
+KU886222:Agricanvirus	0.0	100.0	97.24	97.22	95.67	95.73	100.0
+KU886223:Agricanvirus	0.0	0.0	100.0	97.74	95.84	95.75	97.24
+KU886224:Agricanvirus	0.0	0.0	0.0	100.0	96.14	96.08	97.22
+KU886225:Agricanvirus	0.0	0.0	0.0	0.0	100.0	96.41	95.67
+MG655268:Agricanvirus	0.0	0.0	0.0	0.0	0.0	100.0	95.73
+taxmyPhage:	0.0	0.0	0.0	0.0	0.0	0.0	100.0

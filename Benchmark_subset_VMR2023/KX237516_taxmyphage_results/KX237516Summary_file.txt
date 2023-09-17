@@ -1,0 +1,18 @@
+Query sequence header was:KX237516
+statement_current_genus_sp 
+                               Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:JedunavirusSpecies:Jedunavirus KpV80
+                    
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Jedunavirus/KX237516.fna	/shared/team/taxamyphage/2023_VMR/KX237516_taxmyphage_results/query.fasta	0.0	0	5000/5000	
+./Jedunavirus/JX866719.fna	/shared/team/taxamyphage/2023_VMR/KX237516_taxmyphage_results/query.fasta	0.0734965	0	598/5000	
+./Jedunavirus/MF663761.fna	/shared/team/taxamyphage/2023_VMR/KX237516_taxmyphage_results/query.fasta	0.0831304	0	478/5000	
+./Peatvirus/MG432137.fna	/shared/team/taxamyphage/2023_VMR/KX237516_taxmyphage_results/query.fasta	0.097358	0	346/5000	

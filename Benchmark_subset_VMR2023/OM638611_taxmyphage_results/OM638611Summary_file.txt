@@ -1,0 +1,28 @@
+Query sequence header was:OM638611
+
+
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    Class:Caudoviricetes	Family: Peduoviridae	Subfamily:Not Defined Yet	Genus:Kayeltresvirus	Species:name_your_species
+    
+ 
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Kayeltresvirus/GU911304.fna	/shared/team/taxamyphage/2023_VMR/OM638611_taxmyphage_results/query.fasta	0.0645437	0.0	740/5000	
+./Aptresvirus/KP966108.fna	/shared/team/taxamyphage/2023_VMR/OM638611_taxmyphage_results/query.fasta	0.148114	0.0	114/5000	
+./Aptresvirus/MT701591.fna	/shared/team/taxamyphage/2023_VMR/OM638611_taxmyphage_results/query.fasta	0.15863	0.0	91/5000	
+./Tigrvirus/MW072790.fna	/shared/team/taxamyphage/2023_VMR/OM638611_taxmyphage_results/query.fasta	0.162376	0.0	84/5000	
+./Tigrvirus/OM304382.fna	/shared/team/taxamyphage/2023_VMR/OM638611_taxmyphage_results/query.fasta	0.164079	0.0	81/5000	
+./Tigrvirus/CP000623.fna	/shared/team/taxamyphage/2023_VMR/OM638611_taxmyphage_results/query.fasta	0.164662	0.0	80/5000	
+./Tigrvirus/DQ087285.fna	/shared/team/taxamyphage/2023_VMR/OM638611_taxmyphage_results/query.fasta	0.171602	0.0	69/5000	
+./Duodecimduovirus/CP000624.fna	/shared/team/taxamyphage/2023_VMR/OM638611_taxmyphage_results/query.fasta	0.184912	7.91955e-312	52/5000	
+./Kisquinquevirus/GU911303.fna	/shared/team/taxamyphage/2023_VMR/OM638611_taxmyphage_results/query.fasta	0.198488	2.77334e-229	39/5000	

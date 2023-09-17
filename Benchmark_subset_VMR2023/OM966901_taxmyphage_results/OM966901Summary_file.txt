@@ -1,0 +1,19 @@
+Query sequence header was:OM966901
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Herelleviridae	Subfamily:Brockvirinae	Genus:Schiekvirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Schiekvirus/KP339049.fna	/shared/team/taxamyphage/2023_VMR/OM966901_taxmyphage_results/query.fasta	0.0169536	0	2695/5000	
+./Schiekvirus/MH880817.fna	/shared/team/taxamyphage/2023_VMR/OM966901_taxmyphage_results/query.fasta	0.025894	0	2045/5000	
+./Schiekvirus/KY549443.fna	/shared/team/taxamyphage/2023_VMR/OM966901_taxmyphage_results/query.fasta	0.0518811	0	1011/5000	

@@ -1,0 +1,40 @@
+Query sequence header was:MK511059
+
+
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:Beetrevirus	Species:name_your_species
+    
+ 
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Beetrevirus/JX495043.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.0211822	0.0	2358/5000	
+./Beetrevirus/LN898172.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.0363101	0.0	1521/5000	
+./Beetrevirus/JX495041.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.0376104	0.0	1468/5000	
+./Beetrevirus/AF232233.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.073639	0.0	596/5000	
+./Casadabanvirus/MH643777.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.136	0.0	148/5000	
+./Casadabanvirus/EU272036.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.136314	0.0	147/5000	
+./Casadabanvirus/JN811560.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.13759	0.0	143/5000	
+./Casadabanvirus/HE584812.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.142728	0.0	128/5000	
+./Casadabanvirus/AY394005.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.142728	0.0	128/5000	
+./Casadabanvirus/JX434030.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.14383	0.0	125/5000	
+./Casadabanvirus/KM389459.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.146509	0.0	118/5000	
+./Casadabanvirus/MK144667.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.146905	0.0	117/5000	
+./Casadabanvirus/HM624080.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.147304	0.0	116/5000	
+./Casadabanvirus/KJ477077.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.148938	0.0	112/5000	
+./Casadabanvirus/KF475786.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.149356	0.0	111/5000	
+./Casadabanvirus/LT999987.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.150633	0.0	108/5000	
+./Casadabanvirus/MH643778.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.154223	0.0	100/5000	
+./Casadabanvirus/DQ631426.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.162376	0.0	84/5000	
+./Casadabanvirus/JQ762257.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.190693	4.6913e-273	46/5000	
+./Casadabanvirus/JX434031.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.197292	3.63746e-235	40/5000	
+./Casadabanvirus/KU199708.fna	/shared/team/taxamyphage/2023_VMR/MK511059_taxmyphage_results/query.fasta	0.199716	1.1153e-222	38/5000	

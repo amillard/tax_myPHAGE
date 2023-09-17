@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Wumpquatrovirus/DQ875742.fna,/shared/team/taxamyphage/2023_VMR/OM897575_taxmyphage_results/query.fasta,0.0756916,0,568/5000,

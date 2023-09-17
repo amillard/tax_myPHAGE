@@ -1,0 +1,46 @@
+Query sequence header was:MZ428224
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Drexlerviridae	Subfamily:Not Defined Yet	Genus:WebervirusSpecies:Webervirus call
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Webervirus/MN013079.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.0264451	0	2012/5000	
+./Webervirus/MN013083.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.0281347	0	1915/5000	
+./Webervirus/MN013075.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.0294046	0	1846/5000	
+./Webervirus/MN013076.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.0309147	0	1768/5000	
+./Webervirus/KY780482.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.035342	0	1562/5000	
+./Webervirus/KX237515.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.0386825	0	1426/5000	
+./Webervirus/KR269719.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.0483865	0	1105/5000	
+./Webervirus/MN013080.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.0562192	0	907/5000	
+./Webervirus/KR262148.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.0927332	0	384/5000	
+./Webervirus/MK931444.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.119047	0	214/5000	
+./Webervirus/MK170446.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.12214	0	200/5000	
+./Webervirus/MN395286.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.125964	0	184/5000	
+./Webervirus/MG552615.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.129604	0	170/5000	
+./Webervirus/MK931443.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.13126	0	164/5000	
+./Webervirus/MN379832.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.13126	0	164/5000	
+./Webervirus/JF501022.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.132688	0	159/5000	
+./Webervirus/MH633484.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.13663	0	146/5000	
+./Webervirus/MF415412.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.137268	0	144/5000	
+./Webervirus/MH688453.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.138572	0	140/5000	
+./Webervirus/MK278861.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.140603	0	134/5000	
+./Webervirus/MF612072.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.141653	0	131/5000	
+./Webervirus/MK521904.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.142367	0	129/5000	
+./Webervirus/MN689779.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.14346	0	126/5000	
+./Webervirus/KT001920.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.14383	0	125/5000	
+./Webervirus/JN672684.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.146116	0	119/5000	
+./Webervirus/MK931445.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.146509	0	118/5000	
+./Webervirus/MN783016.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.148524	0	113/5000	
+./Webervirus/MG894052.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.148524	0	113/5000	
+./Webervirus/KP658157.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.150203	0	109/5000	
+./Webervirus/MH445453.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.151504	0	106/5000	
+./Webervirus/MH844531.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.151504	0	106/5000	
+./Webervirus/MK931442.fna	/shared/team/taxamyphage/2023_VMR/MZ428224_taxmyphage_results/query.fasta	0.154692	0	99/5000	

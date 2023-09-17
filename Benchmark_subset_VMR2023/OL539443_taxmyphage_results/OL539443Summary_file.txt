@@ -1,0 +1,29 @@
+Query sequence header was:OL539443
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Drexlerviridae	Subfamily:Tempevirinae	Genus:Tlsvirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Tlsvirus/KY694971.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.0338478	0.0	1628/5000	
+./Tlsvirus/MG241338.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.0342254	0.0	1611/5000	
+./Tlsvirus/MH102284.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.040919	0.0	1343/5000	
+./Tlsvirus/AY308796.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.043089	0.0	1268/5000	
+./Tlsvirus/KR296690.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.0446863	0.0	1216/5000	
+./Tlsvirus/MH729819.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.0449076	0.0	1209/5000	
+./Tlsvirus/KC139513.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.0451623	0.0	1201/5000	
+./Tlsvirus/KM236241.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.0454836	0.0	1191/5000	
+./Tlsvirus/MH491968.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.0466675	0.0	1155/5000	
+./Tlsvirus/KX015770.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.0469365	0.0	1147/5000	
+./Changchunvirus/MK778457.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.192791	2.74042e-255	44/5000	
+./Epseptimavirus/MN187969.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.196126	5.54327e-231	41/5000	
+./Henuseptimavirus/MN019128.fna	/shared/team/taxamyphage/2023_VMR/OL539443_taxmyphage_results/query.fasta	0.197292	1.2466699999999999e-230	40/5000	

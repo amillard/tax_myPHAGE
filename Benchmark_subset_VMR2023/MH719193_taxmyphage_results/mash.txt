@@ -1,0 +1,11 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Beetrevirus/JX495041.fna,/shared/team/taxamyphage/2023_VMR/MH719193_taxmyphage_results/query.fasta,0.0614292,0.0,798/5000,
+./Beetrevirus/JX495043.fna,/shared/team/taxamyphage/2023_VMR/MH719193_taxmyphage_results/query.fasta,0.0790711,0.0,525/5000,
+./Beetrevirus/AF232233.fna,/shared/team/taxamyphage/2023_VMR/MH719193_taxmyphage_results/query.fasta,0.0947388,0.0,367/5000,
+./Beetrevirus/LN898172.fna,/shared/team/taxamyphage/2023_VMR/MH719193_taxmyphage_results/query.fasta,0.0967193,0.0,351/5000,
+./Casadabanvirus/DQ631426.fna,/shared/team/taxamyphage/2023_VMR/MH719193_taxmyphage_results/query.fasta,0.168956,0.0,73/5000,
+./Casadabanvirus/LT999987.fna,/shared/team/taxamyphage/2023_VMR/MH719193_taxmyphage_results/query.fasta,0.182269,0.0,55/5000,
+./Casadabanvirus/KM389459.fna,/shared/team/taxamyphage/2023_VMR/MH719193_taxmyphage_results/query.fasta,0.186761,1.33735e-298,50/5000,
+./Casadabanvirus/JQ762257.fna,/shared/team/taxamyphage/2023_VMR/MH719193_taxmyphage_results/query.fasta,0.196126,9.39237e-242,41/5000,
+./Casadabanvirus/JX434030.fna,/shared/team/taxamyphage/2023_VMR/MH719193_taxmyphage_results/query.fasta,0.196126,1.54735e-241,41/5000,
+./Casadabanvirus/JN811560.fna,/shared/team/taxamyphage/2023_VMR/MH719193_taxmyphage_results/query.fasta,0.197292,3.11067e-235,40/5000,

@@ -1,0 +1,4 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Schiekvirus/MH880817.fna,/shared/team/taxamyphage/2023_VMR/MN241318_taxmyphage_results/query.fasta,0.0188053,0,2540/5000,
+./Schiekvirus/KP339049.fna,/shared/team/taxamyphage/2023_VMR/MN241318_taxmyphage_results/query.fasta,0.020056,0,2442/5000,
+./Schiekvirus/KY549443.fna,/shared/team/taxamyphage/2023_VMR/MN241318_taxmyphage_results/query.fasta,0.0475501,0,1129/5000,

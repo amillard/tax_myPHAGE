@@ -1,0 +1,5 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Graikaemvirus/OM140653.fna,/shared/team/taxamyphage/2023_VMR/OM140653_taxmyphage_results/query.fasta,0.0,0,5000/5000,
+./Duonihilunusvirus/OM046626.fna,/shared/team/taxamyphage/2023_VMR/OM140653_taxmyphage_results/query.fasta,0.0867434,0,440/5000,
+./Duonihilunusvirus/OM046628.fna,/shared/team/taxamyphage/2023_VMR/OM140653_taxmyphage_results/query.fasta,0.0875471,0,432/5000,
+./Duonihilunusvirus/OM046627.fna,/shared/team/taxamyphage/2023_VMR/OM140653_taxmyphage_results/query.fasta,0.0919348,0,391/5000,

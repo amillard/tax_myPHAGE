@@ -1,0 +1,11 @@
+A	B	sim
+KJ801817:Kochikohdavirus	KR049063:Kochikohdavirus	86.91141896046587
+KR049063:Kochikohdavirus	taxmyPhage:	88.223373607475
+AP009390:Kochikohdavirus	KR049063:Kochikohdavirus	88.3153129395218
+AB609718:Kochikohdavirus	KR049063:Kochikohdavirus	88.314580403188
+KJ801817:Kochikohdavirus	taxmyPhage:	88.76504217529529
+AP009390:Kochikohdavirus	KJ801817:Kochikohdavirus	90.80879029173477
+AB609718:Kochikohdavirus	KJ801817:Kochikohdavirus	90.80809485726208
+AP009390:Kochikohdavirus	taxmyPhage:	93.73668826953644
+AB609718:Kochikohdavirus	taxmyPhage:	93.73598649791398
+AB609718:Kochikohdavirus	AP009390:Kochikohdavirus	99.99929613153894

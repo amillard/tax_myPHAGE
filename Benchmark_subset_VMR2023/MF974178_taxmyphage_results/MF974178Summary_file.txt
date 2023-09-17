@@ -1,0 +1,27 @@
+Query sequence header was:MF974178
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:Pakpunavirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Pakpunavirus/LN610572.fna	/shared/team/taxamyphage/2023_VMR/MF974178_taxmyphage_results/query.fasta	0.0194224	0	2491/5000	
+./Pakpunavirus/KC862300.fna	/shared/team/taxamyphage/2023_VMR/MF974178_taxmyphage_results/query.fasta	0.0245415	0	2129/5000	
+./Pakpunavirus/KY000083.fna	/shared/team/taxamyphage/2023_VMR/MF974178_taxmyphage_results/query.fasta	0.0265974	0	2003/5000	
+./Pakpunavirus/HE983845.fna	/shared/team/taxamyphage/2023_VMR/MF974178_taxmyphage_results/query.fasta	0.0269735	0	1981/5000	
+./Pakpunavirus/KC862298.fna	/shared/team/taxamyphage/2023_VMR/MF974178_taxmyphage_results/query.fasta	0.0280987	0	1917/5000	
+./Pakpunavirus/KY073228.fna	/shared/team/taxamyphage/2023_VMR/MF974178_taxmyphage_results/query.fasta	0.0283332	0	1904/5000	
+./Pakpunavirus/KR052143.fna	/shared/team/taxamyphage/2023_VMR/MF974178_taxmyphage_results/query.fasta	0.0284239	0	1899/5000	
+./Pakpunavirus/HQ832595.fna	/shared/team/taxamyphage/2023_VMR/MF974178_taxmyphage_results/query.fasta	0.0296506	0	1833/5000	
+./Pakpunavirus/GU988610.fna	/shared/team/taxamyphage/2023_VMR/MF974178_taxmyphage_results/query.fasta	0.0303436	0	1797/5000	
+./Pakpunavirus/KU761955.fna	/shared/team/taxamyphage/2023_VMR/MF974178_taxmyphage_results/query.fasta	0.0332581	0	1655/5000	
+./Pakpunavirus/KC862297.fna	/shared/team/taxamyphage/2023_VMR/MF974178_taxmyphage_results/query.fasta	0.0413694	0	1327/5000	

@@ -1,0 +1,22 @@
+Query sequence header was:MN585986
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:Metamorphoovirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Metamorphoovirus/MH271312.fna	/shared/team/taxamyphage/2023_VMR/MN585986_taxmyphage_results/query.fasta	0.106365	0	283/5000	
+./Metamorphoovirus/MH271304.fna	/shared/team/taxamyphage/2023_VMR/MN585986_taxmyphage_results/query.fasta	0.107331	0	277/5000	
+./Quhwahvirus/MH155873.fna	/shared/team/taxamyphage/2023_VMR/MN585986_taxmyphage_results/query.fasta	0.107494	0	276/5000	
+./Metamorphoovirus/MK524510.fna	/shared/team/taxamyphage/2023_VMR/MN585986_taxmyphage_results/query.fasta	0.109331	0	265/5000	
+./Quhwahvirus/MH271321.fna	/shared/team/taxamyphage/2023_VMR/MN585986_taxmyphage_results/query.fasta	0.111251	0	254/5000	
+./Quhwahvirus/MH590600.fna	/shared/team/taxamyphage/2023_VMR/MN585986_taxmyphage_results/query.fasta	0.112518	0	247/5000	

@@ -1,0 +1,22 @@
+Query sequence header was:ON932084
+
+
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    Class:Caudoviricetes	Family: Mesyanzhinovviridae	Subfamily:Bradleyvirinae	Genus:Bosavirus	Species:name_your_species
+    
+ 
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Bosavirus/LR743532.fna	/shared/team/taxamyphage/2023_VMR/ON932084_taxmyphage_results/query.fasta	0.0353652	0.0	1561/5000	
+./Xooduovirus/KX241618.fna	/shared/team/taxamyphage/2023_VMR/ON932084_taxmyphage_results/query.fasta	0.164079	0.0	81/5000	
+./Pamexvirus/JQ067093.fna	/shared/team/taxamyphage/2023_VMR/ON932084_taxmyphage_results/query.fasta	0.193877	2.66358e-245	43/5000	

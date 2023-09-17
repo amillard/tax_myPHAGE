@@ -1,0 +1,24 @@
+Query sequence header was:LR699804
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Vequintavirinae	Genus:Vequintavirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Vequintavirus/KT001917.fna	/shared/team/taxamyphage/2023_VMR/LR699804_taxmyphage_results/query.fasta	0.0182645	0	2584/5000	
+./Vequintavirus/KR698074.fna	/shared/team/taxamyphage/2023_VMR/LR699804_taxmyphage_results/query.fasta	0.026093	0	2033/5000	
+./Vequintavirus/LN881727.fna	/shared/team/taxamyphage/2023_VMR/LR699804_taxmyphage_results/query.fasta	0.0264282	0	2013/5000	
+./Vequintavirus/KJ190158.fna	/shared/team/taxamyphage/2023_VMR/LR699804_taxmyphage_results/query.fasta	0.0269391	0	1983/5000	
+./Vequintavirus/KC690136.fna	/shared/team/taxamyphage/2023_VMR/LR699804_taxmyphage_results/query.fasta	0.0294612	0	1843/5000	
+./Vequintavirus/KY683736.fna	/shared/team/taxamyphage/2023_VMR/LR699804_taxmyphage_results/query.fasta	0.0301107	0	1809/5000	
+./Vequintavirus/DQ832317.fna	/shared/team/taxamyphage/2023_VMR/LR699804_taxmyphage_results/query.fasta	0.0303631	0	1796/5000	
+./Vequintavirus/JQ031132.fna	/shared/team/taxamyphage/2023_VMR/LR699804_taxmyphage_results/query.fasta	0.0565317	0	900/5000	

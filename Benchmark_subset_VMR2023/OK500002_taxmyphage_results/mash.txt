@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Hubeivirus/KX227757.fna,/shared/team/taxamyphage/2023_VMR/OK500002_taxmyphage_results/query.fasta,0.167688,0,75/5000,

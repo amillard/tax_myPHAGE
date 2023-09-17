@@ -1,0 +1,20 @@
+Query sequence header was:ON113169
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Herelleviridae	Subfamily:Brockvirinae	Genus:Kochikohdavirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Kochikohdavirus/AP009390.fna	/shared/team/taxamyphage/2023_VMR/ON113169_taxmyphage_results/query.fasta	0.012872	0	3085/5000	
+./Kochikohdavirus/AB609718.fna	/shared/team/taxamyphage/2023_VMR/ON113169_taxmyphage_results/query.fasta	0.0129102	0	3081/5000	
+./Kochikohdavirus/KJ801817.fna	/shared/team/taxamyphage/2023_VMR/ON113169_taxmyphage_results/query.fasta	0.022105	0	2292/5000	
+./Kochikohdavirus/KR049063.fna	/shared/team/taxamyphage/2023_VMR/ON113169_taxmyphage_results/query.fasta	0.0239216	0	2169/5000	

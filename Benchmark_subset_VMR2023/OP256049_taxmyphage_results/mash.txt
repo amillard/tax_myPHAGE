@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Susfortunavirus/MH393889.fna,/shared/team/taxamyphage/2023_VMR/OP256049_taxmyphage_results/query.fasta,0.127747,0,177/5000,

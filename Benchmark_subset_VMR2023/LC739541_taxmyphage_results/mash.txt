@@ -1,0 +1,9 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Vequintavirus/KT001917.fna,/shared/team/taxamyphage/2023_VMR/LC739541_taxmyphage_results/query.fasta,0.02746,0,1953/5000,
+./Vequintavirus/KJ190158.fna,/shared/team/taxamyphage/2023_VMR/LC739541_taxmyphage_results/query.fasta,0.0299949,0,1815/5000,
+./Vequintavirus/DQ832317.fna,/shared/team/taxamyphage/2023_VMR/LC739541_taxmyphage_results/query.fasta,0.0309944,0,1764/5000,
+./Vequintavirus/KC690136.fna,/shared/team/taxamyphage/2023_VMR/LC739541_taxmyphage_results/query.fasta,0.0311144,0,1758/5000,
+./Vequintavirus/KR698074.fna,/shared/team/taxamyphage/2023_VMR/LC739541_taxmyphage_results/query.fasta,0.0314369,0,1742/5000,
+./Vequintavirus/LN881727.fna,/shared/team/taxamyphage/2023_VMR/LC739541_taxmyphage_results/query.fasta,0.0340471,0,1619/5000,
+./Vequintavirus/KY683736.fna,/shared/team/taxamyphage/2023_VMR/LC739541_taxmyphage_results/query.fasta,0.03699,0,1493/5000,
+./Vequintavirus/JQ031132.fna,/shared/team/taxamyphage/2023_VMR/LC739541_taxmyphage_results/query.fasta,0.0550395,0,934/5000,

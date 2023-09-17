@@ -1,0 +1,15 @@
+Query sequence header was:DQ875742
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:WumpquatrovirusSpecies:Wumpquatrovirus WMP4
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Wumpquatrovirus/DQ875742.fna	/shared/team/taxamyphage/2023_VMR/DQ875742_taxmyphage_results/query.fasta	0	0	5000/5000	

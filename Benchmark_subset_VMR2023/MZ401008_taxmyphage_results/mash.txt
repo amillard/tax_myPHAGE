@@ -1,0 +1,5 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Brucesealvirus/JQ729990.fna,/shared/team/taxamyphage/2023_VMR/MZ401008_taxmyphage_results/query.fasta,0.0271116,0,1973/5000,
+./Brucesealvirus/JQ729991.fna,/shared/team/taxamyphage/2023_VMR/MZ401008_taxmyphage_results/query.fasta,0.0271462,0,1971/5000,
+./Brucesealvirus/JQ729992.fna,/shared/team/taxamyphage/2023_VMR/MZ401008_taxmyphage_results/query.fasta,0.0722372,0,616/5000,
+./Brucesealvirus/MH248069.fna,/shared/team/taxamyphage/2023_VMR/MZ401008_taxmyphage_results/query.fasta,0.119475,0,212/5000,
