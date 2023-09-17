@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Wbetavirus/DQ289555.fna,/shared/team/taxamyphage/2023_VMR/MT745955_taxmyphage_results/query.fasta,0.0659142,0,716/5000,

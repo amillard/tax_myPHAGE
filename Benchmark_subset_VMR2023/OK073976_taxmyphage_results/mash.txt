@@ -1,0 +1,3 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Loessnervirus/MT230534.fna,/shared/team/taxamyphage/2023_VMR/OK073976_taxmyphage_results/query.fasta,0.157113,0,94/5000,
+./Loessnervirus/HQ728264.fna,/shared/team/taxamyphage/2023_VMR/OK073976_taxmyphage_results/query.fasta,0.157613,0,93/5000,

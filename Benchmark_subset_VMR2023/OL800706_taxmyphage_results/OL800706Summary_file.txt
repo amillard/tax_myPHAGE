@@ -1,0 +1,32 @@
+Query sequence header was:OL800706
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Drexlerviridae	Subfamily:Tunavirinae	Genus:Tunavirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Tunavirus/KU194206.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0460045	0	1175/5000	
+./Tunavirus/KX828710.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0500882	0	1058/5000	
+./Tunavirus/AY216660.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0514916	0	1021/5000	
+./Tunavirus/JX912252.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.052474	0	996/5000	
+./Tunavirus/KU194205.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0536502	0	967/5000	
+./Tunavirus/KY985004.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0541908	0	954/5000	
+./Tunavirus/MH285980.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0567566	0	895/5000	
+./Tunavirus/MH051911.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0577637	0	873/5000	
+./Tunavirus/LC516895.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0667972	0	701/5000	
+./Tunavirus/MN296515.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0681933	0	678/5000	
+./Tunavirus/MF093736.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0685663	0	672/5000	
+./Tunavirus/KP085586.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0732837	0	601/5000	
+./Tunavirus/HM035024.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0743596	0	586/5000	
+./Tunavirus/MF468274.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0847068	0	461/5000	
+./Tunavirus/MK335533.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.088888	0	419/5000	
+./Tunavirus/MG049919.fna	/shared/team/taxamyphage/2023_VMR/OL800706_taxmyphage_results/query.fasta	0.0894157	0	414/5000	

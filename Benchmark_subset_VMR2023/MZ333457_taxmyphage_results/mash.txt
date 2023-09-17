@@ -1,0 +1,6 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Saphexavirus/KF192053.fna,/shared/team/taxamyphage/2023_VMR/MZ333457_taxmyphage_results/query.fasta,0.0469028,0,1148/5000,
+./Saphexavirus/HE962497.fna,/shared/team/taxamyphage/2023_VMR/MZ333457_taxmyphage_results/query.fasta,0.052474,0,996/5000,
+./Saphexavirus/KJ094032.fna,/shared/team/taxamyphage/2023_VMR/MZ333457_taxmyphage_results/query.fasta,0.0572566,0,884/5000,
+./Saphexavirus/JF731128.fna,/shared/team/taxamyphage/2023_VMR/MZ333457_taxmyphage_results/query.fasta,0.0588483,0,850/5000,
+./Saphexavirus/AB712291.fna,/shared/team/taxamyphage/2023_VMR/MZ333457_taxmyphage_results/query.fasta,0.064656,0,738/5000,

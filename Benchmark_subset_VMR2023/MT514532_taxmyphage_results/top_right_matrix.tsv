@@ -1,0 +1,10 @@
+A	KC330679:Andromedavirus	KC330680:Andromedavirus	KC330682:Andromedavirus	KC330683:Andromedavirus	KC330684:Andromedavirus	KF669648:Andromedavirus	KF669651:Andromedavirus	KF669659:Andromedavirus	taxmyPhage:
+KC330679:Andromedavirus	100.0	74.57	74.73	69.97	92.64	66.36	93.32	68.85	93.18
+KC330680:Andromedavirus	0.0	100.0	99.01	68.96	74.18	82.09	74.57	67.89	73.67
+KC330682:Andromedavirus	0.0	0.0	100.0	68.85	74.32	81.83	74.61	67.83	73.86
+KC330683:Andromedavirus	0.0	0.0	0.0	100.0	70.36	74.82	70.12	93.16	70.7
+KC330684:Andromedavirus	0.0	0.0	0.0	0.0	100.0	66.32	94.97	69.24	91.84
+KF669648:Andromedavirus	0.0	0.0	0.0	0.0	0.0	100.0	66.23	74.11	65.76
+KF669651:Andromedavirus	0.0	0.0	0.0	0.0	0.0	0.0	100.0	69.66	91.26
+KF669659:Andromedavirus	0.0	0.0	0.0	0.0	0.0	0.0	0.0	100.0	68.96
+taxmyPhage:	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	100.0

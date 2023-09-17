@@ -1,0 +1,27 @@
+Query sequence header was:MZ501077
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Drexlerviridae	Subfamily:Tempevirinae	Genus:Henuseptimavirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Henuseptimavirus/MN019128.fna	/shared/team/taxamyphage/2023_VMR/MZ501077_taxmyphage_results/query.fasta	0.0401461	0.0	1371/5000	
+./Tlsvirus/MG241338.fna	/shared/team/taxamyphage/2023_VMR/MZ501077_taxmyphage_results/query.fasta	0.180587	0.0	57/5000	
+./Tlsvirus/MH102284.fna	/shared/team/taxamyphage/2023_VMR/MZ501077_taxmyphage_results/query.fasta	0.180587	0.0	57/5000	
+./Tlsvirus/KC139513.fna	/shared/team/taxamyphage/2023_VMR/MZ501077_taxmyphage_results/query.fasta	0.182269	1e-323	55/5000	
+./Tlsvirus/AY308796.fna	/shared/team/taxamyphage/2023_VMR/MZ501077_taxmyphage_results/query.fasta	0.182269	5e-324	55/5000	
+./Tlsvirus/KM236241.fna	/shared/team/taxamyphage/2023_VMR/MZ501077_taxmyphage_results/query.fasta	0.184014	1.69616e-311	53/5000	
+./Tlsvirus/MH729819.fna	/shared/team/taxamyphage/2023_VMR/MZ501077_taxmyphage_results/query.fasta	0.186761	1.00062e-292	50/5000	
+./Tlsvirus/KR296690.fna	/shared/team/taxamyphage/2023_VMR/MZ501077_taxmyphage_results/query.fasta	0.188686	2.62439e-282	48/5000	
+./Tlsvirus/MH491968.fna	/shared/team/taxamyphage/2023_VMR/MZ501077_taxmyphage_results/query.fasta	0.188686	3.31228e-280	48/5000	
+./Tlsvirus/KX015770.fna	/shared/team/taxamyphage/2023_VMR/MZ501077_taxmyphage_results/query.fasta	0.191731	1.16967e-261	45/5000	
+./Tlsvirus/KY694971.fna	/shared/team/taxamyphage/2023_VMR/MZ501077_taxmyphage_results/query.fasta	0.191731	1.98897e-261	45/5000	

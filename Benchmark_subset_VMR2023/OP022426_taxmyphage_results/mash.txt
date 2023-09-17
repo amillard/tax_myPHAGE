@@ -1,0 +1,4 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Gregsiragusavirus/MH999279.fna,/shared/team/taxamyphage/2023_VMR/OP022426_taxmyphage_results/query.fasta,0.0458408,0,1180/5000,
+./Gregsiragusavirus/JN800508.fna,/shared/team/taxamyphage/2023_VMR/OP022426_taxmyphage_results/query.fasta,0.0572566,0,884/5000,
+./Gregsiragusavirus/KY996523.fna,/shared/team/taxamyphage/2023_VMR/OP022426_taxmyphage_results/query.fasta,0.0628995,0,770/5000,

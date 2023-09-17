@@ -1,0 +1,3 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Sugarlandvirus/KX845404.fna,/shared/team/taxamyphage/2023_VMR/MZ571828_taxmyphage_results/query.fasta,0.0346987,0,1590/5000,
+./Sugarlandvirus/MG459987.fna,/shared/team/taxamyphage/2023_VMR/MZ571828_taxmyphage_results/query.fasta,0.0395255,0,1394/5000,

@@ -1,0 +1,7 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Bridgettevirus/MH834603.fna,/shared/team/taxamyphage/2023_VMR/MZ274308_taxmyphage_results/query.fasta,0.12237,0,199/5000,
+./Bridgettevirus/MH834605.fna,/shared/team/taxamyphage/2023_VMR/MZ274308_taxmyphage_results/query.fasta,0.122833,0,197/5000,
+./Bridgettevirus/MH834614.fna,/shared/team/taxamyphage/2023_VMR/MZ274308_taxmyphage_results/query.fasta,0.1233,0,195/5000,
+./Hestiavirus/MH910036.fna,/shared/team/taxamyphage/2023_VMR/MZ274308_taxmyphage_results/query.fasta,0.129604,0,170/5000,
+./Isoldevirus/MH910037.fna,/shared/team/taxamyphage/2023_VMR/MZ274308_taxmyphage_results/query.fasta,0.129876,0,169/5000,
+./Richievirus/MH834625.fna,/shared/team/taxamyphage/2023_VMR/MZ274308_taxmyphage_results/query.fasta,0.130701,0,166/5000,

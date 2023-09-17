@@ -1,0 +1,4 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Hollowayvirus/AY625898.fna,/shared/team/taxamyphage/2023_VMR/KC900378_taxmyphage_results/query.fasta,0.0271809,0.0,1969/5000,
+./Hollowayvirus/KC262634.fna,/shared/team/taxamyphage/2023_VMR/KC900378_taxmyphage_results/query.fasta,0.0448442,0.0,1211/5000,
+./Citexvirus/MK034952.fna,/shared/team/taxamyphage/2023_VMR/KC900378_taxmyphage_results/query.fasta,0.198488,2.2218899999999998e-225,39/5000,

@@ -1,0 +1,23 @@
+Query sequence header was:LR597646
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:Dhillonvirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Dhillonvirus/GQ502199.fna	/shared/team/taxamyphage/2023_VMR/LR597646_taxmyphage_results/query.fasta	0.0579033	0	870/5000	
+./Dhillonvirus/KM233151.fna	/shared/team/taxamyphage/2023_VMR/LR597646_taxmyphage_results/query.fasta	0.0638221	0	753/5000	
+./Dhillonvirus/JN984867.fna	/shared/team/taxamyphage/2023_VMR/LR597646_taxmyphage_results/query.fasta	0.070885	0	636/5000	
+./Dhillonvirus/JX865427.fna	/shared/team/taxamyphage/2023_VMR/LR597646_taxmyphage_results/query.fasta	0.0724442	0	613/5000	
+./Dhillonvirus/KM896878.fna	/shared/team/taxamyphage/2023_VMR/LR597646_taxmyphage_results/query.fasta	0.0737105	0	595/5000	
+./Dhillonvirus/FJ750948.fna	/shared/team/taxamyphage/2023_VMR/LR597646_taxmyphage_results/query.fasta	0.0775417	0	544/5000	
+./Dhillonvirus/JQ086375.fna	/shared/team/taxamyphage/2023_VMR/LR597646_taxmyphage_results/query.fasta	0.0783392	0	534/5000	

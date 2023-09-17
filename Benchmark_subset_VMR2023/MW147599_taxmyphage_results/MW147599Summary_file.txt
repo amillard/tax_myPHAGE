@@ -1,0 +1,20 @@
+Query sequence header was:MW147599
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Chaseviridae	Subfamily:Cleopatravirinae	Genus:Carltongylesvirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Carltongylesvirus/EF460875.fna	/shared/team/taxamyphage/2023_VMR/MW147599_taxmyphage_results/query.fasta	0.0746517	0	582/5000	
+./Carltongylesvirus/MF044458.fna	/shared/team/taxamyphage/2023_VMR/MW147599_taxmyphage_results/query.fasta	0.0928485	0	383/5000	
+./Carltongylesvirus/MN850594.fna	/shared/team/taxamyphage/2023_VMR/MW147599_taxmyphage_results/query.fasta	0.0948599	0	366/5000	
+./Carltongylesvirus/MN045229.fna	/shared/team/taxamyphage/2023_VMR/MW147599_taxmyphage_results/query.fasta	0.097358	0	346/5000	

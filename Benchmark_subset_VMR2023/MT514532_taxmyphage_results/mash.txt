@@ -1,0 +1,9 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Andromedavirus/KC330679.fna,/shared/team/taxamyphage/2023_VMR/MT514532_taxmyphage_results/query.fasta,0.0184108,0,2572/5000,
+./Andromedavirus/KC330684.fna,/shared/team/taxamyphage/2023_VMR/MT514532_taxmyphage_results/query.fasta,0.0217234,0,2319/5000,
+./Andromedavirus/KF669651.fna,/shared/team/taxamyphage/2023_VMR/MT514532_taxmyphage_results/query.fasta,0.0282247,0,1910/5000,
+./Andromedavirus/KC330683.fna,/shared/team/taxamyphage/2023_VMR/MT514532_taxmyphage_results/query.fasta,0.154692,0,99/5000,
+./Andromedavirus/KC330682.fna,/shared/team/taxamyphage/2023_VMR/MT514532_taxmyphage_results/query.fasta,0.159669,0,89/5000,
+./Andromedavirus/KF669659.fna,/shared/team/taxamyphage/2023_VMR/MT514532_taxmyphage_results/query.fasta,0.161274,0,86/5000,
+./Andromedavirus/KC330680.fna,/shared/team/taxamyphage/2023_VMR/MT514532_taxmyphage_results/query.fasta,0.163504,0,82/5000,
+./Andromedavirus/KF669648.fna,/shared/team/taxamyphage/2023_VMR/MT514532_taxmyphage_results/query.fasta,0.17663,0,62/5000,

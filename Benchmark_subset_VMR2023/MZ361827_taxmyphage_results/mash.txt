@@ -1,0 +1,5 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Jelitavirus/DQ003639.fna,/shared/team/taxamyphage/2023_VMR/MZ361827_taxmyphage_results/query.fasta,0.137915,0.0,142/5000,
+./Psavirus/JX120799.fna,/shared/team/taxamyphage/2023_VMR/MZ361827_taxmyphage_results/query.fasta,0.173691,0.0,66/5000,
+./Psavirus/AJ312240.fna,/shared/team/taxamyphage/2023_VMR/MZ361827_taxmyphage_results/query.fasta,0.184912,3.09561e-310,52/5000,
+./Slepowronvirus/KJ094023.fna,/shared/team/taxamyphage/2023_VMR/MZ361827_taxmyphage_results/query.fasta,0.196126,2.40352e-239,41/5000,

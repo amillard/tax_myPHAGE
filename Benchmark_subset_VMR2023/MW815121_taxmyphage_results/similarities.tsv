@@ -1,0 +1,7 @@
+A	B	sim
+MH999279:Gregsiragusavirus	taxmyPhage:	85.30278596452204
+KY996523:Gregsiragusavirus	MH999279:Gregsiragusavirus	83.0406691509611
+JN800508:Gregsiragusavirus	MH999279:Gregsiragusavirus	81.97193719533543
+KY996523:Gregsiragusavirus	taxmyPhage:	81.86901175257172
+JN800508:Gregsiragusavirus	taxmyPhage:	82.63572655632208
+JN800508:Gregsiragusavirus	KY996523:Gregsiragusavirus	80.95927173226688

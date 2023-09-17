@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Pamexvirus/JQ067093.fna,/shared/team/taxamyphage/2023_VMR/ON932079_taxmyphage_results/query.fasta,0.196126,3.1095e-234,41/5000,

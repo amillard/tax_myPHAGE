@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Petsuvirus/MK689364.fna,/shared/team/taxamyphage/2023_VMR/MK689364_taxmyphage_results/query.fasta,0,0,5000/5000,

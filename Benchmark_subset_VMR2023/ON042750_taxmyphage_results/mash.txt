@@ -1,0 +1,4 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Beecentumtrevirus/KU831549.fna,/shared/team/taxamyphage/2023_VMR/ON042750_taxmyphage_results/query.fasta,0.183134,0.0,54/5000,
+./Beecentumtrevirus/X99260.fna,/shared/team/taxamyphage/2023_VMR/ON042750_taxmyphage_results/query.fasta,0.187713,6.94224e-308,49/5000,
+./Beecentumtrevirus/EU622808.fna,/shared/team/taxamyphage/2023_VMR/ON042750_taxmyphage_results/query.fasta,0.191731,3.6924699999999996e-281,45/5000,

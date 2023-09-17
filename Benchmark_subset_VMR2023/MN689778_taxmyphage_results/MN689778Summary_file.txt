@@ -1,0 +1,5 @@
+Query sequence header was:MN689778
+Try running again with if you larger distance if you want a Figure.
+The query is both a new genus and species
+
+MN689778	New genus	new species

@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Sertoctavirus/MF996376.fna,/shared/team/taxamyphage/2023_VMR/MZ501053_taxmyphage_results/query.fasta,0.0349726,0,1578/5000,

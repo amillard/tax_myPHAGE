@@ -1,0 +1,13 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Eastlansingvirus/MF158039.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.104495,0,295/5000,
+./Wilsonroadvirus/MF158042.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.106047,0,285/5000,
+./Rogunavirus/KT825490.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.106684,0,281/5000,
+./Rogunavirus/KC579452.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.108487,0,270/5000,
+./Rogunavirus/KC333879.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.108822,0,268/5000,
+./Rogunavirus/JQ182736.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.110895,0,256/5000,
+./Rogunavirus/KF771239.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.112518,0,247/5000,
+./Lindendrivevirus/JF770475.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.113446,0,242/5000,
+./Rogunavirus/KF771238.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.113823,0,240/5000,
+./Rogunavirus/DQ121662.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.115957,0,229/5000,
+./Rogunavirus/KJ668713.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.117372,0,222/5000,
+./Rogunavirus/KF771237.fna,/shared/team/taxamyphage/2023_VMR/OL539467_taxmyphage_results/query.fasta,0.123536,0,194/5000,

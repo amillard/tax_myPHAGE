@@ -1,0 +1,29 @@
+Query sequence header was:KY295896
+
+
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Guernseyvirinae	Genus:Kagunavirus	Species:name_your_species
+    
+ 
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Kagunavirus/GU196278.fna	/shared/team/taxamyphage/2023_VMR/KY295896_taxmyphage_results/query.fasta	0.0541071	0.0	956/5000	
+./Kagunavirus/GU196277.fna	/shared/team/taxamyphage/2023_VMR/KY295896_taxmyphage_results/query.fasta	0.0616874	0.0	793/5000	
+./Kagunavirus/GU196279.fna	/shared/team/taxamyphage/2023_VMR/KY295896_taxmyphage_results/query.fasta	0.0671564	0.0	695/5000	
+./Kagunavirus/GU196280.fna	/shared/team/taxamyphage/2023_VMR/KY295896_taxmyphage_results/query.fasta	0.0830395	0.0	479/5000	
+./Kagunavirus/MG099933.fna	/shared/team/taxamyphage/2023_VMR/KY295896_taxmyphage_results/query.fasta	0.0989318	0.0	334/5000	
+./Kagunavirus/MK737937.fna	/shared/team/taxamyphage/2023_VMR/KY295896_taxmyphage_results/query.fasta	0.114013	0.0	239/5000	
+./Jerseyvirus/KM272358.fna	/shared/team/taxamyphage/2023_VMR/KY295896_taxmyphage_results/query.fasta	0.162937	0.0	83/5000	
+./Jerseyvirus/KC139511.fna	/shared/team/taxamyphage/2023_VMR/KY295896_taxmyphage_results/query.fasta	0.168956	0.0	73/5000	
+./Jerseyvirus/KF148055.fna	/shared/team/taxamyphage/2023_VMR/KY295896_taxmyphage_results/query.fasta	0.185827	1.20895e-302	51/5000	
+./Jerseyvirus/KF562864.fna	/shared/team/taxamyphage/2023_VMR/KY295896_taxmyphage_results/query.fasta	0.199716	3.28919e-221	38/5000	

@@ -1,0 +1,3 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Nipunavirus/KX129925.fna,/shared/team/taxamyphage/2023_VMR/MN504636_taxmyphage_results/query.fasta,0.0290675,0,1864/5000,
+./Nipunavirus/JQ067084.fna,/shared/team/taxamyphage/2023_VMR/MN504636_taxmyphage_results/query.fasta,0.046136,0,1171/5000,

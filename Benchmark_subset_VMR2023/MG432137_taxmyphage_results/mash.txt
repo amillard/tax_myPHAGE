@@ -1,0 +1,5 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Peatvirus/MG432137.fna,/shared/team/taxamyphage/2023_VMR/MG432137_taxmyphage_results/query.fasta,0.0,0,5000/5000,
+./Jedunavirus/KX237516.fna,/shared/team/taxamyphage/2023_VMR/MG432137_taxmyphage_results/query.fasta,0.097358,0,346/5000,
+./Jedunavirus/JX866719.fna,/shared/team/taxamyphage/2023_VMR/MG432137_taxmyphage_results/query.fasta,0.105109,0,291/5000,
+./Jedunavirus/MF663761.fna,/shared/team/taxamyphage/2023_VMR/MG432137_taxmyphage_results/query.fasta,0.108991,0,267/5000,

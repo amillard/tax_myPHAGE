@@ -1,0 +1,17 @@
+Query sequence header was:MZ333462
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Herelleviridae	Subfamily:Brockvirinae	Genus:SchiekvirusSpecies:Schiekvirus EfV12
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Schiekvirus/MH880817.fna	/shared/team/taxamyphage/2023_VMR/MZ333462_taxmyphage_results/query.fasta	0.0112201	0	3265/5000	
+./Schiekvirus/KP339049.fna	/shared/team/taxamyphage/2023_VMR/MZ333462_taxmyphage_results/query.fasta	0.0205456	0	2405/5000	
+./Schiekvirus/KY549443.fna	/shared/team/taxamyphage/2023_VMR/MZ333462_taxmyphage_results/query.fasta	0.048777	0	1094/5000	

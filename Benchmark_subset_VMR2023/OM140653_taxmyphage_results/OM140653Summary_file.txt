@@ -1,0 +1,18 @@
+Query sequence header was:OM140653
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Peduoviridae	Subfamily:Not Defined Yet	Genus:GraikaemvirusSpecies:Graikaemvirus YenM324
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Graikaemvirus/OM140653.fna	/shared/team/taxamyphage/2023_VMR/OM140653_taxmyphage_results/query.fasta	0.0	0	5000/5000	
+./Duonihilunusvirus/OM046626.fna	/shared/team/taxamyphage/2023_VMR/OM140653_taxmyphage_results/query.fasta	0.0867434	0	440/5000	
+./Duonihilunusvirus/OM046628.fna	/shared/team/taxamyphage/2023_VMR/OM140653_taxmyphage_results/query.fasta	0.0875471	0	432/5000	
+./Duonihilunusvirus/OM046627.fna	/shared/team/taxamyphage/2023_VMR/OM140653_taxmyphage_results/query.fasta	0.0919348	0	391/5000	

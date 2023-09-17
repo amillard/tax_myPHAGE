@@ -1,0 +1,11 @@
+A	B	sim
+MN045229:Carltongylesvirus	MN850594:Carltongylesvirus	81.45871041265646
+EF460875:Carltongylesvirus	MN045229:Carltongylesvirus	79.2363063131505
+MN045229:Carltongylesvirus	taxmyPhage:	71.69789794928839
+MF044458:Carltongylesvirus	MN045229:Carltongylesvirus	80.55415903852173
+EF460875:Carltongylesvirus	MN850594:Carltongylesvirus	83.21166493761123
+MN850594:Carltongylesvirus	taxmyPhage:	71.99607417147867
+MF044458:Carltongylesvirus	MN850594:Carltongylesvirus	88.22444478247643
+EF460875:Carltongylesvirus	taxmyPhage:	74.16398151735346
+EF460875:Carltongylesvirus	MF044458:Carltongylesvirus	83.44914063752157
+MF044458:Carltongylesvirus	taxmyPhage:	71.77335623808355

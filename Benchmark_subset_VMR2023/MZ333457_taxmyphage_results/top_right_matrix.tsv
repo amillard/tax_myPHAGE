@@ -1,0 +1,7 @@
+A	AB712291:Saphexavirus	HE962497:Saphexavirus	JF731128:Saphexavirus	KF192053:Saphexavirus	KJ094032:Saphexavirus	taxmyPhage:
+AB712291:Saphexavirus	100.0	75.04	83.35	77.49	77.42	73.79
+HE962497:Saphexavirus	0.0	100.0	77.68	83.66	78.08	80.68
+JF731128:Saphexavirus	0.0	0.0	100.0	81.67	73.72	75.35
+KF192053:Saphexavirus	0.0	0.0	0.0	100.0	81.46	79.26
+KJ094032:Saphexavirus	0.0	0.0	0.0	0.0	100.0	78.68
+taxmyPhage:	0.0	0.0	0.0	0.0	0.0	100.0

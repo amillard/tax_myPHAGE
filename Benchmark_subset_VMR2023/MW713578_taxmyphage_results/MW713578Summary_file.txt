@@ -1,0 +1,16 @@
+Query sequence header was:MW713578
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Demerecviridae	Subfamily:Not Defined Yet	Genus:SugarlandvirusSpecies:Sugarlandvirus IME260
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Sugarlandvirus/KX845404.fna	/shared/team/taxamyphage/2023_VMR/MW713578_taxmyphage_results/query.fasta	0.01888	0	2534/5000	
+./Sugarlandvirus/MG459987.fna	/shared/team/taxamyphage/2023_VMR/MW713578_taxmyphage_results/query.fasta	0.0352492	0	1566/5000	

@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Rockvillevirus/KT970645.fna,/shared/team/taxamyphage/2023_VMR/OP066531_taxmyphage_results/query.fasta,0.132111,0,161/5000,

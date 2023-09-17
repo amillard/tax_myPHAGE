@@ -1,0 +1,25 @@
+Query sequence header was:LN610572
+statement_current_genus_sp 
+                           Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Not Defined Yet	Genus:PakpunavirusSpecies:Pakpunavirus CAb1
+                
+
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Pakpunavirus/LN610572.fna	/shared/team/taxamyphage/2023_VMR/LN610572_taxmyphage_results/query.fasta	0.0	0	5000/5000	
+./Pakpunavirus/HE983845.fna	/shared/team/taxamyphage/2023_VMR/LN610572_taxmyphage_results/query.fasta	0.0111937	0	3268/5000	
+./Pakpunavirus/KC862300.fna	/shared/team/taxamyphage/2023_VMR/LN610572_taxmyphage_results/query.fasta	0.0236626	0	2186/5000	
+./Pakpunavirus/KY073228.fna	/shared/team/taxamyphage/2023_VMR/LN610572_taxmyphage_results/query.fasta	0.0243384	0	2142/5000	
+./Pakpunavirus/KR052143.fna	/shared/team/taxamyphage/2023_VMR/LN610572_taxmyphage_results/query.fasta	0.0246358	0	2123/5000	
+./Pakpunavirus/KY000083.fna	/shared/team/taxamyphage/2023_VMR/LN610572_taxmyphage_results/query.fasta	0.0254678	0	2071/5000	
+./Pakpunavirus/KC862298.fna	/shared/team/taxamyphage/2023_VMR/LN610572_taxmyphage_results/query.fasta	0.0261097	0	2032/5000	
+./Pakpunavirus/GU988610.fna	/shared/team/taxamyphage/2023_VMR/LN610572_taxmyphage_results/query.fasta	0.0270079	0	1979/5000	
+./Pakpunavirus/KU761955.fna	/shared/team/taxamyphage/2023_VMR/LN610572_taxmyphage_results/query.fasta	0.0295557	0	1838/5000	
+./Pakpunavirus/HQ832595.fna	/shared/team/taxamyphage/2023_VMR/LN610572_taxmyphage_results/query.fasta	0.0302852	0	1800/5000	
+./Pakpunavirus/KC862297.fna	/shared/team/taxamyphage/2023_VMR/LN610572_taxmyphage_results/query.fasta	0.040947	0	1342/5000	

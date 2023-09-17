@@ -1,0 +1,8 @@
+A	MH155873:Quhwahvirus	MH271304:Metamorphoovirus	MH271312:Metamorphoovirus	MH271321:Quhwahvirus	MH590600:Quhwahvirus	MK524510:Metamorphoovirus	taxmyPhage:
+MH155873:Quhwahvirus	100.0	67.82	65.23	92.27	92.27	66.21	65.23
+MH271304:Metamorphoovirus	0.0	100.0	87.21	66.82	69.46	83.69	87.21
+MH271312:Metamorphoovirus	0.0	0.0	100.0	64.29	65.03	90.07	100.0
+MH271321:Quhwahvirus	0.0	0.0	0.0	100.0	92.93	64.54	64.29
+MH590600:Quhwahvirus	0.0	0.0	0.0	0.0	100.0	65.39	65.03
+MK524510:Metamorphoovirus	0.0	0.0	0.0	0.0	0.0	100.0	90.07
+taxmyPhage:	0.0	0.0	0.0	0.0	0.0	0.0	100.0

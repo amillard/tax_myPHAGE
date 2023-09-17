@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Bielevirus/DQ674738.fna,/shared/team/taxamyphage/2023_VMR/OP484843_taxmyphage_results/query.fasta,0.0761459,0,562/5000,

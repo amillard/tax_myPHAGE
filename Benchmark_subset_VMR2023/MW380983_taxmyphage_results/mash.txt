@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Shantouvirus/OM810291.fna,/shared/team/taxamyphage/2023_VMR/MW380983_taxmyphage_results/query.fasta,0.146509,0,118/5000,

@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Iapetusvirus/KF623294.fna,/shared/team/taxamyphage/2023_VMR/KF623294_taxmyphage_results/query.fasta,0,0,5000/5000,

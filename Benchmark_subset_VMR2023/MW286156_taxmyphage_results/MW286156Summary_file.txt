@@ -1,0 +1,28 @@
+Query sequence header was:MW286156
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Drexlerviridae	Subfamily:Rogunavirinae	Genus:Rogunavirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Rogunavirus/KF771237.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.0164203	0	2742/5000	
+./Rogunavirus/KF771238.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.0178909	0	2615/5000	
+./Rogunavirus/KF771239.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.0207201	0	2392/5000	
+./Rogunavirus/JQ182736.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.0234813	0	2198/5000	
+./Rogunavirus/DQ121662.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.0297267	0	1829/5000	
+./Rogunavirus/KT825490.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.0319071	0	1719/5000	
+./Rogunavirus/KC333879.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.0323224	0	1699/5000	
+./Rogunavirus/KC579452.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.0323434	0	1698/5000	
+./Rogunavirus/KJ668713.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.0596227	0	834/5000	
+./Eastlansingvirus/MF158039.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.123066	0	196/5000	
+./Wilsonroadvirus/MF158042.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.132111	0	161/5000	
+./Lindendrivevirus/JF770475.fna	/shared/team/taxamyphage/2023_VMR/MW286156_taxmyphage_results/query.fasta	0.138572	0	140/5000	

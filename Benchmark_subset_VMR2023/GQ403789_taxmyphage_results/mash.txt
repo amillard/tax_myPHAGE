@@ -1,0 +1,2 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Hukuchivirus/GQ403789.fna,/shared/team/taxamyphage/2023_VMR/GQ403789_taxmyphage_results/query.fasta,0,0,5000/5000,

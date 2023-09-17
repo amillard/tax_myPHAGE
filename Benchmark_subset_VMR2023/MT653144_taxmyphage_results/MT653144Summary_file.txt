@@ -1,0 +1,34 @@
+Query sequence header was:MT653144
+
+
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    Class:Caudoviricetes	Family: Not Defined Yet	Subfamily:Guernseyvirinae	Genus:Jerseyvirus	Species:name_your_species
+    
+ 
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Jerseyvirus/HE775250.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.0313156	0.0	1748/5000	
+./Jerseyvirus/EF177456.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.05103	0.0	1033/5000	
+./Jerseyvirus/JX202565.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.0563974	0.0	903/5000	
+./Jerseyvirus/JQ007353.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.0571195	0.0	887/5000	
+./Jerseyvirus/AY730274.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.0580903	0.0	866/5000	
+./Jerseyvirus/KR270151.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.0582783	0.0	862/5000	
+./Jerseyvirus/JX297445.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.0664415	0.0	707/5000	
+./Jerseyvirus/KF562865.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.0710848	0.0	633/5000	
+./Jerseyvirus/KC832325.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.0723751	0.0	614/5000	
+./Jerseyvirus/KF562864.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.0804068	0.0	509/5000	
+./Jerseyvirus/KC139511.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.0927332	0.0	384/5000	
+./Jerseyvirus/KM272358.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.108153	0.0	272/5000	
+./Jerseyvirus/KF148055.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.112702	0.0	246/5000	
+./Kagunavirus/MK737937.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.190693	4.15488e-270	46/5000	
+./Kagunavirus/MG099933.fna	/shared/team/taxamyphage/2023_VMR/MT653144_taxmyphage_results/query.fasta	0.197292	1.1457400000000001e-232	40/5000	

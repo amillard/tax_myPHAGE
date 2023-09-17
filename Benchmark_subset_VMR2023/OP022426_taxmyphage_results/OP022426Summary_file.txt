@@ -1,0 +1,19 @@
+Query sequence header was:OP022426
+ 
+    Query sequence can be classified within a current genus and represents a new species, it is in:
+
+    
+    Class:Caudoviricetes	Family: Guelinviridae	Subfamily:Denniswatsonvirinae	Genus:Gregsiragusavirus	new_species_name
+    
+    
+ The data from the initial mash searching is below as tsv format 
+
+    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new 
+    species or genus. It does not tell you if it is similar to other phages that have yet to be classified 
+    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc 
+
+
+    Reference	Query	distance	p-value	shared-hashes	ANI
+./Gregsiragusavirus/MH999279.fna	/shared/team/taxamyphage/2023_VMR/OP022426_taxmyphage_results/query.fasta	0.0458408	0	1180/5000	
+./Gregsiragusavirus/JN800508.fna	/shared/team/taxamyphage/2023_VMR/OP022426_taxmyphage_results/query.fasta	0.0572566	0	884/5000	
+./Gregsiragusavirus/KY996523.fna	/shared/team/taxamyphage/2023_VMR/OP022426_taxmyphage_results/query.fasta	0.0628995	0	770/5000	

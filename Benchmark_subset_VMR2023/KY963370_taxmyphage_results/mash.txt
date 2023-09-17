@@ -1,0 +1,4 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Wbetavirus/DQ289555.fna,/shared/team/taxamyphage/2023_VMR/KY963370_taxmyphage_results/query.fasta,0.034203,0.0,1612/5000,
+./Hubeivirus/KT725776.fna,/shared/team/taxamyphage/2023_VMR/KY963370_taxmyphage_results/query.fasta,0.197292,2.05499e-233,40/5000,
+./Hubeivirus/KX227757.fna,/shared/team/taxamyphage/2023_VMR/KY963370_taxmyphage_results/query.fasta,0.197292,1.0816499999999999e-233,40/5000,
