@@ -110,7 +110,7 @@ class PoorMansViridic:
     def calculate_distances(self):
         M = self.M
         size_dict = self.size_dict
-        genomes = list(set([x[0] for x in M.keys()] + [x[0] for x in M.keys()]))
+        genomes = list(set([x[0] for x in M.keys()] + [x[1] for x in M.keys()]))
         # now calculating the distances
         L = []
         for gA, gB in combinations_with_replacement(genomes, 2):
@@ -139,7 +139,7 @@ class PoorMansViridic:
     def save_similarities(self, outfile='similarities.tsv'):
         df = self.dfM['A B sim'.split()]
         df = df[df.A != df.B]
-        df.sort_values('sim', ascending=False)
+        df.sort_values('sim', ascending=False, inplace=True)
         df.index.name = ''
         df.to_csv(outfile, index=False, sep='\t')
         
@@ -631,9 +631,8 @@ if __name__ == '__main__':
 
         with open(summary_output_path, 'a') as file:
             file.write(f"""Try running again with if you larger distance if you want a Figure.
-            The query is both a new genus and species\n
-            {args.prefix}\tNew genus\tnew species\n
-             """)
+The query is both a new genus and species\n
+{args.prefix}\tNew genus\tnew species\n""")
 
 
         sys.exit()
