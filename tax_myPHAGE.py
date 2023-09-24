@@ -84,29 +84,67 @@ class PoorMansViridic:
         self.blastn_result_file = outfile
 
     def parse_blastn_file(self):
+        # 10 times faster parsing function from Remi Denise
         ic("Reading", self.blastn_result_file)
-        df = pd.read_table(self.blastn_result_file, names='qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore'.split())
-        self.blastn_df = df
         
-        self.size_dict = dict(df['qseqid qlen'.split()].values) | dict(df['sseqid slen'.split()].values)
+        # helper functions for tqdm progress bar
+        def _make_gen(reader):
+            """Generator to read a file piece by piece.
+            Default chunk size: 1k.
+            Args:
+                reader (func): Function to read a piece of the file.
+            Yields:
+                generator: A generator object that yields pieces of the file.
+            """
+            b = reader(1024 * 1024)
+            while b:
+                yield b
+                b = reader(1024*1024)
 
-        # this part is slow ... filling the genome with all the matches
+        def rawgencount(filename):
+            """Count the number of lines in a file.
+            Args:
+                filename (str): The name of the file to count.
+            Returns:
+                int: The number of lines in the file.
+            """
+            f = gzip.open(filename, 'rb')
+            f_gen = _make_gen(f.read)
+            return sum(buf.count(b'\n') for buf in f_gen)
+        
+        num_lines = rawgencount(self.blastn_result_file)
+
+        self.size_dict = {}
         M = {}
-        for qseqid, sseqid, pident, length, qlen, slen, mismatch, nident, gapopen, qstart, qend, sstart, send, qseq, sseq, evalue, bitscore in tqdm(df.values):
-            key = (qseqid, sseqid)
-            if qstart > qend: qstart, qend = qend, qstart
-            M.setdefault(key, [0]*qlen)
-            v = M[key]
-            gaps = 0
-            for n, nt in enumerate(qseq):
-                if nt == '-':
-                    gaps += 1
-                    continue
-                if v[qstart-1+n-gaps] == 1: continue
-                v[qstart-1+n-gaps] = int(sseq[n] == qseq[n])
+        with gzip.open(self.blastn_result_file, 'rt') as df:
+            for line in tqdm(df, total=num_lines):
+                # do something with the line
+                qseqid, sseqid, pident, length, qlen, slen, mismatch, nident, gapopen, qstart, qend, sstart, send, qseq, sseq, evalue, bitscore = line.rstrip().split()
+                key = (qseqid, sseqid)
+                M.setdefault(key, np.zeros(int(qlen)))
+
+                if qseqid not in self.size_dict:
+                    self.size_dict[qseqid] = int(qlen) 
+                if sseqid not in self.size_dict:
+                    self.size_dict[sseqid] = int(slen)
+
+                # convert the strings to numpy arrays
+                qseq = np.frombuffer(qseq.encode('utf-8'), dtype="S1")
+                sseq = np.frombuffer(sseq.encode('utf-8'), dtype="S1")
+
+                v = np.where(qseq == sseq, 1, 0)
+
+                # find the indices of elements that are not equal to '-'. Here it is b'-' because the array is of type bytes.
+                idx = qseq != b'-'
+
+                # add the values to the matrix
+                M[key][int(qstart)-1:int(qend)] += v[idx]
+
+        # convert the matrix to a binary matrix
+        M = {key:np.where(value != 0, 1, 0) for key, value in M.items()}
 
         self.M = M
-
+    
     def calculate_distances(self):
         M = self.M
         size_dict = self.size_dict
@@ -190,7 +228,7 @@ def heatmap(dfM, outfile, matrix_out, cmap='Greens'):
     
     for i in range(df.shape[0]):
         for j in range(df.shape[1]):
-            font_size = min(fig_width, fig_height) * 0.9
+            font_size = (min(fig_width, fig_height) / max(df.shape[0], df.shape[1])) * 10
             ax.text(j, i, df.iloc[i, j], ha="center", va="center", color="w", fontsize=font_size)
     #plot with padding
     plt.tight_layout(pad=2.0)
