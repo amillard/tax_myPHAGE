@@ -152,10 +152,9 @@ class PoorMansViridic:
         # now calculating the distances
         L = []
         for gA, gB in combinations_with_replacement(genomes, 2):
-            if (gA, gB) not in M and (gB, gB) not in M: continue
-            if (gA, gB) not in M: M[(gA, gB)] = M[(gB, gB)]
-            if (gB, gA) not in M: M[(gB, gA)] = M[(gA, gA)]
-            
+            if (gA, gB) not in M and (gB, gA) not in M: continue
+            if (gA, gB) not in M: M[(gA, gB)] = M[(gB, gA)]
+            if (gB, gA) not in M: M[(gB, gA)] = M[(gA, gB)]
             
             idAB = sum(M[(gA, gB)])
             idBA = sum(M[(gB, gA)])
@@ -173,7 +172,7 @@ class PoorMansViridic:
 
         dfM['sim'] = 100 - dfM.distAB
         self.dfM = dfM
-
+        
     def save_similarities(self, outfile='similarities.tsv'):
         df = self.dfM['A B sim'.split()]
         df = df[df.A != df.B]
@@ -183,7 +182,6 @@ class PoorMansViridic:
         
     
 def heatmap(dfM, outfile, matrix_out, cmap='Greens'):
-
     #define output files
     svg_out = outfile+".svg"
     pdf_out = outfile+".pdf"
