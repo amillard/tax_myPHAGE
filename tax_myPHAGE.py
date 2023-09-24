@@ -107,34 +107,85 @@ class PoorMansViridic:
 
         self.M = M
 
+    # def calculate_distances(self):
+    #     M = self.M
+    #     size_dict = self.size_dict
+    #     genomes = list(set([x[0] for x in M.keys()] + [x[1] for x in M.keys()]))
+    #     # now calculating the distances
+    #     L = []
+    #     for gA, gB in combinations_with_replacement(genomes, 2):
+    #         if (gA, gB) not in M and (gB, gB) not in M: continue
+    #         if (gA, gB) not in M: M[(gA, gB)] = M[(gB, gB)]
+    #         if (gB, gA) not in M: M[(gB, gA)] = M[(gA, gA)]
+    #
+    #
+    #         idAB = sum(M[(gA, gB)])
+    #         idBA = sum(M[(gB, gA)])
+    #         lA = size_dict[gA]
+    #         lB = size_dict[gB]
+    #         simAB = ((idAB+idBA)*100)/(lA+lB)
+    #         distAB = 100-simAB
+    #
+    #         aligned_fraction_genome_1 = idAB / lA
+    #         aligned_fraction_genome_2 = idBA / lB
+    #         genome_length_ratio = lA / lB if lA < lB else lB / lA
+    #         L.append([gA, gB, distAB, aligned_fraction_genome_1, genome_length_ratio, aligned_fraction_genome_2])
+    #
+    #     dfM = pd.DataFrame(L, columns='A B distAB afg1 glr afg2'.split())
+    #
+    #     dfM['sim'] = 100 - dfM.distAB
+    #     self.dfM = dfM
+
     def calculate_distances(self):
         M = self.M
         size_dict = self.size_dict
-        genomes = list(set([x[0] for x in M.keys()] + [x[1] for x in M.keys()]))
-        # now calculating the distances
-        L = []
-        for gA, gB in combinations_with_replacement(genomes, 2):
-            if (gA, gB) not in M and (gB, gB) not in M: continue
-            if (gA, gB) not in M: M[(gA, gB)] = M[(gB, gB)]
-            if (gB, gA) not in M: M[(gB, gA)] = M[(gA, gA)]
-            
-            
-            idAB = sum(M[(gA, gB)])
-            idBA = sum(M[(gB, gA)])
-            lA = size_dict[gA]
-            lB = size_dict[gB]
-            simAB = ((idAB+idBA)*100)/(lA+lB)
-            distAB = 100-simAB
 
-            aligned_fraction_genome_1 = idAB / lA
-            aligned_fraction_genome_2 = idBA / lB
-            genome_length_ratio = lA / lB if lA < lB else lB / lA
-            L.append([gA, gB, distAB, aligned_fraction_genome_1, genome_length_ratio, aligned_fraction_genome_2])
+        genome_arr = np.array(list(M.keys()))
+        identity_arr = np.array(list(M.values()), dtype=object).reshape(-1, 1)
+        dfM = pd.DataFrame(np.hstack([genome_arr, identity_arr]), columns=['A', 'B', 'identity_seq'])
 
-        dfM = pd.DataFrame(L, columns='A B distAB afg1 glr afg2'.split())
+        dfM["idAB"] = dfM['identity_seq'].apply(lambda x: np.sum(x))
 
+        # creating a dictionary of genome name identity
+        # As the blast is double sided need to check the identity of both genomes by looking at the opposite pair
+        dict_BA = dfM.set_index(["A", "B"]).idAB.to_dict()
+
+        # Creating the pair of genomes in order B, A
+        dfM["pair_BA"] = dfM.apply(lambda x: (x.A, x.B), axis=1)
+
+        # Setting the identity of the pair B, A
+        dfM["idBA"] = dfM.pair_BA.map(dict_BA)
+
+        # If the identity of the pair B, A is NaN then the pair is A, B
+        dfM.loc[dfM.idBA.isna(), "idBA"] = dfM.loc[dfM.idBA.isna(), "idAB"]
+
+        # Map the size of the genome to the dataframe
+        dfM["lA"] = dfM['A'].map(size_dict)
+        dfM["lB"] = dfM['B'].map(size_dict)
+
+        # Calculate the similarity
+        dfM["simAB"] = ((dfM.idAB + dfM.idBA) * 100) / (dfM.lA + dfM.lB)
+
+        # Calculate the distance
+        dfM["distAB"] = 100 - dfM.simAB
+
+        # Calculate the aligned fraction of the genome
+        dfM["aligned_fraction_genome_1"] = dfM.idAB / dfM.lA
+        dfM["aligned_fraction_genome_2"] = dfM.idBA / dfM.lB
+        dfM["genome_length_ratio"] = dfM[["lA", "lB"]].min(axis=1) / dfM[["lA", "lB"]].max(axis=1)
+
+        # Calculate the similarity
         dfM['sim'] = 100 - dfM.distAB
+
+        # Remove the duplicate pairs
+        dfM["ordered_pair"] = dfM.apply(lambda x: str(sorted(x.pair_BA)), axis=1)
+        dfM = dfM.drop_duplicates("ordered_pair").reset_index(drop=True)
+
+        # Remove the columns that are not needed
+        dfM = dfM.drop(columns=['identity_seq', 'pair_BA', 'idAB', 'idBA', 'lA', 'lB', 'simAB', 'ordered_pair'])
+
         self.dfM = dfM
+
 
     def save_similarities(self, outfile='similarities.tsv'):
         df = self.dfM['A B sim'.split()]
@@ -190,7 +241,8 @@ def heatmap(dfM, outfile, matrix_out, cmap='Greens'):
     
     for i in range(df.shape[0]):
         for j in range(df.shape[1]):
-            font_size = min(fig_width, fig_height) * 0.9
+           # font_size = min(fig_width, fig_height) * 0.9
+            font_size = (min(fig_width, fig_height) / max(df.shape[0], df.shape[1])) * 10
             ax.text(j, i, df.iloc[i, j], ha="center", va="center", color="w", fontsize=font_size)
     #plot with padding
     plt.tight_layout(pad=2.0)
