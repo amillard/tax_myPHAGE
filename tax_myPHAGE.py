@@ -5,6 +5,8 @@ import os
 import io
 import gzip
 import time
+import re
+import glob
 from argparse import ArgumentParser
 from itertools import combinations_with_replacement
 import numpy as np
@@ -203,8 +205,7 @@ class PoorMansViridic:
         df.to_csv(outfile, index=False, sep='\t')
         
     
-def heatmap(dfM, outfile, matrix_out, cmap='Greens'):
-    global _df, _dfM, dendrogram, leaves_order
+def heatmap(dfM, outfile, matrix_out, accession_genus_dict, cmap='Greens'):
     #define output files
     svg_out = outfile+".svg"
     pdf_out = outfile+".pdf"
@@ -335,86 +336,30 @@ def check_blastDB(blastdb_path):
         except subprocess.CalledProcessError as e:
             print(f"An error occurred while executing makeblastdb: {e}")
 
+def create_files_and_result_paths(fasta_files, outdir, suffixes = 'fasta fna fsa fa'.split()):
+    if not outdir: outdir = "taxmyphage_results"
     
-if __name__ == '__main__':
-    usage = "%prog [options] file (or - for stdin)"
-    description= """Takes a phage genome as as fasta file and compares against all phage genomes that are currently classified 
-     by the ICTV. It does not compare against ALL phage genomes, just classified genomes. Having found the closet related phages 
-     it runs the VIRIDIC--algorithm and parses the output to predict the taxonomy of the phage. It is only able to classify to the Genus and Species level"""
-    parser = ArgumentParser(usage, description=description)
-    parser.add_argument("-v", "--verbose", action="store_true", default = 0)
-    parser.add_argument("-t", "--threads", dest='threads', type=str, default= "8",
-                        help= "Maximum number of threads that will be used")
-    parser.add_argument('-i', '--input', dest='in_fasta', type=str, help='Path to an input fasta file')
-    parser.add_argument("-p", "--prefix", type=str, default ="", dest='prefix',
-                        help='will add the prefix to results and summary files that will store results of MASH and comparision to the VMR Data produced by'
-                        'ICTV combines both sets of this data into a single csv file. '
-                        'Use this flag if you want to run multiple times and keep the results files without manual renaming of files')
-    parser.add_argument("-d", "--distance", type=str, default = "0.2", dest="dist",
-                        help='Will change the mash distance for the intial seraching for close relatives. We suggesting keeping at 0.2'
-                        ' If this results in the phage not being classified, then increasing to 0.3 might result in an output that shows'
-                        ' the phage is a new genus. We have found increasing above 0.2 does not place the query in any current genus, only'
-                        ' provides the output files to demonstrate it falls outside of current genera')
-    parser.add_argument("--Figures", type=str, choices=["T", "F"], default = "T", help="Specify 'T' or 'F' to produce Figures. Using F"
-                        "will speed up the time it takes to run the script - but you get no Figures. ")
-    parser.add_argument('-o', "--outdir", type=str, default = None, help="Change the path to the output directory")
+    fasta_exts = re.compile('|'.join([f"\.{suffix}(\.gz)?$" for suffix in suffixes]))
+    res = []
+    for file in fasta_files:
+        if os.path.isdir(file):
+            _files = glob.glob(f'{file}/*')
+            _files = [x for x in _files if fasta_exts.search(x)]
+            dirname = os.path.basename(file)
+            for _file in _files:
+                base = os.path.basename(_file).removesuffix('.gz')
+                base = re.sub(fasta_exts, '', base)
+                respath = f"{dirname}_{base}_{outdir}"
+                res.append([_file,respath])
+        else:
+            base = os.path.basename(file).removesuffix('.gz')
+            base = re.sub(fasta_exts, '', base)
+            respath = f"{base}_{outdir}"
+            res.append([file, respath])
+    return res
 
-    args, nargs = parser.parse_known_args()
-    verbose = args.verbose
-
-    #turn on ICECREAM reporting
-    if not verbose: ic.disable()
-
+def Run(fasta_file, results_path):
     timer_start = time.time()
-
-    # this is the location of where the script and the databases are (instead of current_directory which is the users current directory)
-    HOME = os.path.dirname(__file__)
-    VMR_path = os.path.abspath(os.path.join(HOME, 'VMR.xlsx'))
-    blastdb_path = os.path.abspath(os.path.join(HOME, 'Bacteriophage_genomes.fasta'))
-    ICTV_path = os.path.abspath(os.path.join(HOME, 'ICTV.msh'))
-
-    if os.path.exists(VMR_path):
-        print_ok(f"Found {VMR_path} as expected")
-    else:
-        print_error(f'File {VMR_path} does not exist will try downloading now')
-        print_error("Will download the current VMR now")
-        url = "https://ictv.global/vmr/current"
-        file_download = "VMR.xlsx"
-        download_command = f"curl -o {file_download} {url}"
-        try:
-            subprocess.run(download_command, shell=True, check=True)
-            print(f"{url} downloaded successfully!")
-        except subprocess.CalledProcessError as e:
-            print(f"An error occurred while downloading {url}: {e}")
-
-    if os.path.exists(ICTV_path):
-        print_ok(f" Found {ICTV_path} as expected")
-    #else:
-    #    print_error(f'File {ICTV_path} does not exist, was it downloaded correctly?')
-    else:
-        print_error(f"File {ICTV_path} does not exist will create database now  ")
-        print_error("Will download the database now and create database")
-        url = "https://millardlab-inphared.s3.climb.ac.uk/ICTV_2023.msh"
-        file_download = "ICTV.msh"
-        download_command = f"curl -o {file_download} {url}"
-        try:
-            subprocess.run(download_command, shell=True, check=True)
-            print(f"{url} downloaded successfully!")
-        except subprocess.CalledProcessError as e:
-            print(f"An error occurred while downloading {url}: {e}")
-
-    check_programs()
-    check_blastDB(blastdb_path)
-    
-    #Defined and set some parameters
-    fasta_file = args.in_fasta
-    base = os.path.basename(fasta_file).removesuffix('.gz').removesuffix('.fasta').removesuffix('.fna').removesuffix('.fsa')
-    cwd = os.getcwd()
-    threads = args.threads
-    mash_dist = args.dist
-    ic(f"Number of set threads {threads}")
-    #create results folder
-    results_path = args.outdir if args.outdir else os.path.join(cwd, f"{base}_taxmyphage_results")
     query = os.path.join(results_path,'query.fasta')
 
     #path to the combined df containing mash and VMR data
@@ -470,7 +415,7 @@ if __name__ == '__main__':
 
     if num_sequences == 0:
         print_error("Error: The FASTA file is empty.")
-        sys.exit()
+        return
     elif num_sequences == 1:
         # Open output FASTA file
         with open(query, "w") as output_fid:
@@ -511,7 +456,7 @@ if __name__ == '__main__':
     However tax_my_phage is unable to classify it at this point as it can only classify at the Genus/Species level
               """)
         os.system(f"touch {taxa_csv_output_path}")
-        sys.exit()
+        return
     else:
         print_res(f"""
         Number of phage genomes detected with mash distance of < {mash_dist} is:{number_hits}""")
@@ -629,7 +574,7 @@ if __name__ == '__main__':
     # heatmap and distances
     if args.Figures != "F":
         print_ok("Will calculate and save heatmaps now")
-        heatmap(PMV.dfM, heatmap_file, top_right_matrix)
+        heatmap(PMV.dfM, heatmap_file, top_right_matrix, accession_genus_dict)
     else:
         ic("\n Skipping calculating heatmaps and saving them \n ")
 
@@ -714,8 +659,7 @@ if __name__ == '__main__':
 The query is both a new genus and species\n
 {args.prefix}\tNew genus\tnew species\n""")
 
-
-        sys.exit()
+        return
 
     predicted_genus_name = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
 
@@ -861,3 +805,85 @@ The query is both a new genus and species\n
 
     run_time = str(timedelta(seconds = time.time() - timer_start))
     print(f"Run time for {fasta_file}: {run_time}", file=sys.stderr)
+
+    
+if __name__ == '__main__':
+    usage = "%prog [options] file (or - for stdin)"
+    description= """Takes a phage genome as as fasta file and compares against all phage genomes that are currently classified 
+     by the ICTV. It does not compare against ALL phage genomes, just classified genomes. Having found the closet related phages 
+     it runs the VIRIDIC--algorithm and parses the output to predict the taxonomy of the phage. It is only able to classify to the Genus and Species level"""
+    parser = ArgumentParser(usage, description=description)
+    parser.add_argument("-v", "--verbose", action="store_true", default = 0)
+    parser.add_argument("-t", "--threads", dest='threads', type=str, default= "8",
+                        help= "Maximum number of threads that will be used")
+    parser.add_argument('-i', '--input', dest='in_fasta', type=str, help='Path to one or more input fasta file (separated by space)', nargs = '+')
+    parser.add_argument("-p", "--prefix", type=str, default ="", dest='prefix',
+                        help='will add the prefix to results and summary files that will store results of MASH and comparision to the VMR Data produced by'
+                        'ICTV combines both sets of this data into a single csv file. '
+                        'Use this flag if you want to run multiple times and keep the results files without manual renaming of files')
+    parser.add_argument("-d", "--distance", type=str, default = "0.2", dest="dist",
+
+
+                        help='Will change the mash distance for the intial seraching for close relatives. We suggesting keeping at 0.2'
+                        ' If this results in the phage not being classified, then increasing to 0.3 might result in an output that shows'
+                        ' the phage is a new genus. We have found increasing above 0.2 does not place the query in any current genus, only'
+                        ' provides the output files to demonstrate it falls outside of current genera')
+    parser.add_argument("--Figures", type=str, choices=["T", "F"], default = "T", help="Specify 'T' or 'F' to produce Figures. Using F"
+                        "will speed up the time it takes to run the script - but you get no Figures. ")
+    parser.add_argument('-o', "--outdir", type=str, default = None, help="Change the path to the output directory")
+
+    args, nargs = parser.parse_known_args()
+    verbose = args.verbose
+    threads = args.threads
+    mash_dist = args.dist
+    ic(f"Number of set threads {threads}")
+
+    #turn on ICECREAM reporting
+    if not verbose: ic.disable()
+
+    # this is the location of where the script and the databases are (instead of current_directory which is the users current directory)
+    HOME = os.path.dirname(__file__)
+    VMR_path = os.path.abspath(os.path.join(HOME, 'VMR.xlsx'))
+    blastdb_path = os.path.abspath(os.path.join(HOME, 'Bacteriophage_genomes.fasta'))
+    ICTV_path = os.path.abspath(os.path.join(HOME, 'ICTV.msh'))
+
+    if os.path.exists(VMR_path):
+        print_ok(f"Found {VMR_path} as expected")
+    else:
+        print_error(f'File {VMR_path} does not exist will try downloading now')
+        print_error("Will download the current VMR now")
+        url = "https://ictv.global/vmr/current"
+        file_download = "VMR.xlsx"
+        download_command = f"curl -o {file_download} {url}"
+        try:
+            subprocess.run(download_command, shell=True, check=True)
+            print(f"{url} downloaded successfully!")
+        except subprocess.CalledProcessError as e:
+            print(f"An error occurred while downloading {url}: {e}")
+
+    if os.path.exists(ICTV_path):
+        print_ok(f" Found {ICTV_path} as expected")
+    #else:
+    #    print_error(f'File {ICTV_path} does not exist, was it downloaded correctly?')
+    else:
+        print_error(f"File {ICTV_path} does not exist will create database now  ")
+        print_error("Will download the database now and create database")
+        url = "https://millardlab-inphared.s3.climb.ac.uk/ICTV_2023.msh"
+        file_download = "ICTV.msh"
+        download_command = f"curl -o {file_download} {url}"
+        try:
+            subprocess.run(download_command, shell=True, check=True)
+            print(f"{url} downloaded successfully!")
+        except subprocess.CalledProcessError as e:
+            print(f"An error occurred while downloading {url}: {e}")
+
+    check_programs()
+    check_blastDB(blastdb_path)
+
+    cwd = os.getcwd()
+
+    suffixes = 'fasta fna fsa fa'.split()
+    files_results = create_files_and_result_paths(args.in_fasta, args.outdir, suffixes)
+
+    for fasta_file, results_path in tqdm(files_results, desc="Classifying"):
+        Run(fasta_file, results_path)
