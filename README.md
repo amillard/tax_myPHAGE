@@ -16,6 +16,7 @@ What it will do:
 - Classify a dsDNA phage genomes at the Genus and or species level against ICTV genomes 
 - Tell you if your genome represents a new genus 
 - Use current ICTV cutoffs for Genera and Species 
+- accept multiple inputs at the same time (not a multifasta)
 
 
 
@@ -41,7 +42,7 @@ What it wont do:
 
 	cd tax_myPHAGE
 
-	mamba install  -c conda-forge -c bioconda biopython pandas icecream networkx tqdm openpyxl matplotlib
+	mamba install  -c conda-forge -c bioconda biopython pandas icecream networkx tqdm openpyxl matplotlib scipy
 
 	python tax_myPHAGE.py -i test.fna -t 8 
 
@@ -138,7 +139,12 @@ or
 	                        Maximum number of threads that will be used
 
 	  -i IN_FASTA, --input IN_FASTA
-	                        Path to an input fasta file
+	                        Path to an input fasta file or multiple input files eg *fasta or genome1.fna genome2.fa  
+							or a directory with fasta files in -i my_genome_dir 
+						    or mix of a directory and files -i my_genome_dir genome1.fna
+							Will recognise *fasta *fna *fsa *fa and gz of these files 
+							DO NOT USE -p option when specifying multiple files. All output will have that prefix!
+							
 
 	 
 	  -d DIST, --distance DIST
