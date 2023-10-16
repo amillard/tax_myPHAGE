@@ -152,8 +152,9 @@ class PoorMansViridic:
         size_dict = self.size_dict
 
         genome_arr = np.array(list(M.keys()))
-        identity_arr = np.array(list(M.values()), dtype=object).reshape(-1, 1)
-        dfM = pd.DataFrame(np.hstack([genome_arr, identity_arr]), columns=['A', 'B', 'identity_seq'])
+        dfM = pd.DataFrame(genome_arr, columns=["A", "B"])
+
+        dfM["identity_seq"] = M.values()
 
         dfM["idAB"] = dfM['identity_seq'].apply(lambda x: np.sum(x))
 
