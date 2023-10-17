@@ -118,11 +118,25 @@ class PoorMansViridic:
 
         self.size_dict = {}
         M = {}
+        previous_pair = ""
+
         with gzip.open(self.blastn_result_file, 'rt') as df:
             for line in tqdm(df, total=num_lines):
                 # do something with the line
                 qseqid, sseqid, pident, length, qlen, slen, mismatch, nident, gapopen, qstart, qend, sstart, send, qseq, sseq, evalue, bitscore = line.rstrip().split()
                 key = (qseqid, sseqid)
+
+
+                # if the key is different from the previous one, convert identity vector to identity values
+                if key != previous_pair:
+                    # only do it if the previous key is not empty (first iteration)
+                    if previous_pair:
+                        M[previous_pair] = np.where(M[previous_pair] != 0, 1, 0)
+                        M[previous_pair] = np.sum(M[previous_pair])
+
+                    previous_pair = key
+
+
                 M.setdefault(key, np.zeros(int(qlen)))
 
                 if qseqid not in self.size_dict:
@@ -142,8 +156,9 @@ class PoorMansViridic:
                 # add the values to the matrix
                 M[key][int(qstart)-1:int(qend)] += v[idx]
 
-        # convert the matrix to a binary matrix
-        M = {key:np.where(value != 0, 1, 0) for key, value in M.items()}
+        # Convert the last pair of the matrix to identity values
+        M[previous_pair] = np.where(M[previous_pair] != 0, 1, 0)
+        M[previous_pair] = np.sum(M[previous_pair])
 
         self.M = M
     
@@ -154,9 +169,7 @@ class PoorMansViridic:
         genome_arr = np.array(list(M.keys()))
         dfM = pd.DataFrame(genome_arr, columns=["A", "B"])
 
-        dfM["identity_seq"] = M.values()
-
-        dfM["idAB"] = dfM['identity_seq'].apply(lambda x: np.sum(x))
+        dfM["idAB"] = M.values()
 
         # creating a dictionary of genome name identity 
         # As the blast is double sided need to check the identity of both genomes by looking at the opposite pair
@@ -194,7 +207,7 @@ class PoorMansViridic:
         dfM = dfM.drop_duplicates("ordered_pair").reset_index(drop=True)
 
         # Remove the columns that are not needed
-        dfM = dfM.drop(columns=['identity_seq', 'pair_BA', 'idAB', 'idBA', 'lA', 'lB', 'simAB', 'ordered_pair'])
+        dfM = dfM.drop(columns=['pair_BA', 'idAB', 'idBA', 'lA', 'lB', 'simAB', 'ordered_pair'])
 
         self.dfM = dfM
     
