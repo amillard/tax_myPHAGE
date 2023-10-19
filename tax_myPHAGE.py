@@ -707,7 +707,7 @@ The query is both a new genus and species\n
 
 
             with open(summary_output_path,'a') as file:
-                file.write(f"""statement_current_genus_sp 
+                file.write(f"""{statement_current_genus_sp} 
                            Class:{list_of_S_data["Class"]}\tFamily: {list_of_S_data["Family"]}\tSubfamily:{list_of_S_data["Subfamily"]}\tGenus:{list_of_S_data["Genus"]}Species:{list_of_S_data["Species"]}
                 \n{summary_statement1 }""")
 
