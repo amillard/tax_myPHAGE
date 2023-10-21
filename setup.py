@@ -2,7 +2,17 @@ from setuptools import setup
 import versioneer
 
 requirements = [
-    # package requirements go here
+    'biopython>=1.81',
+    'pandas>=2.1.1',
+    'numpy>=1.26.0',
+    'matplotlib>=3.8.0',
+    'seaborn>=0.11.2',
+    'python-wget>=3.2',
+    'scipy>=1.11.3',
+    'tqdm>=4.66.1',
+    'openpyxl>=3.1.2',
+    'networkx>=3.1',
+    'icecream>=2.1.3',
 ]
 
 setup(
