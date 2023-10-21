@@ -105,8 +105,8 @@ def cli(args=None):
         "--database",
         dest="ICTV_db",
         type=str,
-        help="Path to the database of genomes currently classified by the ICTV (If the database does not exist, it will be downloaded automatically)"
-        " and stored in the ~/.taxmyPHAGE directory)",
+        help="Path to the database of genomes currently classified by the ICTV (If the database does not exist,"
+        "it will be downloaded automatically) and stored in the ~/.taxmyPHAGE directory)",
         default=os.path.abspath(
             os.path.join(
                 os.path.expanduser("~"), ".taxmyPHAGE", "Bacteriophage_genomes.fasta"
@@ -117,8 +117,8 @@ def cli(args=None):
         "--mash_index",
         dest="mash_index",
         type=str,
-        help="Path to the prebuilt MASH index of ICTV genomes. (If the index file does not exist, it will be downloaded automatically"
-        " and stored in the ~/.taxmyPHAGE directory)",
+        help="Path to the prebuilt MASH index of ICTV genomes. (If the index file does not exist,"
+        " it will be downloaded automatically and stored in the ~/.taxmyPHAGE directory)",
         default=os.path.abspath(
             os.path.join(os.path.expanduser("~"), ".taxmyPHAGE", "ICTV_2023.msh")
         ),
