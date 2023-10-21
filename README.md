@@ -1,7 +1,6 @@
 # taxmyPHAGE
 
 [![Build Status](https://img.shields.io/travis/amillard/tax_myPHAGE.svg)](https://travis-ci.org/amillard/tax_myPHAGE)
-[![CircleCI](https://circleci.com/gh/amillard/tax_myPHAGE.svg?style=svg)](https://circleci.com/gh/amillard/tax_myPHAGE)
 [![Codecov](https://codecov.io/gh/amillard/tax_myPHAGE/branch/master/graph/badge.svg)](https://codecov.io/gh/amillard/tax_myPHAGE)
 
 ----------
