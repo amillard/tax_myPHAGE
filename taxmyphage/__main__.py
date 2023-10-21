@@ -40,10 +40,10 @@ if __name__ == "__main__":
     if not verbose:
         ic.disable()
 
-    # this is the location of where the script and the databases are (instead of current_directory which is the users current directory)
-    VMR_path = args.VMR_file
-    blastdb_path = args.ICTV_db
-    mash_index_path = args.mash_index
+    # this is the location of where the script and the databases are stored
+    VMR_path = os.path.join(args.db_folder, "VMR.xlsx")
+    blastdb_path = os.path.join(args.db_folder, "Bacteriophage_genomes.fasta")
+    mash_index_path = os.path.join(args.db_folder, "ICTV_2023.msh")
 
     print("Looking for database files...\n")
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     check_mash_index(mash_index_path)
 
     # Check if the blastDB file exists
-    check_blastDB(blastdb_path, output=args.output)
+    check_blastDB(blastdb_path, output=args.output, makeblastdb_exe=args.makeblastdb)
 
     tmp_fasta = os.path.join(args.output, "tmp.fasta")
     # Create a multifasta file to parse line by line
@@ -102,6 +102,8 @@ if __name__ == "__main__":
             taxa_df=taxa_df,
             taxa_csv_output_path=taxa_csv_output_path,
             threads=threads,
+            mash_exe=args.mashexe,
+            blastcmd_exe=args.blastcmd,
         )
 
         merged_df, copy_merged_df = classification_viridic(
@@ -114,6 +116,8 @@ if __name__ == "__main__":
             accession_genus_dict=accession_genus_dict,
             Figure=args.Figure,
             verbose=verbose,
+            blastn_exe=args.blastn,
+            makeblastdb_exe=args.makeblastdb,
         )
 
         classification(

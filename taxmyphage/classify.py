@@ -30,7 +30,7 @@ from taxmyphage.utils import (
 
 
 def run_mash(
-    query: str, mash_index_path: str, dist: float, threads: int
+    query: str, mash_index_path: str, dist: float, threads: int, mash_exe: str
 ) -> pd.DataFrame:
     """
     Runs mash dist on the query genome against the mash index
@@ -40,13 +40,14 @@ def run_mash(
         mash_index_path (str): Path to the mash index
         dist (float): Mash distance
         threads (int): Number of threads to use
+        mash_exe (str): Path to the mash executable
 
     Returns:
         pd.DataFrame: Dataframe of the mash results
     """
 
     # run mash to get top hit and read into a pandas dataframe
-    cmd = f"mash dist -d {dist} -p {threads} {mash_index_path} {query}"
+    cmd = f"{mash_exe} dist -d {dist} -p {threads} {mash_index_path} {query}"
     ic(cmd)
     mash_output = subprocess.getoutput(cmd)
     # mash_output = subprocess.check_output(['mash', 'dist', '-d', dist, '-p', threads, mash_index_path, query])
@@ -75,6 +76,8 @@ def classification_mash(
     taxa_df: pd.DataFrame,
     taxa_csv_output_path: str,
     threads: int,
+    mash_exe: str,
+    blastcmd_exe: str,
 ) -> Tuple[pd.DataFrame, Dict[str, str]]:
     """
     Classifies the query genome using mash
@@ -89,6 +92,8 @@ def classification_mash(
         taxa_df (pd.DataFrame): Dataframe of the VMR data
         taxa_csv_output_path (str): Path to the output csv file
         threads (int): Number of threads to use
+        mash_exe (str): Path to the mash executable
+        blastcmd_exe (str): Path to the blastcmd executable
 
     Returns:
         mash_df (pd.DataFrame): Dataframe of the mash results
@@ -98,7 +103,7 @@ def classification_mash(
     # create a dictionary of Accessions linking to Genus
     accession_genus_dict = taxa_df.set_index("Genbank")["Genus"].to_dict()
 
-    mash_df = run_mash(query, mash_index_path, dist, threads)
+    mash_df = run_mash(query, mash_index_path, dist, threads, mash_exe)
 
     number_hits = mash_df.shape[0]
 
@@ -222,7 +227,7 @@ def classification_mash(
         ic(list_of_genus_accessions)
         ic(len(list_of_genus_accessions))
 
-        get_genomes_cmd = f"blastdbcmd -db {blastdb_path} -entry {','.join(list_of_genus_accessions)} -out {known_taxa_path}"
+        get_genomes_cmd = f"{blastcmd_exe} -db {blastdb_path} -entry {','.join(list_of_genus_accessions)} -out {known_taxa_path}"
         res = subprocess.getoutput(get_genomes_cmd)
 
     # get smallest mash distance
@@ -267,6 +272,7 @@ def classification_viridic(
     accession_genus_dict: Dict[str, str],
     Figure: bool,
     verbose: bool,
+    blastn_exe: str,
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """
     Classifies the query genome using viridic
@@ -281,6 +287,7 @@ def classification_viridic(
         accession_genus_dict (Dict[str, str]): Dictionary of accessions linking to genus
         Figure (bool): Whether to generate figures
         verbose (bool): Whether to print verbose output
+        blastn_exe (str): Path to the blastn executable
 
     Returns:
         merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
@@ -301,7 +308,7 @@ def classification_viridic(
             SeqIO.write(SeqIO.parse(file, "fasta"), merged_file, "fasta")
 
     # run VIRIDIC
-    PMV = PoorMansViridic(viridic_in_path, nthreads=threads, verbose=verbose)
+    PMV = PoorMansViridic(viridic_in_path, nthreads=threads, verbose=verbose, blastn_exe=blastn_exe)
     df1, pmv_outfile = PMV.run()
 
     ic(df1)

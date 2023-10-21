@@ -41,18 +41,19 @@ def download(url: str, output: str) -> None:
 ############################################################################################################
 
 
-def makeblastdb(blastdb_path: str) -> None:
+def makeblastdb(blastdb_path: str, makeblastdb_exe: str) -> None:
     """
     Creates the blastDB
 
     Args:
         blastdb_path (str): Path to the blastDB
-
+        makeblastdb_exe (str): Path to the makeblastdb executable
+        
     Returns:
         None
     """
 
-    makeblastdb_command = f"makeblastdb -in {blastdb_path} -parse_seqids -dbtype nucl"
+    makeblastdb_command = f"{makeblastdb_exe} -in {blastdb_path} -parse_seqids -dbtype nucl"
     try:
         subprocess.run(makeblastdb_command, shell=True, check=True)
         print("makeblastdb command executed successfully!\n")
@@ -89,13 +90,15 @@ def unzip_file(file_path: str, output_path: str) -> None:
 ############################################################################################################
 
 
-def check_blastDB(blastdb_path: str, output: str) -> None:
+def check_blastDB(blastdb_path: str, output: str, makeblastdb_exe: str, install: bool=False) -> None:
     """
     Checks if the blastDB is present and if not downloads it and creates the database
 
     Args:
         blastdb_path (str): Path to the blastDB
         output (str): Path to the output directory
+        makeblastdb_exe (str): Path to the makeblastdb executable
+        install (bool, optional): Whether to install the blastDB. Defaults to False.
 
     Returns:
         None
@@ -122,24 +125,31 @@ def check_blastDB(blastdb_path: str, output: str) -> None:
                 blastdb_path = blastdb_path_no_gz
                 to_remove = True
         else:
-            print_error(
-                f"File {blastdb_path} does not exist will create database now  "
-            )
-            print_error("Will download the database now and create database")
+            if install:
+                print_error(
+                    f"File {blastdb_path} does not exist will create database now  "
+                )
+                print_error("Will download the database now and create database")
 
-            url = "https://millardlab-inphared.s3.climb.ac.uk/Bacteriophage_genomes.fasta.gz"
+                url = "https://millardlab-inphared.s3.climb.ac.uk/Bacteriophage_genomes.fasta.gz"
 
-            create_folder(os.path.dirname(blastdb_path))
+                create_folder(os.path.dirname(blastdb_path))
 
-            # Download the file from the URL to the output directory
-            download(url, f"{blastdb_path}.gz")
+                # Download the file from the URL to the output directory
+                download(url, f"{blastdb_path}.gz")
 
-            # Gunzip the file
-            unzip_file(f"{blastdb_path}.gz", blastdb_path)
+                # Gunzip the file
+                unzip_file(f"{blastdb_path}.gz", blastdb_path)
 
-            to_remove = True
+                to_remove = True
+            else:
+                print_error(
+                    f"File {blastdb_path} does not exist. Please download the database and create the database."
+                    "Or use the --install flag to download and create the database."
+                )
+                sys.exit()
 
-        makeblastdb(blastdb_path)
+        makeblastdb(blastdb_path, makeblastdb_exe)
 
         if to_remove:
             os.remove(blastdb_path)
@@ -148,13 +158,14 @@ def check_blastDB(blastdb_path: str, output: str) -> None:
 ############################################################################################################
 
 
-def check_mash_index(mash_index_path: str) -> None:
+def check_mash_index(mash_index_path: str, install: bool=False) -> None:
     """
     Checks if the mash index is present and if not downloads it and creates the index
 
     Args:
         mash_index_path (str): Path to the mash index
-
+        install (bool, optional): Whether to install the mash index. Defaults to False.
+        
     Returns:
         None
     """
@@ -163,27 +174,34 @@ def check_mash_index(mash_index_path: str) -> None:
     if os.path.exists(mash_index_path):
         print_ok(f"Found {mash_index_path} as expected\n")
     else:
-        print_error(f"File {mash_index_path} does not exist will create database now  ")
-        print_error("Will download the database now and create database")
+        if install:
+            print_error(f"File {mash_index_path} does not exist will create database now  ")
+            print_error("Will download the database now and create database")
 
-        url = "https://millardlab-inphared.s3.climb.ac.uk/ICTV_2023.msh"
+            url = "https://millardlab-inphared.s3.climb.ac.uk/ICTV_2023.msh"
 
-        create_folder(os.path.dirname(mash_index_path))
+            create_folder(os.path.dirname(mash_index_path))
 
-        # Download the file from the URL to the output directory
-        download(url, mash_index_path)
-
+            # Download the file from the URL to the output directory
+            download(url, mash_index_path)
+        else:
+            print_error(
+                f"File {blastdb_path} does not exist. Please download the database and create the database."
+                "Or use the --install flag to download and create the database."
+            )
+            sys.exit()
 
 ############################################################################################################
 
 
-def check_VMR(VMR_path: str) -> None:
+def check_VMR(VMR_path: str, install: bool=False) -> None:
     """
     Checks if the VMR is present and if not downloads it
 
     Args:
         VMR_path (str): Path to the VMR
-
+        install (bool, optional): Whether to install the VMR. Defaults to False.
+        
     Returns:
         None
     """
@@ -192,15 +210,21 @@ def check_VMR(VMR_path: str) -> None:
     if os.path.exists(VMR_path):
         print_ok(f"Found {VMR_path} as expected\n")
     else:
-        print_error(f"File {VMR_path} does not exist will try downloading now")
-        print_error("Will download the current VMR now")
+        if install:
+            print_error(f"File {VMR_path} does not exist will try downloading now")
+            print_error("Will download the current VMR now")
 
-        url = "https://ictv.global/vmr/current"
+            url = "https://ictv.global/vmr/current"
 
-        create_folder(os.path.dirname(VMR_path))
+            create_folder(os.path.dirname(VMR_path))
 
-        # Download the file from the URL to the output directory
-        download(url, VMR_path)
-
+            # Download the file from the URL to the output directory
+            download(url, VMR_path)
+        else:
+            print_error(
+                f"File {blastdb_path} does not exist. Please download the database and create the database."
+                "Or use the --install flag to download and create the database."
+            )
+            sys.exit()
 
 ############################################################################################################

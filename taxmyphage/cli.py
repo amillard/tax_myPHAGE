@@ -9,22 +9,23 @@ from argparse import ArgumentParser
 from taxmyphage import __version__
 from taxmyphage.utils import CheckAction
 
+
 ############################################################################################################
 # Functions
 ############################################################################################################
-
 
 def cli(args=None):
     """
     Command line interface for taxmyphage
     """
 
-    description = """Takes a phage genome as as fasta file and compares against all phage genomes that are currently classified 
-         by the ICTV. It does not compare against ALL phage genomes, just classified genomes. Having found the closet related phages 
-         it runs the VIRIDIC--algorithm and parses the output to predict the taxonomy of the phage. It is only able to classify to the Genus and Species level"""
+    description = """Takes a phage genome as as fasta file and compares against all phage genomes that are currently classified
+                by the ICTV. It does not compare against ALL phage genomes, just classified genomes. Having found the closet related phages
+                it runs the VIRIDIC--algorithm and parses the output to predict the taxonomy of the phage. It is only able to classify
+                to the Genus and Species level"""
 
     parser = ArgumentParser(
-        description=description, conflict_handler="resolve", prog="taxmyphage"
+        description=description, conflict_handler="resolve", prog="taxmyphage",
     )
 
     parser.add_argument(
@@ -46,6 +47,7 @@ def cli(args=None):
         "-i",
         "--input",
         dest="in_fasta",
+        metavar="[FASTA_FILE ...]",
         type=str,
         help="Path to an input fasta file(s), or directory containing fasta files. The fasta file(s) could"
         " contain multiple phage genomes. They can be compressed (gzip). If a directory is given the expected fasta extentions"
@@ -101,37 +103,24 @@ def cli(args=None):
     database_option = parser.add_argument_group(title="Options related to the database")
 
     database_option.add_argument(
-        "-db",
-        "--database",
-        dest="ICTV_db",
+        "--db_folder",
+        dest="db_folder",
+        metavar="FOLDER_PATH",
         type=str,
-        help="Path to the database of genomes currently classified by the ICTV (If the database does not exist,"
-        "it will be downloaded automatically) and stored in the ~/.taxmyPHAGE directory)",
-        default=os.path.abspath(
-            os.path.join(
-                os.path.expanduser("~"), ".taxmyPHAGE", "Bacteriophage_genomes.fasta"
-            )
-        ),
+        default=os.path.join(os.path.dirname(__file__), "database"),
+        help=f"Path to the database directory where the databases are stored. (Default is {os.path.join(os.path.dirname(__file__), 'database')})",
     )
-    database_option.add_argument(
-        "--mash_index",
-        dest="mash_index",
-        type=str,
-        help="Path to the prebuilt MASH index of ICTV genomes. (If the index file does not exist,"
-        " it will be downloaded automatically and stored in the ~/.taxmyPHAGE directory)",
-        default=os.path.abspath(
-            os.path.join(os.path.expanduser("~"), ".taxmyPHAGE", "ICTV_2023.msh")
-        ),
+
+    install_option = parser.add_argument_group(
+        title="Install folder and database options"
     )
-    database_option.add_argument(
-        "--VMR",
-        dest="VMR_file",
-        type=str,
-        help="Path to an input fasta file. (If the VMR file does not exist, it will be downloaded automatically)"
-        " and stored in the ~/.taxmyPHAGE directory)",
-        default=os.path.abspath(
-            os.path.join(os.path.expanduser("~"), ".taxmyPHAGE", "VMR.xlsx")
-        ),
+
+    install_option.add_argument(
+        "--install",
+        dest="install",
+        action="store_true",
+        default=False,
+        help="Use this option to download and install the databases. (Default is False)",
     )
 
     executable_option = parser.add_argument_group(

@@ -33,6 +33,8 @@ class PoorMansViridic:
         species_threshold: float = 95,
         nthreads: int = 1,
         verbose: bool = True,
+        blastn_exe: str = "blastn",
+        makeblastdb_exe: str = "makeblastdb",
     ):
         """
         Args:
@@ -42,6 +44,8 @@ class PoorMansViridic:
             species_threshold (float, optional): Species threshold. Defaults to 95.
             nthreads (int, optional): Number of threads to use. Defaults to 1.
             verbose (bool, optional): Whether to print messages. Defaults to True.
+            blastn_exe (str, optional): Path to the blastn executable. Defaults to "blastn".
+            makeblastdb_exe (str, optional): Path to the makeblastdb executable. Defaults to "makeblastdb".
 
         Returns:
             None
@@ -53,6 +57,8 @@ class PoorMansViridic:
         self.nthreads = nthreads
         self.genus_threshold = genus_threshold
         self.species_threshold = species_threshold
+        self.blastn_exe = blastn_exe
+        self.makeblastdb_exe = makeblastdb_exe
 
     def run(self) -> Tuple[pd.DataFrame, str]:
         """
@@ -139,7 +145,7 @@ class PoorMansViridic:
         for filename in glob.glob(f"{self.file}*.n*"):
             os.remove(filename)
 
-        cmd = f"makeblastdb -in {self.file}  -dbtype nucl"
+        cmd = f"{self.makeblastdb_exe} -in {self.file}  -dbtype nucl"
         ic("Creating blastn database:", cmd)
         res = subprocess.getoutput(cmd)
         ic(res)
@@ -159,7 +165,7 @@ class PoorMansViridic:
             self.result_dir, os.path.basename(self.file) + ".blastn_vs2_self.tab.gz"
         )
         if not os.path.exists(outfile):
-            cmd = f'blastn -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} -word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} -db {self.file} -outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" | gzip -c > {outfile}'
+            cmd = f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} -word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} -db {self.file} -outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" | gzip -c > {outfile}'
             ic("Blasting against itself:", cmd)
             ic(cmd)
             subprocess.getoutput(cmd)
