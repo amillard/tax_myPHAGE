@@ -29,7 +29,7 @@ to help explain your problem.
 
 ***MacSyFinder Version:***
 
-  copy/paste here the output of tax_myPHAGE --version
+  copy/paste here the output of taxmyphage --version
 
 **Additional context**
 Add any other context about the problem here.

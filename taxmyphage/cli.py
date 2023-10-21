@@ -6,8 +6,8 @@
 
 import os
 from argparse import ArgumentParser
-from tax_myPHAGE import __version__
-from tax_myPHAGE.utils import CheckAction
+from taxmyphage import __version__
+from taxmyphage.utils import CheckAction
 
 ############################################################################################################
 # Functions
@@ -16,7 +16,7 @@ from tax_myPHAGE.utils import CheckAction
 
 def cli(args=None):
     """
-    Command line interface for tax_myPHAGE
+    Command line interface for taxmyphage
     """
 
     description = """Takes a phage genome as as fasta file and compares against all phage genomes that are currently classified 
@@ -24,7 +24,7 @@ def cli(args=None):
          it runs the VIRIDIC--algorithm and parses the output to predict the taxonomy of the phage. It is only able to classify to the Genus and Species level"""
 
     parser = ArgumentParser(
-        description=description, conflict_handler="resolve", prog="tax_myPHAGE"
+        description=description, conflict_handler="resolve", prog="taxmyphage"
     )
 
     parser.add_argument(
@@ -32,7 +32,7 @@ def cli(args=None):
         "--version",
         action="version",
         help="Show the conda-prefix-replacement version number and exit.",
-        version=f"tax_myPHAGE {__version__}",
+        version=f"taxmyphage {__version__}",
     )
     parser.add_argument(
         "-v",

@@ -26,7 +26,7 @@ A clear and concise description of any alternative solutions or features you've 
 
 ***MacSyFinder Version:***
 
-  copy/paste here the output of tax_myPHAGE --version
+  copy/paste here the output of taxmyphage --version
 
 **Additional context**
 Add any other context or screenshots about the feature request here.

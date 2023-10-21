@@ -1,7 +1,7 @@
 CONTRIBUTORS
 ============
 
-This is a list of people who have made contributions to tax_myPHAGE.
+This is a list of people who have made contributions to taxmyphage.
 
 
 | Emoji             | Represents    | Comments                                                             |

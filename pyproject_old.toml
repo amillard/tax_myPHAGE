@@ -69,7 +69,7 @@ tax_myphage = [
 [tool.flake8]
 max-line-length = "100"
 ignore = "E122,E123,E126,E127,E128,E731,E722"
-exclude = "build,tax_myPHAGE/_version.py,tests,conda.recipe,.git,versioneer.py,benchmarks,.asv"
+exclude = "build,taxmyphage/_version.py,tests,conda.recipe,.git,versioneer.py,benchmarks,.asv"
 
 [tool.pytest.ini_options]
 norecursedirs = [".*", "*.egg*", "build", "dist", "conda.recipe"]
@@ -85,10 +85,10 @@ markers = ["serial: execute test serially (to avoid race conditions)"]
 
 [tool.versioneer]
 vcs = "git"
-versionfile_source = "tax_myPHAGE/_version.py"
-versionfile_build = "tax_myPHAGE/_version.py"
+versionfile_source = "taxmyphage/_version.py"
+versionfile_build = "taxmyphage/_version.py"
 tag_prefix = ""
-parentdir_prefix = "tax_myPHAGE-"
+parentdir_prefix = "taxmyphage-"
 
 [tool.distutils.bdist_wheel]
 universal = 1

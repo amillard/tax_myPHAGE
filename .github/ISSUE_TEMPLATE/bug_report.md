@@ -24,7 +24,7 @@ A clear and concise description of what you expected to happen.
 If applicable, add **screenshots**, **outputs** or **error traceback** 
 to help explain your problem.
 
-**Please complete the following information):**
+**Please complete the following information:**
 
 ***OS:*** 
 
@@ -34,7 +34,7 @@ to help explain your problem.
 
 ***MacSyFinder Version:***
 
-    copy/paste here the output of tax_myPHAGE --version
+    copy/paste here the output of taxmyphage --version
 
 **Additional context**
 Add any other context about the problem here.

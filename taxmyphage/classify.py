@@ -14,10 +14,10 @@ from Bio import SeqIO
 from textwrap import dedent
 from typing import Tuple, Dict
 
-from tax_myPHAGE.PoorMansViridic import PoorMansViridic
-from tax_myPHAGE.plot import heatmap
-from tax_myPHAGE.utils import print_error, print_ok, print_res, print_warn
-from tax_myPHAGE.utils import (
+from taxmyphage.PoorMansViridic import PoorMansViridic
+from taxmyphage.plot import heatmap
+from taxmyphage.utils import print_error, print_ok, print_res, print_warn
+from taxmyphage.utils import (
     statement_current_genus_new_sp,
     statement_current_genus_sp,
     summary_statement1,
@@ -548,13 +548,13 @@ def new_genus_new_species(summary_output_path: str, mash_df: pd.DataFrame) -> No
         dedent(
             """\nQuery does not fall within a current genus or species as defined by ICTV
             Therefore the query sequence is likely the first representative of both a new species and new genus.\n
-            Data produced by tax_myPHAGE will help you write a Taxonomy proposal so it can be offically classified.
+            Data produced by taxmyphage will help you write a Taxonomy proposal so it can be offically classified.
             \n"""
         )
     )
 
     print_warn(
-        "WARNING:: tax_myPHAGE does not compare against all other known phages, only those that have been classified\n"
+        "WARNING:: taxmyphage does not compare against all other known phages, only those that have been classified\n"
     )
 
     with open(summary_output_path, "w") as file:
@@ -562,7 +562,7 @@ def new_genus_new_species(summary_output_path: str, mash_df: pd.DataFrame) -> No
             dedent(
                 """
                 Query sequence can not be classified within a current genus or species, it is in:\n
-                Remember tax_myPHAGE compared against viruses classified by the ICTV. Allowing determine if it represents a new 
+                Remember taxmyphage compared against viruses classified by the ICTV. Allowing determine if it represents a new 
                 species or geneus. It does not tell you if it is similar to other phages that have yet to be classified
                 You can do this by comparison with INPHARED database if you wish.\n
                 """

@@ -41,8 +41,8 @@ def get_config():
     cfg.VCS = "git"
     cfg.style = ""
     cfg.tag_prefix = ""
-    cfg.parentdir_prefix = "tax_myPHAGE-"
-    cfg.versionfile_source = "tax_myPHAGE/_version.py"
+    cfg.parentdir_prefix = "taxmyphage-"
+    cfg.versionfile_source = "taxmyphage/_version.py"
     cfg.verbose = False
     return cfg
 

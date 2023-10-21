@@ -1,4 +1,4 @@
-# Desc: Utility functions for tax_myPHAGE
+# Desc: Utility functions for taxmyphage
 
 ############################################################################################################
 # Imports

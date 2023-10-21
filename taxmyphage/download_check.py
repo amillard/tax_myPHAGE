@@ -11,7 +11,7 @@ import wget
 import gzip
 import shutil
 
-from tax_myPHAGE.utils import print_error, print_ok, create_folder
+from taxmyphage.utils import print_error, print_ok, create_folder
 
 ############################################################################################################
 # Functions

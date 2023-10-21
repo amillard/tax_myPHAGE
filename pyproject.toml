@@ -3,7 +3,7 @@ requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
 build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.poetry]
-name = "tax_myPHAGE"
+name = "taxmyPHAGE"
 description = "Script to assign taxonomy to a bacteriophage at the genus and species level"
 version = "0.0.0"
 
@@ -21,10 +21,10 @@ license = "MIT"
 
 classifiers = [
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Operating System :: POSIX",
     "Environment :: Console",
     "Development Status :: 5 - Production/Stable",
@@ -35,7 +35,7 @@ classifiers = [
 # If your project structure differs from the standard one supported by poetry, 
 # you can specify the packages you want to include in the final distribution.
 packages = [
-    {include = "tax_myPHAGE"}
+    {include = "taxmyphage"}
     ]
 
 include = [
@@ -55,13 +55,13 @@ exclude = [
     ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.9,<3.13"
 biopython = "^1.81"
 pandas = "^2.1.1"
 numpy = "^1.26.0"
 matplotlib = "^3.8.0"
 seaborn = "^0.11.2"
-python-wget = "^3.2"
+wget = "^3.2"
 scipy = "^1.11.3"
 tqdm = "^4.66.1"
 openpyxl = "^3.1.2"
@@ -73,7 +73,7 @@ pytest = "^6.2.5"
 pytest-runner = "^5.3.1"
 
 [tool.poetry.scripts]
-my_package_cli = 'tax_myPHAGE.cli:cli'
+my_package_cli = 'taxmyphage.cli:cli'
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/amillard/taxy_myPHAGE/issues"
@@ -94,11 +94,13 @@ markers = ["serial: execute test serially (to avoid race conditions)"]
 enable = true
 vcs = "git"
 
-[tool.poetry-dynamic-versioning.files."tax_myPHAGE/_version.py"]
-persistent-substitution = true
-initial-content = """
-  # These version placeholders will be replaced later during substitution.
-  __version__ = "0.0.0"
-  __version_tuple__ = (0, 0, 0)
-"""
+[tool.versioneer]
+vcs = "git"
+versionfile_source = "taxmyphage/_version.py"
+versionfile_build = "taxmyphage/_version.py"
+tag_prefix = ""
+parentdir_prefix = "taxmyphage-"
+
+[tool.distutils.bdist_wheel]
+universal = 1
 

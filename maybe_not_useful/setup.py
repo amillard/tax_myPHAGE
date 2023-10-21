@@ -16,7 +16,7 @@ requirements = [
 ]
 
 setup(
-    name='tax_myPHAGE',
+    name='taxmyphage',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
     description="Script to assign taxonomy to a bacteriophage at the genus and species level",
@@ -24,14 +24,14 @@ setup(
     author="Andrew Millard, Thomas Sicheritz-Ponten and Remi Denise",
     author_email='adm39@leicester.ac.uk',
     url='https://github.com/amillard/tax_myPHAGE',
-    packages=['tax_myPHAGE'],
+    packages=['taxmyphage'],
     entry_points={
         'console_scripts': [
             'tax_myphage=tax_myphage.cli:cli'
         ]
     },
     install_requires=requirements,
-    keywords='tax_myPHAGE',
+    keywords='taxmyphage',
     classifiers=[
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',

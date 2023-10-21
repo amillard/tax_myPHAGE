@@ -1,4 +1,4 @@
-# Description: Plotting functions for tax_myPHAGE
+# Description: Plotting functions for taxmyphage
 
 ############################################################################################################
 # Imports
