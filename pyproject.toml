@@ -48,7 +48,6 @@ exclude = [
     "*__pycache__*",
     "upload*",
     "test*",
-    "img*",
     "conda*",
     "Benchmark*",
     ".coverage*",
@@ -70,13 +69,15 @@ tqdm = "^4.66.1"
 openpyxl = "^3.1.2"
 networkx = "^3.1"
 icecream = "^2.1.3"
+importlib_metadata = "^6.8.0"
+zipp = "^3.17.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^6.2.5"
 pytest-runner = "^5.3.1"
 
 [tool.poetry.scripts]
-my_package_cli = 'taxmyphage.cli:cli'
+taxmyphage = 'taxmyphage.cli:cli'
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/amillard/taxy_myPHAGE/issues"
