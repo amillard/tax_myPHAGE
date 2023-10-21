@@ -77,7 +77,7 @@ pytest = "^6.2.5"
 pytest-runner = "^5.3.1"
 
 [tool.poetry.scripts]
-taxmyphage = 'taxmyphage.cli:cli'
+taxmyphage = 'taxmyphage.__main__:main'
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/amillard/taxy_myPHAGE/issues"
