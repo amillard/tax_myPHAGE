@@ -20,13 +20,19 @@ from typing import Tuple
 # Classes
 ############################################################################################################
 
+
 class PoorMansViridic:
     """
     PoorMansViridic class for clustering genomes based on similarity
     """
 
     def __init__(
-        self, file: str, genus_threshold: float=70, species_threshold: float=95, nthreads: int=1, verbose: bool=True
+        self,
+        file: str,
+        genus_threshold: float = 70,
+        species_threshold: float = 95,
+        nthreads: int = 1,
+        verbose: bool = True,
     ):
         """
         Args:
@@ -70,10 +76,10 @@ class PoorMansViridic:
     def cluster_all(self):
         """
         Clusters all the genomes
-        
+
         Args:
             self (PoorMansViridic): PoorMansViridic class
-        
+
         Returns:
             None
         """
@@ -257,10 +263,8 @@ class PoorMansViridic:
         size_dict = self.size_dict
 
         genome_arr = np.array(list(M.keys()))
-        
-        dfM = pd.DataFrame(
-            genome_arr, columns=["A", "B"]
-        )
+
+        dfM = pd.DataFrame(genome_arr, columns=["A", "B"])
 
         dfM["idAB"] = M.values()
 
@@ -314,14 +318,14 @@ class PoorMansViridic:
 
         self.dfM = dfM
 
-    def save_similarities(self, outfile: str="similarities.tsv"):
+    def save_similarities(self, outfile: str = "similarities.tsv"):
         """
         Saves the similarities
 
         Args:
             self (PoorMansViridic): PoorMansViridic class
             outfile (str, optional): Path to the output file. Defaults to "similarities.tsv".
-        
+
         Returns:
             None
         """
@@ -333,9 +337,11 @@ class PoorMansViridic:
         # Save the dataframe
         df.to_csv(outfile, index=False, sep="\t")
 
+
 ############################################################################################################
 # Functions
 ############################################################################################################
+
 
 def _make_gen(reader):
     """Generator to read a file piece by piece.
@@ -350,7 +356,9 @@ def _make_gen(reader):
         yield b
         b = reader(1024 * 1024)
 
+
 ############################################################################################################
+
 
 def rawgencount(filename: str) -> int:
     """Count the number of lines in a file.

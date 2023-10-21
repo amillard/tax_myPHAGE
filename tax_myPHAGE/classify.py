@@ -1,5 +1,3 @@
-
-
 ####################################################################################################
 # IMPORTS
 ####################################################################################################
@@ -19,13 +17,21 @@ from typing import Tuple, Dict
 from tax_myPHAGE.PoorMansViridic import PoorMansViridic
 from tax_myPHAGE.plot import heatmap
 from tax_myPHAGE.utils import print_error, print_ok, print_res, print_warn
-from tax_myPHAGE.utils import statement_current_genus_new_sp, statement_current_genus_sp, summary_statement1, summary_statement_inconsitent
+from tax_myPHAGE.utils import (
+    statement_current_genus_new_sp,
+    statement_current_genus_sp,
+    summary_statement1,
+    summary_statement_inconsitent,
+)
 
 ####################################################################################################
 # FUNCTIONS
 ####################################################################################################
 
-def run_mash(query: str, mash_index_path: str, dist: float, threads: int) -> pd.DataFrame:
+
+def run_mash(
+    query: str, mash_index_path: str, dist: float, threads: int
+) -> pd.DataFrame:
     """
     Runs mash dist on the query genome against the mash index
 
@@ -55,9 +61,21 @@ def run_mash(query: str, mash_index_path: str, dist: float, threads: int) -> pd.
 
     return mash_df
 
+
 ####################################################################################################
 
-def classification_mash(known_taxa_path: str, results_path: str, dist: float, query: str, mash_index_path: str, blastdb_path: str, taxa_df: pd.DataFrame, taxa_csv_output_path: str, threads: int) ->  Tuple[pd.DataFrame, Dict[str, str]]:
+
+def classification_mash(
+    known_taxa_path: str,
+    results_path: str,
+    dist: float,
+    query: str,
+    mash_index_path: str,
+    blastdb_path: str,
+    taxa_df: pd.DataFrame,
+    taxa_csv_output_path: str,
+    threads: int,
+) -> Tuple[pd.DataFrame, Dict[str, str]]:
     """
     Classifies the query genome using mash
 
@@ -81,7 +99,7 @@ def classification_mash(known_taxa_path: str, results_path: str, dist: float, qu
     accession_genus_dict = taxa_df.set_index("Genbank")["Genus"].to_dict()
 
     mash_df = run_mash(query, mash_index_path, dist, threads)
-    
+
     number_hits = mash_df.shape[0]
 
     # get the number of genomes wih mash distance < 0.2
@@ -101,7 +119,7 @@ def classification_mash(known_taxa_path: str, results_path: str, dist: float, qu
     else:
         print_res(
             dedent(
-            f"""
+                f"""
             Number of phage genomes detected with mash distance of < {dist} is:{number_hits}
             """
             )
@@ -119,7 +137,7 @@ def classification_mash(known_taxa_path: str, results_path: str, dist: float, qu
 
     print_ok(
         dedent(
-        f"""\nThe mash distances obtained for this query phage
+            f"""\nThe mash distances obtained for this query phage
         is a minimum value of {minimum_value} and maximum value of {maximum_value}\n
         """
         )
@@ -173,7 +191,9 @@ def classification_mash(known_taxa_path: str, results_path: str, dist: float, qu
 
     # Do different things depending how many unique genera were found
     if len(unique_genera) == 1:
-        print_ok("Only found 1 genus so will proceed with getting all genomes associated with that genus")
+        print_ok(
+            "Only found 1 genus so will proceed with getting all genomes associated with that genus"
+        )
 
         # get all the keys for from a dictionary of accessions and genus names
         keys = [k for k, v in accession_genus_dict.items() if v == unique_genera[0]]
@@ -186,7 +206,9 @@ def classification_mash(known_taxa_path: str, results_path: str, dist: float, qu
         res = subprocess.getoutput(get_genomes_cmd)
 
     elif len(unique_genera) > 1:
-        print_ok("Found multiple genera that this query phage might be similar to so will proceed with processing them all")
+        print_ok(
+            "Found multiple genera that this query phage might be similar to so will proceed with processing them all"
+        )
 
         list_of_genus_accessions = []
         for i in unique_genera:
@@ -206,13 +228,17 @@ def classification_mash(known_taxa_path: str, results_path: str, dist: float, qu
     min_dist = top_10["distance"].min()
 
     if min_dist < 0.04:
-        print_ok("Phage is likely NOT a new species, will run further analysis now to to confirm this\n")
+        print_ok(
+            "Phage is likely NOT a new species, will run further analysis now to to confirm this\n"
+        )
 
         top_df = top_10[top_10["distance"] == min_dist]
         ic(top_df)
 
     elif min_dist >= 0.04 and min_dist < 0.1:
-        print_ok("It is not clear if the phage is a new species or not. Will run further analysis now to confirm this...\n")
+        print_ok(
+            "It is not clear if the phage is a new species or not. Will run further analysis now to confirm this...\n"
+        )
 
         top_df = top_10[top_10["distance"] < 0.1]
         ic(top_df)
@@ -226,9 +252,21 @@ def classification_mash(known_taxa_path: str, results_path: str, dist: float, qu
 
     return mash_df, accession_genus_dict
 
+
 ####################################################################################################
 
-def classification_viridic(known_taxa_path: str, query: str, taxa_df: pd.DataFrame, taxa_csv_output_path: str, results_path: str, threads: int, accession_genus_dict: Dict[str, str], Figure: bool, verbose: bool) -> Tuple[pd.DataFrame, pd.DataFrame]:
+
+def classification_viridic(
+    known_taxa_path: str,
+    query: str,
+    taxa_df: pd.DataFrame,
+    taxa_csv_output_path: str,
+    results_path: str,
+    threads: int,
+    accession_genus_dict: Dict[str, str],
+    Figure: bool,
+    verbose: bool,
+) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """
     Classifies the query genome using viridic
 
@@ -247,7 +285,7 @@ def classification_viridic(known_taxa_path: str, query: str, taxa_df: pd.DataFra
         merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
         copy_merged_df pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe with the query
     """
-    
+
     # store files for VIRIDIC run- or equivalent
     viridic_in_path = os.path.join(results_path, "viridic_in.fa")
 
@@ -298,9 +336,16 @@ def classification_viridic(known_taxa_path: str, query: str, taxa_df: pd.DataFra
 
     return merged_df, copy_merged_df
 
+
 ####################################################################################################
 
-def new_genus(query_genus_cluster_number: int, dict_genus_cluster_2_genus_name: Dict[int, str], summary_output_path: str, prefix: str) -> None:
+
+def new_genus(
+    query_genus_cluster_number: int,
+    dict_genus_cluster_2_genus_name: Dict[int, str],
+    summary_output_path: str,
+    prefix: str,
+) -> None:
     """
     Classifies the query genome as a new genus
 
@@ -315,14 +360,15 @@ def new_genus(query_genus_cluster_number: int, dict_genus_cluster_2_genus_name: 
     """
 
     print_warn(
-            dedent(
-                f"""Cluster Number: {query_genus_cluster_number} is not in the dictionary of 
+        dedent(
+            f"""Cluster Number: {query_genus_cluster_number} is not in the dictionary of 
                 known Genera: {dict_genus_cluster_2_genus_name}"""
-            )
         )
+    )
 
     print_res(
-        dedent("""
+        dedent(
+            """
             Phage is NOT within a current genus or species and therefore a both 
             a new Genus and species.\n"""
         )
@@ -337,9 +383,19 @@ def new_genus(query_genus_cluster_number: int, dict_genus_cluster_2_genus_name: 
 
     return
 
+
 ####################################################################################################
 
-def current_genus_current_species(query_species_cluster_number: int, dict_species_cluster_2_species_name: Dict[int, str], summary_output_path: str, dict_genus_cluster_2_genus_name: Dict[int, str], query_genus_cluster_number: int, merged_df: pd.DataFrame, mash_df: pd.DataFrame) -> None:
+
+def current_genus_current_species(
+    query_species_cluster_number: int,
+    dict_species_cluster_2_species_name: Dict[int, str],
+    summary_output_path: str,
+    dict_genus_cluster_2_genus_name: Dict[int, str],
+    query_genus_cluster_number: int,
+    merged_df: pd.DataFrame,
+    mash_df: pd.DataFrame,
+) -> None:
     """
     Classifies the query genome as a current genus and current species
 
@@ -350,20 +406,19 @@ def current_genus_current_species(query_species_cluster_number: int, dict_specie
         dict_genus_cluster_2_genus_name (Dict[int, str]): Dictionary of genus cluster to genus name
         query_genus_cluster_number (int): Query genus cluster number
         merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
-        mash_df (pd.DataFrame): Dataframe of the mash results 
-    
+        mash_df (pd.DataFrame): Dataframe of the mash results
+
     Returns:
         None
     """
 
     print(
-        dedent("""\nPhage is within a current genus and same as a current species 
+        dedent(
+            """\nPhage is within a current genus and same as a current species 
                 ....working out which one now .....\n"""
         )
     )
-    predicted_genus = dict_genus_cluster_2_genus_name[
-        query_genus_cluster_number
-    ]
+    predicted_genus = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
     predicted_species = dict_species_cluster_2_species_name[
         query_species_cluster_number
     ]
@@ -402,15 +457,20 @@ def current_genus_current_species(query_species_cluster_number: int, dict_specie
             )
         )
 
-    mash_df.to_csv(
-        summary_output_path, mode="a", header=True, index=False, sep="\t"
-    )
+    mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
 
     return
 
+
 ####################################################################################################
 
-def current_genus_new_species(summary_output_path: str, query_genus_cluster_number: int, merged_df: pd.DataFrame, mash_df: pd.DataFrame) -> None:
+
+def current_genus_new_species(
+    summary_output_path: str,
+    query_genus_cluster_number: int,
+    merged_df: pd.DataFrame,
+    mash_df: pd.DataFrame,
+) -> None:
     """
     Classifies the query genome as a current genus and new species
 
@@ -466,12 +526,11 @@ def current_genus_new_species(summary_output_path: str, query_genus_cluster_numb
             )
         )
 
-    mash_df.to_csv(
-        summary_output_path, mode="a", header=True, index=False, sep="\t"
-    )
+    mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
 
 
 ####################################################################################################
+
 
 def new_genus_new_species(summary_output_path: str, mash_df: pd.DataFrame) -> None:
     """
@@ -494,7 +553,9 @@ def new_genus_new_species(summary_output_path: str, mash_df: pd.DataFrame) -> No
         )
     )
 
-    print_warn("WARNING:: tax_myPHAGE does not compare against all other known phages, only those that have been classified\n")
+    print_warn(
+        "WARNING:: tax_myPHAGE does not compare against all other known phages, only those that have been classified\n"
+    )
 
     with open(summary_output_path, "w") as file:
         file.write(
@@ -507,13 +568,21 @@ def new_genus_new_species(summary_output_path: str, mash_df: pd.DataFrame) -> No
                 """
             )
         )
-    mash_df.to_csv(
-        summary_output_path, mode="a", header=True, index=False, sep="\t"
-    )
+    mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
+
 
 ####################################################################################################
 
-def classification(merged_df: pd.DataFrame, copy_merged_df: pd.DataFrame, results_path: str, mash_df: pd.DataFrame, prefix: str, genome: str, timer_start: float) -> None:
+
+def classification(
+    merged_df: pd.DataFrame,
+    copy_merged_df: pd.DataFrame,
+    results_path: str,
+    mash_df: pd.DataFrame,
+    prefix: str,
+    genome: str,
+    timer_start: float,
+) -> None:
     """
     Classifies the query genome
 
@@ -525,7 +594,7 @@ def classification(merged_df: pd.DataFrame, copy_merged_df: pd.DataFrame, result
         prefix (str): Prefix to add to the output file
         genome (str): Genome name
         timer_start (float): Start time
-    
+
     Returns:
         None
     """
@@ -533,7 +602,6 @@ def classification(merged_df: pd.DataFrame, copy_merged_df: pd.DataFrame, result
     # path the final results summary file
     summary_results = prefix + "Summary_file.txt"
     summary_output_path = os.path.join(results_path, summary_results)
-
 
     # Count the number genera
     # excluding query
@@ -571,7 +639,6 @@ def classification(merged_df: pd.DataFrame, copy_merged_df: pd.DataFrame, result
         f"""Number of current ICTV genera associated with the reference genomes is {num_unique_ICTV_genera}"""
     )
 
-
     species_genus_dict = merged_df.set_index("species_cluster")["Species"].to_dict()
     ic(species_genus_dict)
 
@@ -608,7 +675,12 @@ def classification(merged_df: pd.DataFrame, copy_merged_df: pd.DataFrame, result
     # check query is within a current genus. If not, then new Genus
     if query_genus_cluster_number not in dict_genus_cluster_2_genus_name:
         # print the information that the query is a new genus
-        new_genus(query_genus_cluster_number, dict_genus_cluster_2_genus_name, summary_output_path, prefix)
+        new_genus(
+            query_genus_cluster_number,
+            dict_genus_cluster_2_genus_name,
+            summary_output_path,
+            prefix,
+        )
 
         run_time = str(timedelta(seconds=time.time() - timer_start))
         print(f"Run time for {genome.id}: {run_time}\n")
@@ -634,7 +706,15 @@ def classification(merged_df: pd.DataFrame, copy_merged_df: pd.DataFrame, result
             and query_species_cluster_number in list_ICTV_species_clusters
         ):
             # print the information that the query already have a genus and a species
-            current_genus_current_species(query_species_cluster_number, dict_species_cluster_2_species_name, summary_output_path, dict_genus_cluster_2_genus_name, query_genus_cluster_number, merged_df, mash_df)
+            current_genus_current_species(
+                query_species_cluster_number,
+                dict_species_cluster_2_species_name,
+                summary_output_path,
+                dict_genus_cluster_2_genus_name,
+                query_genus_cluster_number,
+                merged_df,
+                mash_df,
+            )
 
             # WRITE CODE FOR GIVING INFO ON SPECIES
 
@@ -643,7 +723,9 @@ def classification(merged_df: pd.DataFrame, copy_merged_df: pd.DataFrame, result
             query_genus_cluster_number in list_ICTV_genus_clusters
             and query_species_cluster_number not in list_ICTV_species_clusters
         ):
-            current_genus_new_species(summary_output_path, query_genus_cluster_number, merged_df, mash_df)
+            current_genus_new_species(
+                summary_output_path, query_genus_cluster_number, merged_df, mash_df
+            )
 
         # NEW GENUS and NEW SPECIES
         elif (
@@ -662,15 +744,25 @@ def classification(merged_df: pd.DataFrame, copy_merged_df: pd.DataFrame, result
             and query_species_cluster_number in list_ICTV_species_clusters
         ):
             # print the information that the query already have a genus and a species
-            current_genus_current_species(query_species_cluster_number, dict_species_cluster_2_species_name, summary_output_path, dict_genus_cluster_2_genus_name, query_genus_cluster_number, merged_df, mash_df)
-    
+            current_genus_current_species(
+                query_species_cluster_number,
+                dict_species_cluster_2_species_name,
+                summary_output_path,
+                dict_genus_cluster_2_genus_name,
+                query_genus_cluster_number,
+                merged_df,
+                mash_df,
+            )
+
         # SAME GENUS but different species
         elif (
             query_genus_cluster_number in list_ICTV_genus_clusters
             and query_species_cluster_number not in list_ICTV_species_clusters
         ):
-            current_genus_new_species(summary_output_path, query_genus_cluster_number, merged_df, mash_df)
-        
+            current_genus_new_species(
+                summary_output_path, query_genus_cluster_number, merged_df, mash_df
+            )
+
         # NEW GENUS and NEW SPECIES
         elif (
             query_genus_cluster_number not in list_ICTV_genus_clusters

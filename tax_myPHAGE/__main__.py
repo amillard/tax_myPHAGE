@@ -19,7 +19,11 @@ from tax_myPHAGE.plot import heatmap
 from tax_myPHAGE.download_check import check_blastDB, check_mash_index, check_VMR
 from tax_myPHAGE.utils import create_folder, print_ok
 from tax_myPHAGE.handle_files import create_files_and_result_paths, read_VMR
-from tax_myPHAGE.classify import classification_mash, classification_viridic, classification
+from tax_myPHAGE.classify import (
+    classification_mash,
+    classification_viridic,
+    classification,
+)
 
 ############################################################################################################
 
@@ -31,14 +35,14 @@ plt.rcParams["font.weight"] = "light"
 
 ############################################################################################################
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Set up the arguments
     args, nargs = cli.cli()
 
     verbose = args.verbose
     # Defined and set some parameters
     threads = args.threads
-    
+
     mash_dist = args.dist
 
     create_folder(args.output)
@@ -135,4 +139,3 @@ if __name__ == '__main__':
 
     # clean up
     os.remove(tmp_fasta)
-

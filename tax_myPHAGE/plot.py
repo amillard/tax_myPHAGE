@@ -16,7 +16,13 @@ from typing import Dict
 # Functions
 ############################################################################################################
 
-def heatmap(dfM: pd.DataFrame, outfile: str, matrix_out:str, accession_genus_dict: Dict[str, str]):
+
+def heatmap(
+    dfM: pd.DataFrame,
+    outfile: str,
+    matrix_out: str,
+    accession_genus_dict: Dict[str, str],
+):
     """
     Plot a heatmap of the similarity matrix
 
@@ -25,15 +31,15 @@ def heatmap(dfM: pd.DataFrame, outfile: str, matrix_out:str, accession_genus_dic
         outfile (str): Path to the output file
         matrix_out (str): Path to the output matrix
         accession_genus_dict (Dict[str, str]): Dictionary of accessions and genera
-    
+
     Returns:
         None
     """
 
-    #define output files
-    svg_out = outfile+".svg"
-    pdf_out = outfile+".pdf"
-    png_out = outfile+".png"
+    # define output files
+    svg_out = outfile + ".svg"
+    pdf_out = outfile + ".pdf"
+    png_out = outfile + ".png"
 
     # Plot the heatmap
     ax = plt.gca()
@@ -104,7 +110,7 @@ def heatmap(dfM: pd.DataFrame, outfile: str, matrix_out:str, accession_genus_dic
 
     ax.set_xticks(np.arange(df.shape[1] + 1) - 0.5, minor=True)
     ax.set_yticks(np.arange(df.shape[0] + 1) - 0.5, minor=True)
-    
+
     ax.grid(which="minor", color="w", linestyle="-", linewidth=3)
     ax.tick_params(which="minor", bottom=False, left=False)
 
@@ -141,5 +147,6 @@ def heatmap(dfM: pd.DataFrame, outfile: str, matrix_out:str, accession_genus_dic
     plt.close()
 
     return
+
 
 ############################################################################################################

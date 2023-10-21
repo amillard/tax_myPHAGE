@@ -13,6 +13,7 @@ from tax_myPHAGE.utils import CheckAction
 # Functions
 ############################################################################################################
 
+
 def cli(args=None):
     """
     Command line interface for tax_myPHAGE
@@ -21,13 +22,16 @@ def cli(args=None):
     description = """Takes a phage genome as as fasta file and compares against all phage genomes that are currently classified 
          by the ICTV. It does not compare against ALL phage genomes, just classified genomes. Having found the closet related phages 
          it runs the VIRIDIC--algorithm and parses the output to predict the taxonomy of the phage. It is only able to classify to the Genus and Species level"""
-    
-    parser = ArgumentParser(description=description, conflict_handler='resolve', prog='tax_myPHAGE')
-    
+
+    parser = ArgumentParser(
+        description=description, conflict_handler="resolve", prog="tax_myPHAGE"
+    )
+
     parser.add_argument(
-        '-V', '--version',
-        action='version',
-        help='Show the conda-prefix-replacement version number and exit.',
+        "-V",
+        "--version",
+        action="version",
+        help="Show the conda-prefix-replacement version number and exit.",
         version=f"tax_myPHAGE {__version__}",
     )
     parser.add_argument(
@@ -36,7 +40,7 @@ def cli(args=None):
         action="store_true",
     )
 
-    general_option = parser.add_argument_group(title = "General options")
+    general_option = parser.add_argument_group(title="General options")
 
     general_option.add_argument(
         "-i",
@@ -94,8 +98,7 @@ def cli(args=None):
         help="Maximum number of threads that will be used by BLASTn. (Default is 1)",
     )
 
-
-    database_option = parser.add_argument_group(title = "Options related to the database")
+    database_option = parser.add_argument_group(title="Options related to the database")
 
     database_option.add_argument(
         "-db",
@@ -118,7 +121,7 @@ def cli(args=None):
         " and stored in the ~/.taxmyPHAGE directory)",
         default=os.path.abspath(
             os.path.join(os.path.expanduser("~"), ".taxmyPHAGE", "ICTV_2023.msh")
-        )
+        ),
     )
     database_option.add_argument(
         "--VMR",
@@ -130,9 +133,11 @@ def cli(args=None):
             os.path.join(os.path.expanduser("~"), ".taxmyPHAGE", "VMR.xlsx")
         ),
     )
-    
-    executable_option = parser.add_argument_group(title = "Executable options, if not in PATH")
-    
+
+    executable_option = parser.add_argument_group(
+        title="Executable options, if not in PATH"
+    )
+
     executable_option.add_argument(
         "--blastcmd",
         dest="blastcmd",
@@ -173,10 +178,12 @@ def cli(args=None):
     # Return a value of 1 or higher to signify an error.
     # See https://docs.python.org/3/library/sys.html#sys.exit
 
+
 ############################################################################################################
-    
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     import sys
+
     cli(sys.argv[1:])
 
 ############################################################################################################

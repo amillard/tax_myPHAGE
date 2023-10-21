@@ -17,6 +17,7 @@ from typing import TextIO, List
 # Functions
 ############################################################################################################
 
+
 def read_write_fasta(input_file: str, f: TextIO) -> int:
     """Reads a fasta file and writes it to a new file
 
@@ -45,10 +46,14 @@ def read_write_fasta(input_file: str, f: TextIO) -> int:
 
     return num
 
+
 ############################################################################################################
 
+
 def create_files_and_result_paths(
-    fasta_files: List[str], tmp_fasta: str, suffixes: List[str]=["fasta", "fna", "fsa", "fa"]
+    fasta_files: List[str],
+    tmp_fasta: str,
+    suffixes: List[str] = ["fasta", "fna", "fsa", "fa"],
 ) -> int:
     """Creates a multifasta file to parse line by line
 
@@ -56,14 +61,14 @@ def create_files_and_result_paths(
         fasta_files (List[str]): List of paths to the input fasta files
         tmp_fasta (str): Path to the output fasta file
         suffixes (List[str], optional): List of fasta suffixes. Defaults to ["fasta", "fna", "fsa", "fa"].
-    
+
     Returns:
         int: Number of genomes in the input file
     """
 
     fasta_exts = re.compile("|".join([f"\.{suffix}(\.gz)?$" for suffix in suffixes]))
     num_genomes = 0
-    
+
     with open(tmp_fasta, "w") as f:
         for file in fasta_files:
             if os.path.isdir(file):
@@ -80,14 +85,16 @@ def create_files_and_result_paths(
 
     return num_genomes
 
+
 ############################################################################################################
+
 
 def read_VMR(VMR_path: str) -> pd.DataFrame:
     """Reads the VMR data
 
     Args:
         VMR_path (str): Path to the VMR data
-    
+
     Returns:
         pd.DataFrame: DataFrame containing the VMR data
     """
@@ -103,5 +110,6 @@ def read_VMR(VMR_path: str) -> pd.DataFrame:
     taxa_df["Genbank"].fillna("", inplace=True)
 
     return taxa_df
+
 
 ############################################################################################################
