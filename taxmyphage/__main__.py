@@ -8,7 +8,6 @@
 import os
 from icecream import ic
 from tqdm import tqdm
-import matplotlib.pyplot as plt
 from Bio import SeqIO
 import time
 
@@ -22,14 +21,6 @@ from taxmyphage.classify import (
     classification_viridic,
     classification,
 )
-
-############################################################################################################
-
-# Set up matplotlib
-plt.rcParams["text.color"] = "#131516"
-plt.rcParams["svg.fonttype"] = "none"  # Editable SVG text
-plt.rcParams["font.family"] = "Arial"
-plt.rcParams["font.weight"] = "light"
 
 ############################################################################################################
 

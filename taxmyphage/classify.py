@@ -137,9 +137,10 @@ def classification_mash(
 
     print_ok(
         dedent(
-            f"""\nThe mash distances obtained for this query phage
-        is a minimum value of {minimum_value} and maximum value of {maximum_value}\n
-        """
+            f"""
+            \nThe mash distances obtained for this query phage
+            is a minimum value of {minimum_value} and maximum value of {maximum_value}\n
+            """
         )
     )
 
