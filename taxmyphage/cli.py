@@ -33,7 +33,7 @@ def cli(args=None):
         "--version",
         action="version",
         help="Show the conda-prefix-replacement version number and exit.",
-        version=f"taxmyphage {__version__}",
+        version=f"taxmyphage v{__version__}",
     )
     parser.add_argument(
         "-v",

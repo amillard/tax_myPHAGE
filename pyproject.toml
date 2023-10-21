@@ -1,5 +1,5 @@
 [build-system]
-requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.poetry]
@@ -93,17 +93,5 @@ addopts = """
 --durations=20"""
 markers = ["serial: execute test serially (to avoid race conditions)"]
 
-[tool.poetry-dynamic-versioning]
-enable = true
-vcs = "git"
-
-[tool.versioneer]
-vcs = "git"
-versionfile_source = "taxmyphage/_version.py"
-versionfile_build = "taxmyphage/_version.py"
-tag_prefix = ""
-parentdir_prefix = "taxmyphage-"
-
 [tool.distutils.bdist_wheel]
 universal = 1
-
