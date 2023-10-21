@@ -1,6 +1,5 @@
 # taxmyPHAGE
 
-[![Build Status](https://img.shields.io/travis/amillard/tax_myPHAGE.svg)](https://travis-ci.org/amillard/tax_myPHAGE)
 [![Codecov](https://codecov.io/gh/amillard/tax_myPHAGE/branch/master/graph/badge.svg)](https://codecov.io/gh/amillard/tax_myPHAGE)
 
 ----------
@@ -36,7 +35,7 @@ What it wont do:
 - Compare against every single phage genome in Genbank. It is designed for classification , so compares against currently classified phages.
 
 
-- ### A web version will be available soon. 
+### A web version will be available soon. 
 
 ------
 
