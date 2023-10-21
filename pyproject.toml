@@ -54,6 +54,7 @@ exclude = [
     ".coverage*",
     "maybe*",
     "*old*",
+    "*data*",
     ]
 
 [tool.poetry.dependencies]
