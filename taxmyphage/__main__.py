@@ -14,7 +14,7 @@ import time
 # Import the PoorMansViridic class
 from taxmyphage import cli
 from taxmyphage.download_check import check_blastDB, check_mash_index, check_VMR
-from taxmyphage.utils import create_folder, print_ok
+from taxmyphage.utils import create_folder, print_ok, CheckSoftware
 from taxmyphage.handle_files import create_files_and_result_paths, read_VMR
 from taxmyphage.classify import (
     classification_mash,
@@ -28,6 +28,9 @@ if __name__ == "__main__":
     # Set up the arguments
     args, nargs = cli.cli()
 
+    for exe in [args.blastdbcmd, args.blastn, args.makeblastdb, args.mash]:
+        CheckSoftware(exe)
+        
     verbose = args.verbose
     # Defined and set some parameters
     threads = args.threads
@@ -102,7 +105,7 @@ if __name__ == "__main__":
             taxa_df=taxa_df,
             taxa_csv_output_path=taxa_csv_output_path,
             threads=threads,
-            mash_exe=args.mashexe,
+            mash_exe=args.mash,
             blastdbcmd_exe=args.blastdbcmd,
         )
 

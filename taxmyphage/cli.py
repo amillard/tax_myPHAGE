@@ -7,7 +7,6 @@
 import os
 from argparse import ArgumentParser
 from taxmyphage import __version__
-from taxmyphage.utils import CheckAction
 
 
 ############################################################################################################
@@ -132,7 +131,6 @@ def cli(args=None):
         dest="blastdbcmd",
         default="blastdbcmd",
         type=str,
-        action=CheckAction,
         help="Path to the blastn executable (default: blastdbcmd)",
     )
     executable_option.add_argument(
@@ -140,7 +138,6 @@ def cli(args=None):
         dest="blastn",
         default="blastn",
         type=str,
-        action=CheckAction,
         help="Path to the blastn executable (default: blastn)",
     )
     executable_option.add_argument(
@@ -148,15 +145,13 @@ def cli(args=None):
         dest="makeblastdb",
         default="makeblastdb",
         type=str,
-        action=CheckAction,
         help="Path to the blastn executable (default: makeblastdb)",
     )
     executable_option.add_argument(
-        "--mashexe",
-        dest="mashexe",
+        "--mash",
+        dest="mash",
         default="mash",
         type=str,
-        action=CheckAction,
         help="Path to the MASH executable (default: mash)",
     )
 

@@ -1,4 +1,4 @@
-# Desc: Utility functions for taxmyphage
+# Desc: Utility functions for tax_myPHAGE
 
 ############################################################################################################
 # Imports
@@ -46,16 +46,22 @@ def _validator(cast_func, raw):
 ############################################################################################################
 
 
-class CheckAction(argparse.Action):
-    def __call__(self, parser, namespace, values, option_string=None):
-        def exe(value):
-            exe = shutil.which(value)
-            if exe:
-                return value
-            else:
-                raise ValueError(f"'{value}' No executable found")
+def CheckSoftware(values: str) -> str:
+    """
+    Check if the software is in the PATH
+    :param values: software name
+    :type: string
+    :return: software name
+    """
 
-        return _validator(exe, values)
+    def exe(value):
+        exe = shutil.which(value)
+        if exe:
+            return value
+        else:
+            raise ValueError(f"'{value}' No executable found")
+
+    return _validator(exe, values)
 
 
 ############################################################################################################
