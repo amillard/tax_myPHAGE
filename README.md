@@ -204,7 +204,7 @@ Class:Caudoviricetes    Family: Not Defined Yet    Subfamily:Vequintavirinae    
 
 - **Output_of_taxonomy.csv** - Provides Cluster and Species numbers for you query phage, merged with data from the VMR for the closest relatives to you query
 
-- ***pdf, *svg, *jpg**  - image files of top right matrix of similarity to closest currently classified phages 
+- ***pdf, *svg, *png**  - image files of top right matrix of similarity to closest currently classified phages 
 
  ![HeatMap](/img/heatmap.jpg)
   
