@@ -1,10 +1,10 @@
 # taxmyPHAGE
 
 [![Codecov](https://codecov.io/gh/amillard/tax_myPHAGE/branch/master/graph/badge.svg)](https://codecov.io/gh/amillard/tax_myPHAGE)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/tax_myPHAGE)](https://pypi.org/project/tax_myPHAGE/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/taxmyphage)](https://pypi.org/project/taxmyphage/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![PyPI](https://img.shields.io/pypi/v/tax_myPHAGE)](https://pypi.org/project/tax_myPHAGE/)
-[![Conda](https://img.shields.io/conda/vn/bioconda/tax_myPHAGE?style=plastic)](https://github.com/bioconda/bioconda-recipes/tree/master/recipes/tax_myPHAGE)
+[![PyPI](https://img.shields.io/pypi/v/taxmyphage)](https://pypi.org/project/taxmyphage/)
+[![Conda](https://img.shields.io/conda/vn/bioconda/taxmyphage?style=plastic)](https://github.com/bioconda/bioconda-recipes/tree/master/recipes/taxmyphage)
 ----------
 
 Developed by [Andrew Millard](https://github.com/amillard) , [Thomas Sicheritz-Ponten](https://github.com/tsp-kucbd) and [Remi Denise](https://github.com/rdenise)
