@@ -128,12 +128,12 @@ def cli(args=None):
     )
 
     executable_option.add_argument(
-        "--blastcmd",
-        dest="blastcmd",
-        default="blastcmd",
+        "--blastdbcmd",
+        dest="blastdbcmd",
+        default="blastdbcmd",
         type=str,
         action=CheckAction,
-        help="Path to the blastn executable (default: blastcmd)",
+        help="Path to the blastn executable (default: blastdbcmd)",
     )
     executable_option.add_argument(
         "--blastn",

@@ -16,7 +16,7 @@ from typing import Tuple, Dict
 
 from taxmyphage.PoorMansViridic import PoorMansViridic
 from taxmyphage.plot import heatmap
-from taxmyphage.utils import print_error, print_ok, print_res, print_warn
+from taxmyphage.utils import print_error, print_ok, print_res, print_warn, create_folder
 from taxmyphage.utils import (
     statement_current_genus_new_sp,
     statement_current_genus_sp,
@@ -77,7 +77,7 @@ def classification_mash(
     taxa_csv_output_path: str,
     threads: int,
     mash_exe: str,
-    blastcmd_exe: str,
+    blastdbcmd_exe: str,
 ) -> Tuple[pd.DataFrame, Dict[str, str]]:
     """
     Classifies the query genome using mash
@@ -93,7 +93,7 @@ def classification_mash(
         taxa_csv_output_path (str): Path to the output csv file
         threads (int): Number of threads to use
         mash_exe (str): Path to the mash executable
-        blastcmd_exe (str): Path to the blastcmd executable
+        blastdbcmd_exe (str): Path to the blastdbcmd executable
 
     Returns:
         mash_df (pd.DataFrame): Dataframe of the mash results
@@ -208,7 +208,7 @@ def classification_mash(
         print_ok(f"Number of known species in the genus is {number_ok_keys} \n ")
 
         # create a command string for blastdbcmd
-        get_genomes_cmd = f"blastdbcmd -db {blastdb_path} -entry {','.join(keys)} -out {known_taxa_path}"
+        get_genomes_cmd = f"{blastdbcmd_exe} -db {blastdb_path} -entry {','.join(keys)} -out {known_taxa_path}"
         res = subprocess.getoutput(get_genomes_cmd)
 
     elif len(unique_genera) > 1:
@@ -227,7 +227,7 @@ def classification_mash(
         ic(list_of_genus_accessions)
         ic(len(list_of_genus_accessions))
 
-        get_genomes_cmd = f"{blastcmd_exe} -db {blastdb_path} -entry {','.join(list_of_genus_accessions)} -out {known_taxa_path}"
+        get_genomes_cmd = f"{blastdbcmd_exe} -db {blastdb_path} -entry {','.join(list_of_genus_accessions)} -out {known_taxa_path}"
         res = subprocess.getoutput(get_genomes_cmd)
 
     # get smallest mash distance
@@ -297,7 +297,11 @@ def classification_viridic(
     """
 
     # store files for VIRIDIC run- or equivalent
-    viridic_in_path = os.path.join(results_path, "viridic_in.fa")
+    viridic_folder = os.path.join(results_path, "viridic")
+
+    create_folder(viridic_folder)
+
+    viridic_in_path = os.path.join(viridic_folder, "viridic_in.fa")
 
     heatmap_file = os.path.join(results_path, "heatmap")
     top_right_matrix = os.path.join(results_path, "top_right_matrix.tsv")

@@ -45,9 +45,6 @@ if __name__ == "__main__":
     blastdb_path = os.path.join(args.db_folder, "Bacteriophage_genomes.fasta")
     mash_index_path = os.path.join(args.db_folder, "ICTV_2023.msh")
 
-    # Create if the database folder does not exist
-    create_folder(args.db_folder)
-
     print("Looking for database files...\n")
 
     # Check if the VMR file exists
@@ -106,7 +103,7 @@ if __name__ == "__main__":
             taxa_csv_output_path=taxa_csv_output_path,
             threads=threads,
             mash_exe=args.mashexe,
-            blastcmd_exe=args.blastcmd,
+            blastdbcmd_exe=args.blastdbcmd,
         )
 
         merged_df, copy_merged_df = classification_viridic(
