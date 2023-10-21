@@ -21,6 +21,7 @@ jobs:
         pip install poetry        
     - name: Build and publish
       run: |
+        poetry config pypi-token.pypi ${{ secrets.PYPI_API_TOKEN }}
         poetry version $(git describe --tags --abbrev=0)
         poetry build
-        poetry publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }}        
+        poetry publish        
