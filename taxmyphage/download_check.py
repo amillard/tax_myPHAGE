@@ -186,7 +186,7 @@ def check_mash_index(mash_index_path: str, install: bool=False) -> None:
             download(url, mash_index_path)
         else:
             print_error(
-                f"File {blastdb_path} does not exist. Please download the database and create the database."
+                f"File {mash_index_path} does not exist. Please download the database and create the database."
                 "Or use the --install flag to download and create the database."
             )
             sys.exit()
@@ -222,7 +222,7 @@ def check_VMR(VMR_path: str, install: bool=False) -> None:
             download(url, VMR_path)
         else:
             print_error(
-                f"File {blastdb_path} does not exist. Please download the database and create the database."
+                f"File {VMR_path} does not exist. Please download the database and create the database."
                 "Or use the --install flag to download and create the database."
             )
             sys.exit()

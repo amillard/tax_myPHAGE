@@ -106,11 +106,17 @@ def heatmap(
     mask = np.zeros_like (df)
     mask[np.tril_indices_from(mask, k=-1)] = True
 
+    # adjust figure size based on number of rows and columns
+    fig_width = max(3, df.shape[1] * 0.75)
+    fig_height = max(3, df.shape[0] * 0.75)
+
+    fig, ax = plt.subplots(figsize=(fig_width, fig_height))
+
     # plot heatmap using seaborn
-    ax = sns.heatmap(df, cmap=custom_cmap, norm=norm, annot=True, 
+    sns.heatmap(df, cmap=custom_cmap, norm=norm, annot=True, 
                      fmt=".1f", cbar=False, square=True, 
                      linewidth=2, linecolor="white",
-                     mask=mask,
+                     mask=mask, ax=ax,
                      # If you want to change the color of the text to white
                      # annot_kws={"color": "white"},
                      )

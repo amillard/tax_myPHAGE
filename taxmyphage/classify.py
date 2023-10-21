@@ -273,6 +273,7 @@ def classification_viridic(
     Figure: bool,
     verbose: bool,
     blastn_exe: str,
+    makeblastdb_exe: str,
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """
     Classifies the query genome using viridic
@@ -288,6 +289,7 @@ def classification_viridic(
         Figure (bool): Whether to generate figures
         verbose (bool): Whether to print verbose output
         blastn_exe (str): Path to the blastn executable
+        makeblastdb_exe (str): Path to the makeblastdb executable
 
     Returns:
         merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
@@ -308,7 +310,8 @@ def classification_viridic(
             SeqIO.write(SeqIO.parse(file, "fasta"), merged_file, "fasta")
 
     # run VIRIDIC
-    PMV = PoorMansViridic(viridic_in_path, nthreads=threads, verbose=verbose, blastn_exe=blastn_exe)
+    PMV = PoorMansViridic(viridic_in_path, nthreads=threads, verbose=verbose, 
+                          blastn_exe=blastn_exe, makeblastdb_exe=makeblastdb_exe)
     df1, pmv_outfile = PMV.run()
 
     ic(df1)
