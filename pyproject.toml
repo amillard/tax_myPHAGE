@@ -1,6 +1,6 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.poetry]
 name = "tax_myPHAGE"
@@ -90,9 +90,15 @@ addopts = """
 --durations=20"""
 markers = ["serial: execute test serially (to avoid race conditions)"]
 
-[tool.versioneer]
+[tool.poetry-dynamic-versioning]
+enable = true
 vcs = "git"
-versionfile_source = "tax_myPHAGE/_version.py"
-versionfile_build = "tax_myPHAGE/_version.py"
-tag_prefix = ""
-parentdir_prefix = "tax_myPHAGE-"
+
+[tool.poetry-dynamic-versioning.files."tax_myPHAGE/_version.py"]
+persistent-substitution = true
+initial-content = """
+  # These version placeholders will be replaced later during substitution.
+  __version__ = "0.0.0"
+  __version_tuple__ = (0, 0, 0)
+"""
+
