@@ -2,8 +2,39 @@
 requires = ["setuptools>=61.2"]
 build-backend = "setuptools.build_meta"
 
+# Self-descriptive entries which should always be present
+# https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
 [project]
+name = "tax_myphage"
+description = "Script to assign taxonomy to a bacteriophage at the genus and species level"
 dynamic = ["version"]
+readme = "README.md"
+authors = [
+    { name = "Andrew Millard, Thomas Sicheritz-Ponten and Remi Denise", email = "adm39@leicester.ac.uk" }
+]
+license = { text = "MIT" }
+# See https://pypi.org/classifiers/
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+]
+requires-python = ">=3.8"
+# Declare any run-time dependencies that should be installed with the package.
+#dependencies = [
+#    "importlib-resources;python_version<'3.10'",
+#]
+
+# Update the urls once the hosting is set up.
+#[project.urls]
+#"Source" = "https://github.com/<username>/tax_myphage/"
+#"Documentation" = "https://tax_myphage.readthedocs.io/"
+
+[project.optional-dependencies]
+test = [
+  "pytest>=6.1.2",
+  "pytest-runner"
+]
+
 
 [tool.flake8]
 max-line-length = "100"

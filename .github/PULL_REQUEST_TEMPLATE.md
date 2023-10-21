@@ -23,5 +23,5 @@ fixing or enhancing.
 
 - [ ] I have read the [Guidelines for Contributing](https://github.com/amillard/tax_myPHAGE/blob/master/.github/CONTRIBUTING.md), and this PR conforms to the stated requirements.
 - [ ] I have tested this PR locally, and it works as intended.
-- [ ] I have added myself as a contributor to the [contributors's file](https://github.com/amillard/tax_myPHAGE/blob/master/.github/CONTRIBUTORS.md)
+- [ ] I have added myself as a contributor to the [contributors's file](https://github.com/amillard/tax_myPHAGE/blob/master/CONTRIBUTORS.md)
 - [ ] This PR is ready for review and/or merge
