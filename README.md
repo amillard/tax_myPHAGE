@@ -164,22 +164,22 @@ The time to classify a phage will depend on the number of hits and number of pha
 
 ```
 [output_folder]                                           <- General output folder
-└── [genome query_id] 								      <- Results output for the genome query_id
+└── [genome query_id]    							      <- Results output for the genome query_id
     ├── Output_of_taxonomy.csv					          <- Output of the taxonomy classification
-    ├── Summary_file.txt 							      <- Summary of the analysis (summarises what was printed to screen )
+    ├── Summary_file.txt    						      <- Summary of the analysis (summarises what was printed to screen )
     ├── heatmap.pdf							              <- Heatmap of the similarity to the closest relatives (pdf)
     ├── heatmap.png						                  <- Heatmap of the similarity to the closest relatives	(png)
-    ├── heatmap.svg 							          <- Heatmap of the similarity to the closest relatives (svg)
-    ├── known_taxa.fa 							          <- Fasta file of the closest relatives
-    ├── mash.txt 								          <- Output of the MASH analysis
-    ├── query.fasta 							          <- Input fasta file
-    ├── similarities.tsv 							      <- Similarities to the closest relatives
-    ├── top_right_matrix.tsv				    	      <- Top right matrix of similarity to closest relatives (same as heatmap)
-    └── viridic 								          <- VIRIDIC-like analysis
-        ├── viridic_in.fa 							      <- Input fasta file
-        ├── viridic_in.fa.blastn_vs2_self.tab.gz 		  <- Blastn output of the input fasta file against itself
-        ├── viridic_in.fa.genus_species_clusters.tsv 	  <- Clusters of the closest relatives
-        ├── viridic_in.fa.ndb 							  <- Blastn database of the closest relatives
+    ├── heatmap.svg    						              <- Heatmap of the similarity to the closest relatives (svg)
+    ├── known_taxa.fa    						          <- Fasta file of the closest relatives
+    ├── mash.txt    							          <- Output of the MASH analysis
+    ├── query.fasta    						              <- Input fasta file
+    ├── similarities.tsv    						      <- Similarities to the closest relatives
+    ├── top_right_matrix.tsv				              <- Top right matrix of similarity to closest relatives (same as heatmap)
+    └── viridic    							              <- VIRIDIC-like analysis
+        ├── viridic_in.fa    						      <- Input fasta file
+        ├── viridic_in.fa.blastn_vs2_self.tab.gz    	  <- Blastn output of the input fasta file against itself
+        ├── viridic_in.fa.genus_species_clusters.tsv      <- Clusters of the closest relatives
+        ├── viridic_in.fa.ndb    						  <- Blastn database of the closest relatives
         ├── viridic_in.fa.nhr
         ├── viridic_in.fa.nin
         ├── viridic_in.fa.njs
