@@ -1,0 +1,7 @@
+[report]
+omit =
+    setup.py
+    tax_myPHAGE/__main__.py
+    tax_myPHAGE/_version.py
+    versioneer.py
+    tests/*

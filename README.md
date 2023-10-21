@@ -1,8 +1,12 @@
 # taxmyPHAGE
 
+[![Build Status](https://img.shields.io/travis/amillard/tax_myPHAGE.svg)](https://travis-ci.org/amillard/tax_myPHAGE)
+[![CircleCI](https://circleci.com/gh/amillard/tax_myPHAGE.svg?style=svg)](https://circleci.com/gh/amillard/tax_myPHAGE)
+[![Codecov](https://codecov.io/gh/amillard/tax_myPHAGE/branch/master/graph/badge.svg)](https://codecov.io/gh/amillard/tax_myPHAGE)
+
 ----------
 
-Developed by A Millard , [Thomas Sicheritz-Ponten](https://github.com/tsp-kucbd) and [Remi Denise](https://github.com/rdenise)
+Developed by [Andrew Millard](https://github.com/amillard) , [Thomas Sicheritz-Ponten](https://github.com/tsp-kucbd) and [Remi Denise](https://github.com/rdenise)
 
 Script to assign taxonomy to a bacteriophage at the genus and species level. It will identify the most similar genomes in the set of currently classified ICTV genomes that are present in the VMR. 
 Read about the VMR [here](https://ictv.global/vmr). It will compare the query genome against these genomes and run a [VIRIDIC](https://doi.org/10.3390/v12111268)-**like analysis** on the closest relatives. Interpret the output of VIRIDIC-like analysis to determine if the phage falls within a current genus and or species. It does not run VIRIDIC, but utilises the same formula for comparison of genomes.  The input is a single genome sequence. The remainder of the analysis is automated 
@@ -18,7 +22,7 @@ What it will do:
 - Classify a dsDNA phage genomes at the Genus and or species level against ICTV genomes 
 - Tell you if your genome represents a new genus 
 - Use current ICTV cutoffs for Genera and Species 
-- accept multiple inputs at the same time (not a multifasta)
+- accept multiple inputs at the same time
 
 
 
