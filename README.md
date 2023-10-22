@@ -1,6 +1,5 @@
 # taxmyPHAGE
 
-[![Codecov](https://codecov.io/gh/amillard/tax_myPHAGE/branch/master/graph/badge.svg)](https://codecov.io/gh/amillard/tax_myPHAGE)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/taxmyphage)](https://pypi.org/project/taxmyphage/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![PyPI](https://img.shields.io/pypi/v/taxmyphage)](https://pypi.org/project/taxmyphage/)
