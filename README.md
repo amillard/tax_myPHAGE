@@ -46,7 +46,7 @@ What it wont do:
 mamba create -n taxmyphage -c conda-forge -c bioconda taxymyphage
 mamba activate taxmyphage
 
-python tax_myPHAGE.py -i test.fna -t 8 
+taxymyphage -i test.fna -t 8 
 ```
 
 This should check the required software is installed and give a warning if not. It will also download the required fasta database and MASH file for comparison. These will be installed in the cloned tax_myPHAGE directory. If you download manually then please move them into tax_myPHAGE  directory.
