@@ -94,7 +94,7 @@ def cli(args=None):
         "-t",
         "--threads",
         dest="threads",
-        type=str,
+        type=int,
         default=1,
         help="Maximum number of threads that will be used by BLASTn. (Default is 1)",
     )
