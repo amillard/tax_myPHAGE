@@ -54,6 +54,7 @@ exclude = [
     "maybe*",
     "*old*",
     "*data*",
+    ".DS_Store"
     ]
 
 [tool.poetry.dependencies]
