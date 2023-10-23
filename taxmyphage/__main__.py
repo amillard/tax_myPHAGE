@@ -51,16 +51,16 @@ def main():
     print("Looking for database files...\n")
 
     # Check if the VMR file exists
-    check_VMR(VMR_path)
+    check_VMR(VMR_path, install=args.install)
 
     # read in the VMR data
     taxa_df = read_VMR(VMR_path=VMR_path)
 
     # Check if the mash index exists
-    check_mash_index(mash_index_path)
+    check_mash_index(mash_index_path, install=args.install)
 
     # Check if the blastDB file exists
-    check_blastDB(blastdb_path, output=args.output, makeblastdb_exe=args.makeblastdb)
+    check_blastDB(blastdb_path, output=args.output, makeblastdb_exe=args.makeblastdb, install=args.install)
 
     tmp_fasta = os.path.join(args.output, "tmp.fasta")
     # Create a multifasta file to parse line by line
