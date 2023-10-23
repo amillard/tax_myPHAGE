@@ -131,7 +131,7 @@ Install folder and database options:
   --install             Use this option to download and install the databases. (Default is False)
 
 Executable options, if not in PATH:
-  --blastcmd BLASTCMD   Path to the blastn executable (default: blastcmd)
+  --blastcmd BLASTDBCMD   Path to the blastn executable (default: blastdbcmd)
   --blastn BLASTN       Path to the blastn executable (default: blastn)
   --makeblastdb MAKEBLASTDB
                         Path to the blastn executable (default: makeblastdb)
