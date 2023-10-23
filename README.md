@@ -103,7 +103,7 @@ taxmyphage -i input.fasta
 ```
 optional arguments:
   -h, --help            show this help message and exit
-  -V, --version         Show the conda-prefix-replacement version number and exit.
+  -V, --version         Show the version number and exit.
   -v, --verbose
 
 General options:
