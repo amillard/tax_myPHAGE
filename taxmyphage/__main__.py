@@ -69,7 +69,13 @@ def main():
     parser = SeqIO.parse(tmp_fasta, "fasta")
 
     for genome in tqdm(parser, desc="Classifying", total=num_genomes):
-        results_path = os.path.join(args.output, genome.id)
+
+        # replace any characters that are not allowed in a file name
+        for char in [" ", "/", "|", ":", "(", ")", "[", "]", "{", "}", "<", ">", "#", "%", "&", "+", "$", "="]:
+            if char in genome.id:
+                genome_id = genome.id.replace(char, "_")
+
+        results_path = os.path.join(args.output, genome_id)
         print_ok(f"\nClassifying {genome.id} in result folder {results_path}...")
 
         timer_start = time.time()
@@ -85,7 +91,7 @@ def main():
         # create a fasta file with just the query genome and add query_ to the id
         with open(query, "w") as output_fid:
             genome.name = genome.description = ""
-            genome.id = f"query_{genome.id}"
+            genome.id = f"query_{genome_id}"
             SeqIO.write(genome, output_fid, "fasta")
 
         # path to the combined df containing mash and VMR data
