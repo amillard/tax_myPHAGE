@@ -181,9 +181,10 @@ The time to classify a phage will depend on the number of hits and number of pha
 
 ```
 [output_folder]                                          <- General output folder
+├── [Summary_taxonomy.tsv]                               <- Summary of the analysis for all the genomes (summarises what was printed to screen)
 └── [genome query_id]                                    <- Results output for the genome query_id
     ├── Output_of_taxonomy.csv                           <- Output of the taxonomy classification
-    ├── Summary_file.txt                                 <- Summary of the analysis (summarises what was printed to screen )
+    ├── Summary_file.txt                                 <- Summary of the analysis (summarises what was printed to screen)
     ├── heatmap.pdf                                      <- Heatmap of the similarity to the closest relatives (pdf)
     ├── heatmap.png                                      <- Heatmap of the similarity to the closest relatives    (png)
     ├── heatmap.svg                                      <- Heatmap of the similarity to the closest relatives (svg)
@@ -208,6 +209,14 @@ The time to classify a phage will depend on the number of hits and number of pha
 
 ##### Output files explained
 
+- **Summary_taxonomy.tsv** - Summarises what was printed to screen for all the genomes
+
+| Query sequence header | Realm | Kingdom | Phylum | Class | Order | Family | Subfamily | Genus | Species | Full classification |
+|-----------------------|-------|---------|--------|-------|-------|--------|-----------|-------|---------|---------------------|
+| MZ130489 | Duplodnaviria | Heunggongvirae | Uroviricota | Caudoviricetes | Crassvirales | Crevaviridae | Junduvirus | Junduvirus communis | r__Duplodnaviria;k__Heunggongvirae;p__Uroviricota;c__Caudoviricetes;o__Crassvirales;f__Crevaviridae;g__Junduvirus;s__Junduvirus communis |
+| newGenus_phage | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | r__Unknown;k__Unknown;p__Unknown;c__Unknown;o__Unknown;f__Unknown;g__New_genus;s__New_genus new_species |
+| test1 | Duplodnaviria | Heunggongvirae | Uroviricota | Caudoviricetes | Not Defined Yet | Not Defined Yet | Vequintavirinae | Certrevirus | Certrevirus name_your_species | r__Duplodnaviria;k__Heunggongvirae;p__Uroviricota;c__Caudoviricetes;o__Not Defined Yet;f__Not Defined Yet;g__Certrevirus;s__Certrevirus name_your_species |
+
 - **Summary_file.txt** - Summarises what was printed to screen 
 
 ```
@@ -226,3 +235,7 @@ Class:Caudoviricetes    Family: Not Defined Yet    Subfamily:Vequintavirinae    
  ![HeatMap](/img/heatmap.jpg)
   
     
+
+  Correcting bug if the genome name is with non folder compatible characters #1 
+
+Adding a feature to that summarise the information of the taxonomy in a file in the output folder
