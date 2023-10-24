@@ -157,8 +157,15 @@ def main():
             string_taxo = ""
             full_string = ""
             for taxo in ["Realm", "Kingdom", "Phylum", "Class", "Order", "Family", "Subfamily", "Genus", "Species"]:
-                string_taxo += f"{value[taxo]}\t"
-                full_string += f"{taxo[0].lower()}__{value[taxo]};"
+                # Change the taxonomy to Not Defined Yet if it is empty or nan
+                taxonomy = value[taxo] if value[taxo] != "" and value[taxo] == value[taxo] else "Not Defined Yet"
+                string_taxo += f"{taxonomy}\t"
+
+                # Change the taxonomy to empty string if it is empty or nan
+                taxonomy_full = value[taxo] if value[taxo] != "" and value[taxo] == value[taxo] else ""
+                prefix = "sf" if taxo == "Subfamily" else taxo[0].lower()
+                full_string += f"{prefix}__{taxonomy_full};"
+
             output_fid.write(f"{key}\t{string_taxo}\t{full_string}\n")
             
     # clean up

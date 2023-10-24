@@ -213,9 +213,9 @@ The time to classify a phage will depend on the number of hits and number of pha
 
 | Query sequence header | Realm | Kingdom | Phylum | Class | Order | Family | Subfamily | Genus | Species | Full classification |
 |-----------------------|-------|---------|--------|-------|-------|--------|-----------|-------|---------|---------------------|
-| MZ130489 | Duplodnaviria | Heunggongvirae | Uroviricota | Caudoviricetes | Crassvirales | Crevaviridae | Junduvirus | Junduvirus communis | r__Duplodnaviria;k__Heunggongvirae;p__Uroviricota;c__Caudoviricetes;o__Crassvirales;f__Crevaviridae;g__Junduvirus;s__Junduvirus communis |
-| newGenus_phage | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | r__Unknown;k__Unknown;p__Unknown;c__Unknown;o__Unknown;f__Unknown;g__New_genus;s__New_genus new_species |
-| test1 | Duplodnaviria | Heunggongvirae | Uroviricota | Caudoviricetes | Not Defined Yet | Not Defined Yet | Vequintavirinae | Certrevirus | Certrevirus name_your_species | r__Duplodnaviria;k__Heunggongvirae;p__Uroviricota;c__Caudoviricetes;o__Not Defined Yet;f__Not Defined Yet;g__Certrevirus;s__Certrevirus name_your_species |
+| MZ130489 | Duplodnaviria | Heunggongvirae | Uroviricota | Caudoviricetes | Crassvirales | Crevaviridae | Coarsevirinae | Junduvirus | Junduvirus communis | r__Duplodnaviria;k__Heunggongvirae;p__Uroviricota;c__Caudoviricetes;o__Crassvirales;f__Crevaviridae;sf__Coarsevirinae;g__Junduvirus;s__Junduvirus communis |
+| newGenus_phage | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | New_genus | New_genus new_species | r__Unknown;k__Unknown;p__Unknown;c__Unknown;o__Unknown;f__Unknown;sf_Unknown;g__New_genus;s__New_genus new_species |
+| test1 | Duplodnaviria | Heunggongvirae | Uroviricota | Caudoviricetes | Not Defined Yet | Not Defined Yet | Vequintavirinae | Certrevirus | Certrevirus name_your_species | r__Duplodnaviria;k__Heunggongvirae;p__Uroviricota;c__Caudoviricetes;o__;f__;g__Certrevirus;s__Certrevirus name_your_species |
 
 - **Summary_file.txt** - Summarises what was printed to screen 
 
@@ -233,9 +233,3 @@ Class:Caudoviricetes    Family: Not Defined Yet    Subfamily:Vequintavirinae    
 - ***pdf, *svg, *png**  - image files of top right matrix of similarity to closest currently classified phages 
 
  ![HeatMap](/img/heatmap.jpg)
-  
-    
-
-  Correcting bug if the genome name is with non folder compatible characters #1 
-
-Adding a feature to that summarise the information of the taxonomy in a file in the output folder
