@@ -64,6 +64,10 @@ def main():
 
     tmp_fasta = os.path.join(args.output, "tmp.fasta")
     # Create a multifasta file to parse line by line
+
+    # create a dictionary to store the taxonomy of each genome
+    dict_taxonomy = {}
+
     num_genomes = create_files_and_result_paths(args.in_fasta, tmp_fasta)
 
     parser = SeqIO.parse(tmp_fasta, "fasta")
@@ -129,16 +133,34 @@ def main():
             makeblastdb_exe=args.makeblastdb,
         )
 
-        classification(
+        genome_taxo = classification(
             merged_df=merged_df,
             copy_merged_df=copy_merged_df,
             results_path=results_path,
             mash_df=mash_df,
             prefix=args.prefix,
-            genome=genome,
-            timer_start=timer_start,
         )
 
+        dict_taxonomy[genome.id] = genome_taxo
+
+        run_time = str(timedelta(seconds=time.time() - timer_start))
+        print(f"Run time for {genome.id}: {run_time}\n", file=sys.stderr)
+        print("-" * 80, file=sys.stderr)
+
+
+    # write the taxonomy to a csv file
+    taxonomy_tsv = os.path.join(args.output, "Summary_taxonomy.tsv")
+    
+    with open(taxonomy_tsv, "w") as output_fid:
+        output_fid.write("Genome\tRealm\tKingdom\tPhylum\tClass\tOrdertFamily\tSubfamily\tGenus\tSpecies\tFull_taxonomy\n")
+        for key, value in dict_taxonomy.items():
+            string_taxo = ""
+            full_string = ""
+            for taxo in ["Realm", "Kingdom", "Phylum", "Class", "Order", "Family", "Subfamily", "Genus", "Species"]:
+                string_taxo += f"{value[taxo]}\t"
+                full_string += f"{taxo[0].lower()}__{value[taxo]};"
+            output_fid.write(f"{key}\t{string_taxo}\t{full_string}\n")
+            
     # clean up
     os.remove(tmp_fasta)
 

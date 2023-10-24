@@ -359,8 +359,7 @@ def new_genus(
     query_genus_cluster_number: int,
     dict_genus_cluster_2_genus_name: Dict[int, str],
     summary_output_path: str,
-    prefix: str,
-) -> None:
+) -> Dict[str, str]:
     """
     Classifies the query genome as a new genus
 
@@ -371,7 +370,7 @@ def new_genus(
         prefix (str): Prefix to add to the output file
 
     Returns:
-        None
+        Dict[str, str]: Dictionary of taxonomic information
     """
 
     print_warn(
@@ -393,10 +392,20 @@ def new_genus(
         file.write(
             f"""Try running again with if you larger distance if you want a Figure.
         The query is both a new genus and species\n
-        {prefix}\tNew genus\tNew species\n"""
+        New genus\tNew species\n"""
         )
 
-    return
+    return {
+            "Realm": "Unknown",
+            "Kingdom": "Unknown",
+            "Phylum": "Unknown",
+            "Class": "Unknown",
+            "Order": "Unknown",
+            "Family": "Unknown",
+            "Subfamily": "Unknown",
+            "Genus": "New_genus", 
+            "Species": "New_species"
+            }
 
 
 ####################################################################################################
@@ -410,7 +419,7 @@ def current_genus_current_species(
     query_genus_cluster_number: int,
     merged_df: pd.DataFrame,
     mash_df: pd.DataFrame,
-) -> None:
+) -> Dict[str, str]:
     """
     Classifies the query genome as a current genus and current species
 
@@ -424,7 +433,7 @@ def current_genus_current_species(
         mash_df (pd.DataFrame): Dataframe of the mash results
 
     Returns:
-        None
+        Dict[str, str]: Dictionary of taxonomic information
     """
 
     print(
@@ -474,8 +483,7 @@ def current_genus_current_species(
 
     mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
 
-    return
-
+    return list_of_S_data
 
 ####################################################################################################
 
@@ -485,7 +493,7 @@ def current_genus_new_species(
     query_genus_cluster_number: int,
     merged_df: pd.DataFrame,
     mash_df: pd.DataFrame,
-) -> None:
+) -> Dict[str, str]:
     """
     Classifies the query genome as a current genus and new species
 
@@ -496,7 +504,7 @@ def current_genus_new_species(
         mash_df (pd.DataFrame): Dataframe of the mash results
 
     Returns:
-        None
+        Dict[str, str]: Dictionary of taxonomic information
     """
 
     print(
@@ -512,6 +520,8 @@ def current_genus_new_species(
 
     dict_exemplar_genus = matching_genus_rows.iloc[0].to_dict()
     genus_value = dict_exemplar_genus["Genus"]
+    dict_exemplar_genus["Species"] = genus_value + " new_name"
+
     ic(matching_genus_rows)
     ic(genus_value)
 
@@ -523,7 +533,7 @@ def current_genus_new_species(
             Family: {dict_exemplar_genus['Family']} 
             Subfamily: {dict_exemplar_genus['Subfamily']}
             Genus: {dict_exemplar_genus['Genus']}
-            Species: {dict_exemplar_genus['Genus']} new_name
+            Species: {dict_exemplar_genus['Species']}
             """
         )
     )
@@ -543,11 +553,12 @@ def current_genus_new_species(
 
     mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
 
+    return dict_exemplar_genus
 
 ####################################################################################################
 
 
-def new_genus_new_species(summary_output_path: str, mash_df: pd.DataFrame) -> None:
+def new_genus_new_species(summary_output_path: str, mash_df: pd.DataFrame) -> Dict[str, str]:
     """
     Classifies the query genome as a new genus and new species
 
@@ -556,7 +567,7 @@ def new_genus_new_species(summary_output_path: str, mash_df: pd.DataFrame) -> No
         mash_df (pd.DataFrame): Dataframe of the mash results
 
     Returns:
-        None
+        Dict[str, str]: Dictionary of taxonomic information
     """
 
     print(
@@ -585,6 +596,17 @@ def new_genus_new_species(summary_output_path: str, mash_df: pd.DataFrame) -> No
         )
     mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
 
+    return {
+            "Realm": "Unknown",
+            "Kingdom": "Unknown",
+            "Phylum": "Unknown",
+            "Class": "Unknown",
+            "Order": "Unknown",
+            "Family": "Unknown",
+            "Subfamily": "Unknown",
+            "Genus": "New_genus", 
+            "Species": "New_species"
+            }
 
 ####################################################################################################
 
@@ -595,9 +617,7 @@ def classification(
     results_path: str,
     mash_df: pd.DataFrame,
     prefix: str,
-    genome: str,
-    timer_start: float,
-) -> None:
+) -> Dict[str, str]:
     """
     Classifies the query genome
 
@@ -611,7 +631,7 @@ def classification(
         timer_start (float): Start time
 
     Returns:
-        None
+        Dict[str, str]: Dictionary of taxonomic information
     """
 
     # path the final results summary file
@@ -690,19 +710,14 @@ def classification(
     # check query is within a current genus. If not, then new Genus
     if query_genus_cluster_number not in dict_genus_cluster_2_genus_name:
         # print the information that the query is a new genus
-        new_genus(
+        taxonomic_info = new_genus(
             query_genus_cluster_number,
             dict_genus_cluster_2_genus_name,
             summary_output_path,
-            prefix,
         )
 
-        run_time = str(timedelta(seconds=time.time() - timer_start))
-        print(f"Run time for {genome.id}: {run_time}\n")
-        print("-" * 80)
-
         # no more analysis to do so return
-        return
+        return taxonomic_info
 
     # get the predicted genus name
     predicted_genus_name = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
@@ -721,7 +736,7 @@ def classification(
             and query_species_cluster_number in list_ICTV_species_clusters
         ):
             # print the information that the query already have a genus and a species
-            current_genus_current_species(
+            taxonomic_info = current_genus_current_species(
                 query_species_cluster_number,
                 dict_species_cluster_2_species_name,
                 summary_output_path,
@@ -738,7 +753,8 @@ def classification(
             query_genus_cluster_number in list_ICTV_genus_clusters
             and query_species_cluster_number not in list_ICTV_species_clusters
         ):
-            current_genus_new_species(
+            # print the information that the query already have a genus but not a species
+            taxonomic_info = current_genus_new_species(
                 summary_output_path, query_genus_cluster_number, merged_df, mash_df
             )
 
@@ -747,7 +763,7 @@ def classification(
             query_genus_cluster_number not in list_ICTV_genus_clusters
             and query_species_cluster_number not in list_ICTV_species_clusters
         ):
-            new_genus_new_species(summary_output_path, mash_df)
+            taxonomic_info = new_genus_new_species(summary_output_path, mash_df)
 
     # if number of VIRIDIC genera is greater than ICTV genera
     elif num_unique_ICTV_genera < num_unique_viridic_genus_clusters:
@@ -759,7 +775,7 @@ def classification(
             and query_species_cluster_number in list_ICTV_species_clusters
         ):
             # print the information that the query already have a genus and a species
-            current_genus_current_species(
+            taxonomic_info = current_genus_current_species(
                 query_species_cluster_number,
                 dict_species_cluster_2_species_name,
                 summary_output_path,
@@ -774,7 +790,7 @@ def classification(
             query_genus_cluster_number in list_ICTV_genus_clusters
             and query_species_cluster_number not in list_ICTV_species_clusters
         ):
-            current_genus_new_species(
+            taxonomic_info = current_genus_new_species(
                 summary_output_path, query_genus_cluster_number, merged_df, mash_df
             )
 
@@ -783,8 +799,6 @@ def classification(
             query_genus_cluster_number not in list_ICTV_genus_clusters
             and query_species_cluster_number not in list_ICTV_species_clusters
         ):
-            new_genus_new_species(summary_output_path, mash_df)
+            taxonomic_info = new_genus_new_species(summary_output_path, mash_df)
 
-    run_time = str(timedelta(seconds=time.time() - timer_start))
-    print(f"Run time for {genome.id}: {run_time}\n", file=sys.stderr)
-    print("-" * 80, file=sys.stderr)
+    return taxonomic_info
