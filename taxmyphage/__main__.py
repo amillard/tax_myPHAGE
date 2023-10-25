@@ -78,7 +78,7 @@ def main():
 
         # replace any characters that are not allowed in a file name
         for char in [" ", "/", "|", ":", "(", ")", "[", "]", "{", "}", "<", ">", "#", "%", "&", "+", "$", "="]:
-            if char in genome.id:
+            if char in genome_id:
                 genome_id = genome_id.replace(char, "_")
 
         results_path = os.path.join(args.output, genome_id)
