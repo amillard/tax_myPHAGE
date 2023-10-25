@@ -155,7 +155,7 @@ def main():
     taxonomy_tsv = os.path.join(args.output, "Summary_taxonomy.tsv")
     
     with open(taxonomy_tsv, "w") as output_fid:
-        output_fid.write("Genome\tRealm\tKingdom\tPhylum\tClass\tOrdertFamily\tSubfamily\tGenus\tSpecies\tFull_taxonomy\n")
+        output_fid.write("Genome\tRealm\tKingdom\tPhylum\tClass\tOrder\tFamily\tSubfamily\tGenus\tSpecies\tFull_taxonomy\n")
         for key, value in dict_taxonomy.items():
             string_taxo = ""
             full_string = ""
@@ -168,6 +168,10 @@ def main():
                 taxonomy_full = value[taxo] if value[taxo] != "" and value[taxo] == value[taxo] else ""
                 prefix = "sf" if taxo == "Subfamily" else taxo[0].lower()
                 full_string += f"{prefix}__{taxonomy_full};"
+
+            # remove the last tab
+            string_taxo = string_taxo.rstrip("\t")
+            full_string = full_string[:-1]
 
             output_fid.write(f"{key}\t{string_taxo}\t{full_string}\n")
             
