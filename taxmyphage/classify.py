@@ -6,8 +6,6 @@ import io
 import os
 import subprocess
 import sys
-import time
-from datetime import timedelta
 from icecream import ic
 import pandas as pd
 from Bio import SeqIO

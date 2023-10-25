@@ -5,11 +5,12 @@
 ############################################################################################################
 
 
-import os
+import os, sys
 from icecream import ic
 from tqdm import tqdm
 from Bio import SeqIO
 import time
+from datetime import timedelta
 
 # Import the PoorMansViridic class
 from taxmyphage import cli
