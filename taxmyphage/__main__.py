@@ -74,10 +74,12 @@ def main():
 
     for genome in tqdm(parser, desc="Classifying", total=num_genomes):
 
+        genome_id = genome.id
+
         # replace any characters that are not allowed in a file name
         for char in [" ", "/", "|", ":", "(", ")", "[", "]", "{", "}", "<", ">", "#", "%", "&", "+", "$", "="]:
             if char in genome.id:
-                genome_id = genome.id.replace(char, "_")
+                genome_id = genome_id.replace(char, "_")
 
         results_path = os.path.join(args.output, genome_id)
         print_ok(f"\nClassifying {genome.id} in result folder {results_path}...")
