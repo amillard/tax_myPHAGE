@@ -173,7 +173,10 @@ def main():
             string_taxo = string_taxo.rstrip("\t")
             full_string = full_string[:-1]
 
-            output_fid.write(f"{key}\t{string_taxo}\t{full_string}\n")
+            # Remove query_ from the genome id
+            query = key.replace("query_", "")
+
+            output_fid.write(f"{query}\t{string_taxo}\t{full_string}\n")
             
     # clean up
     os.remove(tmp_fasta)
