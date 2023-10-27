@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+# Created: Sun Sep 24 11:48:36 2023
+# Last changed: Time-stamp: <Last changed 2023-10-27 12:42:34 by Thomas Sicheritz, thomas>
+
 # Description: PoorMansViridic class for clustering genomes based on similarity
 
 ############################################################################################################
@@ -72,7 +76,7 @@ class PoorMansViridic:
             dfT (pd.DataFrame): DataFrame containing the clusters
             pmv_outfile (str): Path to the output file
         """
-        print(f"Running PoorMansViridic on {self.file}\n")
+        ic(f"Running PoorMansViridic on {self.file}\n")
         self.makeblastdb()
         self.blastn()
         self.parse_blastn_file()
@@ -377,3 +381,32 @@ def rawgencount(filename: str) -> int:
     f = gzip.open(filename, "rb")
     f_gen = _make_gen(f.read)
     return sum(buf.count(b"\n") for buf in f_gen)
+
+if __name__ == '__main__': 
+    from tempfile import NamedTemporaryFile
+    from argparse import ArgumentParser
+
+    usage = "%prog [options] file (or - for stdin)"
+    description= """Provide one or several multi fasta input files to run a VIRIDIC like clustering on it
+    Does not link to taxonomy
+    Provides an output file of cluster numbers for Genus & species """
+    parser = ArgumentParser(usage, description=description)
+    parser.add_argument("-v", "--verbose", action="store_true", default = 0)
+    parser.add_argument("-t", "--threads", dest='threads', type=str, default= "8",
+                        help= "Maximum number of threads that will be used")
+    parser.add_argument('-i', '--input', dest='in_fasta', type=str, help='Path to fasta file', nargs='+')
+
+    parser.add_argument('-o', "--outdir", type=str, default = None, help="Change the path to the output directory")
+    args = parser.parse_args()
+
+    with NamedTemporaryFile(mode='wt') as tmp:
+        [tmp.write(gzip.open(file, 'rt').read() if file.endswith('.gz') else open(file).read()) for file in args.in_fasta]
+        
+        mypmv = PoorMansViridic(tmp.name, verbose=args.verbose)
+
+        mypmv.run()
+
+        mypmv.save_similarities()
+        df = mypmv.dfM
+        df = df[df.A != df.B].set_index('A B'.split())
+        print(df.to_csv(sep='\t', float_format='%.4f'))
