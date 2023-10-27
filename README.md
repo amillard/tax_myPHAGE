@@ -66,7 +66,6 @@ Output of the test should have the following lines at the bottom
 
  ![example](/img/example_result1.jpg)
 
-
 ----------
 
 ## Requirements 
@@ -112,6 +111,43 @@ pip install taxmyphage
 ```
 
 If you installing by pip, don't forget to install a working version of [MASH](https://mash.readthedocs.io/en/latest/) and [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
+
+#### Source
+
+Alternatively, a development version of `taxmyphage` can be install from github.
+
+```
+git clone https://github.com/amillard/tax_myPHAGE
+```
+
+either you can install the dependencies via pip
+
+```
+cd tax_myPHAGE
+pip install -e .
+taxmyphage -h
+```
+
+or you install following dependencies yourself
+
+```
+biopython >= 1.81
+pandas >= 2.1.1
+seaborn >= 0.13
+wget >= 3.2
+scipy >= 1.11.3
+tqdm >= 4.66.1
+openpyxl >= 3.1.2
+networkx >= 3.1
+icecream >= 2.1.
+importlib_metadata >= 6.8.0
+mash >=2.3
+NCBI blast >= 2.14.0
+```
+and run it via
+```
+tax_myPHAGE/taxmyphage/taxmyphage.py -h
+```
 
 
 ### Run with 
