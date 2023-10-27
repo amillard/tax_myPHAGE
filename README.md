@@ -120,7 +120,7 @@ Alternatively, a development version of `taxmyphage` can be install from github.
 git clone https://github.com/amillard/tax_myPHAGE
 ```
 
-either you can install the dependencies via pip
+either you can install the taxmyphage and its dependencies via pip
 
 ```
 cd tax_myPHAGE
