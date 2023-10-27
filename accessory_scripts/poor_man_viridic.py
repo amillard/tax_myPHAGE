@@ -201,7 +201,7 @@ class PoorMansViridic:
         df.to_csv(outfile, index=False, sep='\t')
 
 
-
+if __name__ == '__main__': 
 usage = "%prog [options] file (or - for stdin)"
 description= """Provide a multi fasta input file to run a VIRIDIC like clustering on it
 Does not link to taxonomy

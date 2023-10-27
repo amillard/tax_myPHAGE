@@ -12,7 +12,6 @@ from Bio import SeqIO
 import time
 from datetime import timedelta
 
-# Import the PoorMansViridic class
 from taxmyphage import cli
 from taxmyphage.download_check import check_blastDB, check_mash_index, check_VMR
 from taxmyphage.utils import create_folder, print_ok, CheckSoftware

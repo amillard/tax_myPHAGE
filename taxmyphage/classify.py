@@ -12,7 +12,7 @@ from Bio import SeqIO
 from textwrap import dedent
 from typing import Tuple, Dict
 
-from taxmyphage.PoorMansViridic import PoorMansViridic
+from taxmyphage.pmv import PoorMansViridic
 from taxmyphage.plot import heatmap
 from taxmyphage.utils import print_error, print_ok, print_res, print_warn, create_folder
 from taxmyphage.utils import (
