@@ -86,9 +86,9 @@ It can be run on a standard laptop in a reasonable time.
 ### Install 
 
 > [!IMPORTANT]  
-> tax_myPHAGE requires [MASH](https://mash.readthedocs.io/en/latest/) >=2.3 and [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download) >=2.14.0.
-> You need to install mash and NCBI BLAST by yourself (except if you install macsyfinder via *conda/mamba*).
-> The other dependencies are managed by the python package manager *pip*.
+> tax_myPHAGE requires [MASH](https://mash.readthedocs.io/en/latest/) >=2.3 and [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download) >=2.14.0.  
+> You need to install mash and NCBI BLAST by yourself (except if you install macsyfinder via *conda/mamba*).  
+> The other dependencies are managed by the python package manager *pip*.  
 
 #### Conda 
 
