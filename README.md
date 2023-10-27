@@ -78,12 +78,17 @@ It can be run on a standard laptop in a reasonable time.
 |---------------------------------|---------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
 | `ICTV.msh` (MASH index)         | Prebuilt MASH index of ICTV genomes. Download [here](https://millardlab-inphared.s3.climb.ac.uk/ICTV.msh) | Download: `wget https://millardlab-inphared.s3.climb.ac.uk/ICTV_2023.msh`  |
 | `Bacteriophage_genomes.fasta.gz` | Database of ICTV-classified genomes. Download [here](https://millardlab-inphared.s3.climb.ac.uk/Bacteriophage_genomes.fasta.gz).                | - Download: `wget https://millardlab-inphared.s3.climb.ac.uk/Bacteriophage_genomes.fasta.gz`<br /> - Unzip: `gunzip Bacteriophage_genomes.fasta.gz`<br /> - Create blast db: `makeblastdb -in Bacteriophage_genomes.fasta -parse_seqids -dbtype nucl` |
-| `VMR.xlsx`                      | Virus Metadata Resource (VMR) included.                                                                                             | - Download: `wget https://ictv.global/vmr/current`                                 |
+| `VMR.xlsx`                      | Virus Metadata Resource (VMR). Download [here](https://ictv.global/vmr/current).                                                                                             | - Download: `wget https://ictv.global/vmr/current`                                 |
 
 
 ------
 
 ### Install 
+
+> [!IMPORTANT]  
+> tax_myPHAGE requires [MASH](https://mash.readthedocs.io/en/latest/) >=2.3 and [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download) >=2.14.0.
+> You need to install mash and NCBI BLAST by yourself (except if you install macsyfinder via *conda/mamba*).
+> The other dependencies are managed by the python package manager *pip*.
 
 #### Conda 
 
@@ -106,7 +111,7 @@ Bioconda doesn't support osx-arm64 yet.
 pip install taxmyphage
 ```
 
-If you installing by pip, don't forget to install a working version of [mash](https://mash.readthedocs.io/en/latest/) and [blast](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
+If you installing by pip, don't forget to install a working version of [MASH](https://mash.readthedocs.io/en/latest/) and [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
 
 
 ### Run with 
