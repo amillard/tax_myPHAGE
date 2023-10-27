@@ -354,14 +354,14 @@ Databases options:
 #### Output files for the `Viridic` module
 
 ```
-[output_folder]                                          <- General output folder
-├── heatmap.pdf                                          <- Heatmap of the similarity to the closest relatives (pdf)
-├── heatmap.png                                          <- Heatmap of the similarity to the closest relatives    (png)
-├── heatmap.svg                                          <- Heatmap of the similarity to the closest relatives (svg)
-├── pmv.fasta                                            <- Input fasta file
-├── pmv.fasta.blastn_vs2_self.tab.gz                     <- Blastn output of the input fasta file against itself
-├── pmv.fasta.genus_species_clusters.tsv                 <- Clusters of the closest relatives
-├── pmv.fasta.ndb                                        <-  Blastn database of the closest relatives
+[output_folder]                          <- General output folder
+├── heatmap.pdf                          <- Heatmap of the similarity to the closest relatives (pdf)
+├── heatmap.png                          <- Heatmap of the similarity to the closest relatives    (png)
+├── heatmap.svg                          <- Heatmap of the similarity to the closest relatives (svg)
+├── pmv.fasta                            <- Input fasta file
+├── pmv.fasta.blastn_vs2_self.tab.gz     <- Blastn output of the input fasta file against itself
+├── pmv.fasta.genus_species_clusters.tsv <- Clusters of the closest relatives
+├── pmv.fasta.ndb                        <-  Blastn database of the closest relatives
 ├── pmv.fasta.nhr
 ├── pmv.fasta.nin
 ├── pmv.fasta.njs
@@ -369,8 +369,8 @@ Databases options:
 ├── pmv.fasta.nsq
 ├── pmv.fasta.ntf
 ├── pmv.fasta.nto
-├── similarities.tsv                                     <- Similarities to the closest relatives
-└── top_right_matrix.tsv                                 <- Top right matrix of similarity to closest relatives (same as heatmap)
+├── similarities.tsv                     <- Similarities to the closest relatives
+└── top_right_matrix.tsv                 <- Top right matrix of similarity to closest relatives (same as heatmap)
 ```
 
 ##### Output files explained
