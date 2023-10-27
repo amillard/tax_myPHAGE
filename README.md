@@ -104,7 +104,7 @@ CONDA_SUBDIR=osx-64 mamba install -c conda-forge -c bioconda taxmyphage
 Bioconda doesn't support osx-arm64 yet.
 
 
-#### pip
+#### Pypi
 
 ```
 pip install taxmyphage
@@ -147,6 +147,15 @@ NCBI blast >= 2.14.0
 and run it via
 ```
 tax_myPHAGE/taxmyphage/taxmyphage.py -h
+```
+
+
+#### From git repository
+
+```
+git clone https://github.com/amillard/tax_myPHAGE.git
+cd tax_myPHAGE
+python3 -m pip install .
 ```
 
 

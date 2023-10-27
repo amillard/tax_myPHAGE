@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "taxmyphage"
 description = "Script to assign taxonomy to a bacteriophage at the genus and species level"
-version = "0.0.0"
+version = "0.0.dev0"
 
 authors = [
     "Andrew Millard <adm39@leicester.ac.uk>",
