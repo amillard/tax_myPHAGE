@@ -140,9 +140,10 @@ tqdm >= 4.66.1
 openpyxl >= 3.1.2
 networkx >= 3.1
 icecream >= 2.1.3
-
 ```
+
 and run it via
+
 ```
 tax_myPHAGE/taxmyphage/bin/taxmyphage.py -h
 ```
