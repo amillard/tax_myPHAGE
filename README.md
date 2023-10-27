@@ -140,8 +140,7 @@ tqdm >= 4.66.1
 openpyxl >= 3.1.2
 networkx >= 3.1
 icecream >= 2.1.3
-mash >=2.3
-NCBI blast >= 2.14.0
+
 ```
 and run it via
 ```
