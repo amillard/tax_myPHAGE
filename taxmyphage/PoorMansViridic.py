@@ -52,6 +52,7 @@ class PoorMansViridic:
         """
 
         self.verbose = verbose
+        if not verbose: ic.disable()
         self.file = file
         self.result_dir = os.path.dirname(self.file)
         self.nthreads = nthreads
