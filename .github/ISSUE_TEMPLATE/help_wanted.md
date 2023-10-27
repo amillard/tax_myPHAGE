@@ -27,7 +27,7 @@ to help explain your problem.
  - [ ] Windows
  - [ ] Mac
 
-***MacSyFinder Version:***
+***taxmyPHAGE Version:***
 
   copy/paste here the output of taxmyphage --version
 

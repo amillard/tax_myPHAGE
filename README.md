@@ -139,8 +139,7 @@ scipy >= 1.11.3
 tqdm >= 4.66.1
 openpyxl >= 3.1.2
 networkx >= 3.1
-icecream >= 2.1.
-importlib_metadata >= 6.8.0
+icecream >= 2.1.3
 mash >=2.3
 NCBI blast >= 2.14.0
 ```

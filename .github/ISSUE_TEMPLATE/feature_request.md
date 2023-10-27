@@ -24,7 +24,7 @@ A clear and concise description of any alternative solutions or features you've 
  - [ ] Windows
  - [ ] Mac
 
-***MacSyFinder Version:***
+***taxmyPHAGE Version:***
 
   copy/paste here the output of taxmyphage --version
 
