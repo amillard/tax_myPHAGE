@@ -145,7 +145,7 @@ NCBI blast >= 2.14.0
 ```
 and run it via
 ```
-tax_myPHAGE/taxmyphage/taxmyphage.py -h
+tax_myPHAGE/taxmyphage/bin/taxmyphage.py -h
 ```
 
 
