@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Created: Sun Sep 24 11:48:36 2023
-# Last changed: Time-stamp: <Last changed 2023-10-27 12:42:34 by Thomas Sicheritz, thomas>
+# Last changed: Time-stamp: <Last changed 2023-10-27 14:45:36 by Thomas Sicheritz, thomas>
 
 # Description: PoorMansViridic class for clustering genomes based on similarity
 
@@ -394,9 +394,8 @@ if __name__ == '__main__':
     parser.add_argument("-v", "--verbose", action="store_true", default = 0)
     parser.add_argument("-t", "--threads", dest='threads', type=str, default= "8",
                         help= "Maximum number of threads that will be used")
-    parser.add_argument('-i', '--input', dest='in_fasta', type=str, help='Path to fasta file', nargs='+')
+    parser.add_argument('-i', '--input', dest='in_fasta', type=str, help='Path to fasta file(s)', nargs='+')
 
-    parser.add_argument('-o', "--outdir", type=str, default = None, help="Change the path to the output directory")
     args = parser.parse_args()
 
     with NamedTemporaryFile(mode='wt') as tmp:
