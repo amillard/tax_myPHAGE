@@ -37,17 +37,21 @@ What it wont do:
 - Compare against every single phage genome in Genbank. It is designed for classification , so compares against currently classified phages.
 
 
-### A web version will be available soon. 
+*A web version will be available soon.*
 
 ------
 
-#### QUICK start and test
+## QUICK start and test
 
 ```
 mamba create -n taxmyphage -c conda-forge -c bioconda taxymyphage
 mamba activate taxmyphage
 
-taxymyphage -i test.fna -t 4
+# If databases not installed, install them
+taxymyphage install
+
+# Run taxmyphage
+taxymyphage run -i test.fna -t 4
 ```
 
 if you are on macosx with a M1/M2 chip, you will need to install the following packages first
@@ -56,7 +60,11 @@ if you are on macosx with a M1/M2 chip, you will need to install the following p
 CONDA_SUBDIR=osx-64 mamba create -n taxmyphage -c conda-forge -c bioconda taxymyphage
 mamba activate taxmyphage
 
-taxymyphage -i test.fna -t 4
+# If databases not installed, install them
+taxymyphage install
+
+# Run taxmyphage
+taxymyphage run -i test.fna -t 4
 ```
 
 This should check the required software is installed and give a warning if not. It will also download the required fasta database and MASH file for comparison. These will be installed in the cloned tax_myPHAGE directory. If you download manually then please move them into tax_myPHAGE  directory.
@@ -82,14 +90,14 @@ It can be run on a standard laptop in a reasonable time.
 
 ------
 
-### Install 
+## Install 
 
 > [!IMPORTANT]  
 > tax_myPHAGE requires [MASH](https://mash.readthedocs.io/en/latest/) >=2.3 and [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download) >=2.14.0.  
 > You need to install mash and NCBI BLAST by yourself (except if you install macsyfinder via *conda/mamba*).  
 > The other dependencies are managed by the python package manager *pip*.  
 
-#### Conda 
+### Conda 
 
 ```
 mamba install -c conda-forge -c bioconda taxmyphage
@@ -104,7 +112,7 @@ CONDA_SUBDIR=osx-64 mamba install -c conda-forge -c bioconda taxmyphage
 Bioconda doesn't support osx-arm64 yet.
 
 
-#### Pypi
+### Pypi
 
 ```
 pip install taxmyphage
@@ -112,7 +120,7 @@ pip install taxmyphage
 
 If you installing by pip, don't forget to install a working version of [MASH](https://mash.readthedocs.io/en/latest/) and [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
 
-#### Source
+### Source
 
 Alternatively, a development version of `taxmyphage` can be install from github.
 
@@ -149,21 +157,51 @@ tax_myPHAGE/taxmyphage/bin/taxmyphage.py -h
 ```
 
 
-### Run with 
+## Modules
 
-#### Quick start
+### Install
+
+Allows to install the databases before running the `Run` module.
 
 ```
-taxmyphage -i input.fasta
+taxmyphage install
 ```
 
 #### Options 
 
 ```
+usage: taxmyphage install [-h] [-v] [-V] [-db FOLDER_PATH] [--makeblastdb MAKEBLASTDB]
+
 optional arguments:
   -h, --help            show this help message and exit
+  -v, --verbose         Show verbose output. (For debugging purposes)
   -V, --version         Show the version number and exit.
-  -v, --verbose
+
+Databases options:
+  -db FOLDER_PATH, --db_folder FOLDER_PATH
+                        Path to the database directory where the databases are stored. (Default is /Users/rdenise/Documents/Scripts/tax_myPHAGE/taxmyphage/database)
+
+Install options:
+  --makeblastdb MAKEBLASTDB
+                        Path to the blastn executable (default: makeblastdb)
+```
+
+### Run
+
+```
+taxmyphage run -i input.fasta
+```
+
+#### Options 
+
+```
+usage: taxmyphage run [-h] -i [FASTA_FILE ...] [[FASTA_FILE ...] ...] [-o OUTPUT] [-p PREFIX] [-t THREADS] [-d DIST] [--mash MASH] [--blastdbcmd BLASTDBCMD] [--blastn BLASTN] [--makeblastdb MAKEBLASTDB]
+                      [--no-figures] [-v] [-V] [-db FOLDER_PATH]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --verbose         Show verbose output. (For debugging purposes)
+  -V, --version         Show the version number and exit.
 
 General options:
   -i [FASTA_FILE ...] [[FASTA_FILE ...] ...], --input [FASTA_FILE ...] [[FASTA_FILE ...] ...]
@@ -172,32 +210,30 @@ General options:
   -o OUTPUT, --output OUTPUT
                         Path to the output directory. (Default is current directory)
   -p PREFIX, --prefix PREFIX
-                        will add the prefix to results and summary files that will store results of MASH and comparision to the VMR Data produced by ICTV combines both sets of this data into a single csv file.
+                        Will add the prefix to results and summary files that will store results of MASH and comparision to the VMR Data produced by ICTV combines both sets of this data into a single csv file.
                         Use this flag if you want to run multiple times and keep the results files without manual renaming of files. (Default no prefix)
+  -t THREADS, --threads THREADS
+                        Maximum number of threads that will be used by BLASTn. (Default is 1)
+
+MASH options:
   -d DIST, --distance DIST
                         Will change the mash distance for the intial seraching for close relatives. We suggesting keeping at 0.2 If this results in the phage not being classified, then increasing to 0.3 might
                         result in an output that shows the phage is a new genus. We have found increasing above 0.2 does not place the query in any current genus, only provides the output files to demonstrate it
                         falls outside of current genera. (Default is 0.2)
-  --no-figures          Use this option if you don't want to generate Figures. This will speed up the time it takes to run the script - but you get no Figures. (By default, Figures are generated)
-  -t THREADS, --threads THREADS
-                        Maximum number of threads that will be used by BLASTn. (Default is 1)
+  --mash MASH           Path to the MASH executable (default: mash)
+  --blastdbcmd BLASTDBCMD
+                        Path to the blastn executable (default: blastdbcmd)
 
-Options related to the database:
-  --db_folder FOLDER_PATH
-                        Path to the database directory where the databases are stored. (Default is /Users/rdenise/Documents/Scripts/tax_myPHAGE_github_version/taxmyphage/database)
-
-Install folder and database options:
-  --install             Use this option to download and install the databases. (Default is False)
-
-Executable options, if not in PATH:
-  --blastcmd BLASTDBCMD   Path to the blastn executable (default: blastdbcmd)
+VIRIDIC options:
   --blastn BLASTN       Path to the blastn executable (default: blastn)
   --makeblastdb MAKEBLASTDB
                         Path to the blastn executable (default: makeblastdb)
-  --mashexe MASHEXE     Path to the MASH executable (default: mash)
-```
-----------
+  --no-figures          Use this option if you don't want to generate Figures. This will speed up the time it takes to run the script - but you get no Figures. (By default, Figures are generated)
 
+Databases options:
+  -db FOLDER_PATH, --db_folder FOLDER_PATH
+                        Path to the database directory where the databases are stored. (Default is /Users/rdenise/Documents/Scripts/tax_myPHAGE/taxmyphage/database)
+```
 
 
 #### Indicative run time  
@@ -218,11 +254,11 @@ The time to classify a phage will depend on the number of hits and number of pha
 
 
 
-#### Output files 
+#### Output files for the `Run` module
 
 ```
 [output_folder]                                          <- General output folder
-├── [Summary_taxonomy.tsv]                               <- Summary of the analysis for all the genomes (summarises what was printed to screen)
+├── Summary_taxonomy.tsv                                 <- Summary of the analysis for all the genomes (summarises what was printed to screen)
 └── [genome query_id]                                    <- Results output for the genome query_id
     ├── Output_of_taxonomy.csv                           <- Output of the taxonomy classification
     ├── Summary_file.txt                                 <- Summary of the analysis (summarises what was printed to screen)
@@ -271,6 +307,74 @@ Class:Caudoviricetes    Family: Not Defined Yet    Subfamily:Vequintavirinae    
 
 - **Output_of_taxonomy.csv** - Provides Cluster and Species numbers for you query phage, merged with data from the VMR for the closest relatives to you query
 
-- ***pdf, *svg, *png**  - image files of top right matrix of similarity to closest currently classified phages 
+- ***.pdf, *.svg, *.png**  - image files of top right matrix of similarity to closest currently classified phages 
 
  ![HeatMap](/img/heatmap.jpg)
+
+### VIRIDIC
+
+```
+taxmyphage viridic -i input.fasta
+```
+
+#### Options 
+
+```
+usage: taxmyphage viridic [-h] -i [FASTA_FILE ...] [[FASTA_FILE ...] ...] [-o OUTPUT] [-p PREFIX] [-t THREADS] [--blastn BLASTN] [--makeblastdb MAKEBLASTDB] [--no-figures] [-v] [-V] [-db FOLDER_PATH]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --verbose         Show verbose output. (For debugging purposes)
+  -V, --version         Show the version number and exit.
+
+General options:
+  -i [FASTA_FILE ...] [[FASTA_FILE ...] ...], --input [FASTA_FILE ...] [[FASTA_FILE ...] ...]
+                        Path to an input fasta file(s), or directory containing fasta files. The fasta file(s) could contain multiple phage genomes. They can be compressed (gzip). If a directory is given the
+                        expected fasta extentions are ['fasta', 'fna', 'fsa', 'fa'] but can be gzipped. (Required)
+  -o OUTPUT, --output OUTPUT
+                        Path to the output directory. (Default is current directory)
+  -p PREFIX, --prefix PREFIX
+                        Will add the prefix to results and summary files that will store results of MASH and comparision to the VMR Data produced by ICTV combines both sets of this data into a single csv file.
+                        Use this flag if you want to run multiple times and keep the results files without manual renaming of files. (Default no prefix)
+  -t THREADS, --threads THREADS
+                        Maximum number of threads that will be used by BLASTn. (Default is 1)
+
+VIRIDIC options:
+  --blastn BLASTN       Path to the blastn executable (default: blastn)
+  --makeblastdb MAKEBLASTDB
+                        Path to the blastn executable (default: makeblastdb)
+  --no-figures          Use this option if you don't want to generate Figures. This will speed up the time it takes to run the script - but you get no Figures. (By default, Figures are generated)
+
+Databases options:
+  -db FOLDER_PATH, --db_folder FOLDER_PATH
+                        Path to the database directory where the databases are stored. (Default is /Users/rdenise/Documents/Scripts/tax_myPHAGE/taxmyphage/database)
+```
+
+#### Output files for the `Run` module
+
+```
+[output_folder]                                          <- General output folder
+├── heatmap.pdf                                          <- Heatmap of the similarity to the closest relatives (pdf)
+├── heatmap.png                                          <- Heatmap of the similarity to the closest relatives    (png)
+├── heatmap.svg                                          <- Heatmap of the similarity to the closest relatives (svg)
+├── pmv.fasta                                            <- Input fasta file
+├── pmv.fasta.blastn_vs2_self.tab.gz                     <- Blastn output of the input fasta file against itself
+├── pmv.fasta.genus_species_clusters.tsv                 <- Clusters of the closest relatives
+├── pmv.fasta.ndb                                        <-  Blastn database of the closest relatives
+├── pmv.fasta.nhr
+├── pmv.fasta.nin
+├── pmv.fasta.njs
+├── pmv.fasta.not
+├── pmv.fasta.nsq
+├── pmv.fasta.ntf
+├── pmv.fasta.nto
+├── similarities.tsv                                     <- Similarities to the closest relatives
+└── top_right_matrix.tsv                                 <- Top right matrix of similarity to closest relatives (same as heatmap)
+```
+
+##### Output files explained
+
+- ***.pdf, *.svg, *.png**  - image files of top right matrix of similarity to closest currently classified phages 
+
+ ![HeatMap](/img/heatmap.jpg)
+
