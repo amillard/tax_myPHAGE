@@ -44,27 +44,27 @@ What it wont do:
 ## QUICK start and test
 
 ```
-mamba create -n taxmyphage -c conda-forge -c bioconda taxymyphage
+mamba create -n taxmyphage -c conda-forge -c bioconda taxmyphage
 mamba activate taxmyphage
 
 # If databases not installed, install them
-taxymyphage install
+taxmyphage install
 
 # Run taxmyphage
-taxymyphage run -i test.fna -t 4
+taxmyphage run -i test.fna -t 4
 ```
 
 if you are on macosx with a M1/M2 chip, you will need to install the following packages first
 
 ```
-CONDA_SUBDIR=osx-64 mamba create -n taxmyphage -c conda-forge -c bioconda taxymyphage
+CONDA_SUBDIR=osx-64 mamba create -n taxmyphage -c conda-forge -c bioconda taxmyphage
 mamba activate taxmyphage
 
 # If databases not installed, install them
-taxymyphage install
+taxmyphage install
 
 # Run taxmyphage
-taxymyphage run -i test.fna -t 4
+taxmyphage run -i test.fna -t 4
 ```
 
 This should check the required software is installed and give a warning if not. It will also download the required fasta database and MASH file for comparison. These will be installed in the cloned tax_myPHAGE directory. If you download manually then please move them into tax_myPHAGE  directory.
