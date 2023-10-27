@@ -185,7 +185,7 @@ Install options:
   --makeblastdb MAKEBLASTDB
                         Path to the blastn executable (default: makeblastdb)
 ```
-
+----------
 ### Run
 
 ```
@@ -311,6 +311,7 @@ Class:Caudoviricetes    Family: Not Defined Yet    Subfamily:Vequintavirinae    
 
  ![HeatMap](/img/heatmap.jpg)
 
+----------
 ### VIRIDIC
 
 ```
@@ -350,7 +351,7 @@ Databases options:
                         Path to the database directory where the databases are stored. (Default is /Users/rdenise/Documents/Scripts/tax_myPHAGE/taxmyphage/database)
 ```
 
-#### Output files for the `Run` module
+#### Output files for the `Viridic` module
 
 ```
 [output_folder]                                          <- General output folder
