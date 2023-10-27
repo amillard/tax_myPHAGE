@@ -7,7 +7,6 @@
 import sys, os
 import shutil
 from textwrap import dedent
-from icecream import ic
 
 ############################################################################################################
 # Functions

@@ -9,7 +9,9 @@ import matplotlib.pyplot as plt
 import scipy.cluster.hierarchy as sch
 import matplotlib.colors as mcolors
 import pandas as pd
-import seaborn as sns; sns.set_theme(style='white')
+import seaborn as sns
+
+sns.set_theme(style="white")
 
 from typing import Dict
 
@@ -77,13 +79,17 @@ def heatmap(
     # Looking for the query leave to put at the end
     leaves_order = []
 
+    # Get the query leave else empty string
+    query_leave = ""
+
     for leave in dendrogram["ivl"]:
         if "query" in leave:
             query_leave = leave
         else:
             leaves_order.append(leave)
 
-    leaves_order.append(query_leave)
+    if query_leave != "":
+        leaves_order.append(query_leave)
 
     # Reorder the matrix
     df = df.loc[leaves_order, leaves_order]
@@ -103,7 +109,7 @@ def heatmap(
     # Create the colormap
     custom_cmap = mcolors.ListedColormap(colors)
 
-    mask = np.zeros_like (df)
+    mask = np.zeros_like(df)
     mask[np.tril_indices_from(mask, k=-1)] = True
 
     # adjust figure size based on number of rows and columns
@@ -113,22 +119,29 @@ def heatmap(
     fig, ax = plt.subplots(figsize=(fig_width, fig_height))
 
     # plot heatmap using seaborn
-    sns.heatmap(df, cmap=custom_cmap, norm=norm, annot=True, 
-                     fmt=".1f", cbar=False, square=True, 
-                     linewidth=2, linecolor="white",
-                     mask=mask, ax=ax,
-                     # If you want to change the color of the text to white
-                     # annot_kws={"color": "white"},
-                     )
+    sns.heatmap(
+        df,
+        cmap=custom_cmap,
+        norm=norm,
+        annot=True,
+        fmt=".1f",
+        cbar=False,
+        square=True,
+        linewidth=2,
+        linecolor="white",
+        mask=mask,
+        ax=ax,
+        # If you want to change the color of the text to white
+        # annot_kws={"color": "white"},
+    )
 
+    ax.set_ylabel("")
+    ax.set_xlabel("")
 
-    ax.set_ylabel('')
-    ax.set_xlabel('')
-
-    ax.xaxis.set_ticks_position('top')
+    ax.xaxis.set_ticks_position("top")
 
     # Rotate the tick labels and set their alignment.
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=-30, horizontalalignment='right')
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=-30, horizontalalignment="right")
 
     sns.despine(left=True, top=True, right=True, bottom=True)
 
@@ -138,5 +151,6 @@ def heatmap(
     plt.close()
 
     return
+
 
 ############################################################################################################

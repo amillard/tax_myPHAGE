@@ -48,12 +48,14 @@ def makeblastdb(blastdb_path: str, makeblastdb_exe: str) -> None:
     Args:
         blastdb_path (str): Path to the blastDB
         makeblastdb_exe (str): Path to the makeblastdb executable
-        
+
     Returns:
         None
     """
 
-    makeblastdb_command = f"{makeblastdb_exe} -in {blastdb_path} -parse_seqids -dbtype nucl"
+    makeblastdb_command = (
+        f"{makeblastdb_exe} -in {blastdb_path} -parse_seqids -dbtype nucl"
+    )
     try:
         subprocess.run(makeblastdb_command, shell=True, check=True)
         print("makeblastdb command executed successfully!\n")
@@ -90,7 +92,9 @@ def unzip_file(file_path: str, output_path: str) -> None:
 ############################################################################################################
 
 
-def check_blastDB(blastdb_path: str, output: str, makeblastdb_exe: str, install: bool=False) -> None:
+def check_blastDB(
+    blastdb_path: str, output: str, makeblastdb_exe: str, install: bool = False
+) -> None:
     """
     Checks if the blastDB is present and if not downloads it and creates the database
 
@@ -158,14 +162,14 @@ def check_blastDB(blastdb_path: str, output: str, makeblastdb_exe: str, install:
 ############################################################################################################
 
 
-def check_mash_index(mash_index_path: str, install: bool=False) -> None:
+def check_mash_index(mash_index_path: str, install: bool = False) -> None:
     """
     Checks if the mash index is present and if not downloads it and creates the index
 
     Args:
         mash_index_path (str): Path to the mash index
         install (bool, optional): Whether to install the mash index. Defaults to False.
-        
+
     Returns:
         None
     """
@@ -175,7 +179,9 @@ def check_mash_index(mash_index_path: str, install: bool=False) -> None:
         print_ok(f"Found {mash_index_path} as expected\n")
     else:
         if install:
-            print_error(f"File {mash_index_path} does not exist will create database now  ")
+            print_error(
+                f"File {mash_index_path} does not exist will create database now  "
+            )
             print_error("Will download the database now and create database")
 
             url = "https://millardlab-inphared.s3.climb.ac.uk/ICTV_2023.msh"
@@ -191,17 +197,18 @@ def check_mash_index(mash_index_path: str, install: bool=False) -> None:
             )
             sys.exit()
 
+
 ############################################################################################################
 
 
-def check_VMR(VMR_path: str, install: bool=False) -> None:
+def check_VMR(VMR_path: str, install: bool = False) -> None:
     """
     Checks if the VMR is present and if not downloads it
 
     Args:
         VMR_path (str): Path to the VMR
         install (bool, optional): Whether to install the VMR. Defaults to False.
-        
+
     Returns:
         None
     """
@@ -226,5 +233,44 @@ def check_VMR(VMR_path: str, install: bool=False) -> None:
                 "Or use the --install flag to download and create the database."
             )
             sys.exit()
+
+
+############################################################################################################
+
+
+def install_db(
+    VMR_path: str,
+    blastdb_path: str,
+    mash_index_path: str,
+    output: str,
+    makeblastdb: str,
+) -> None:
+    """
+    Install the databases and quit
+
+    Args:
+        VMR_path (str): Path to the VMR
+        blastdb_path (str): Path to the blastDB
+        mash_index_path (str): Path to the mash index
+        output (str): Path to the output directory
+        makeblastdb (str): Path to the makeblastdb executable
+
+    Returns:
+        None
+    """
+
+    # Check if the VMR file exists
+    check_VMR(VMR_path, install=True)
+
+    # Check if the mash index exists
+    check_mash_index(mash_index_path, install=True)
+
+    # Download the VMR and create the mash index
+    check_blastDB(blastdb_path, output, makeblastdb, install=True)
+
+    print_ok("All databases installed successfully!\n")
+
+    sys.exit()
+
 
 ############################################################################################################

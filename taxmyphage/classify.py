@@ -312,8 +312,13 @@ def classification_viridic(
             SeqIO.write(SeqIO.parse(file, "fasta"), merged_file, "fasta")
 
     # run VIRIDIC
-    PMV = PoorMansViridic(viridic_in_path, nthreads=threads, verbose=verbose, 
-                          blastn_exe=blastn_exe, makeblastdb_exe=makeblastdb_exe)
+    PMV = PoorMansViridic(
+        viridic_in_path,
+        nthreads=threads,
+        verbose=verbose,
+        blastn_exe=blastn_exe,
+        makeblastdb_exe=makeblastdb_exe,
+    )
     df1, pmv_outfile = PMV.run()
 
     ic(df1)
@@ -394,16 +399,16 @@ def new_genus(
         )
 
     return {
-            "Realm": "Unknown",
-            "Kingdom": "Unknown",
-            "Phylum": "Unknown",
-            "Class": "Unknown",
-            "Order": "Unknown",
-            "Family": "Unknown",
-            "Subfamily": "Unknown",
-            "Genus": "New_genus", 
-            "Species": "New_species"
-            }
+        "Realm": "Unknown",
+        "Kingdom": "Unknown",
+        "Phylum": "Unknown",
+        "Class": "Unknown",
+        "Order": "Unknown",
+        "Family": "Unknown",
+        "Subfamily": "Unknown",
+        "Genus": "New_genus",
+        "Species": "New_species",
+    }
 
 
 ####################################################################################################
@@ -483,6 +488,7 @@ def current_genus_current_species(
 
     return list_of_S_data
 
+
 ####################################################################################################
 
 
@@ -553,10 +559,13 @@ def current_genus_new_species(
 
     return dict_exemplar_genus
 
+
 ####################################################################################################
 
 
-def new_genus_new_species(summary_output_path: str, mash_df: pd.DataFrame) -> Dict[str, str]:
+def new_genus_new_species(
+    summary_output_path: str, mash_df: pd.DataFrame
+) -> Dict[str, str]:
     """
     Classifies the query genome as a new genus and new species
 
@@ -595,16 +604,17 @@ def new_genus_new_species(summary_output_path: str, mash_df: pd.DataFrame) -> Di
     mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
 
     return {
-            "Realm": "Unknown",
-            "Kingdom": "Unknown",
-            "Phylum": "Unknown",
-            "Class": "Unknown",
-            "Order": "Unknown",
-            "Family": "Unknown",
-            "Subfamily": "Unknown",
-            "Genus": "New_genus", 
-            "Species": "New_species"
-            }
+        "Realm": "Unknown",
+        "Kingdom": "Unknown",
+        "Phylum": "Unknown",
+        "Class": "Unknown",
+        "Order": "Unknown",
+        "Family": "Unknown",
+        "Subfamily": "Unknown",
+        "Genus": "New_genus",
+        "Species": "New_species",
+    }
+
 
 ####################################################################################################
 

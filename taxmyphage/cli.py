@@ -5,13 +5,43 @@
 ############################################################################################################
 
 import os
-from argparse import ArgumentParser
+from argparse import ArgumentParser, HelpFormatter, _SubParsersAction, ArgumentError
+import re
 from taxmyphage import __version__
+
+############################################################################################################
+# Classes
+############################################################################################################
+
+
+class ArgumentErrorPatch(ArgumentError):
+    """ArgumentError that removes subparser metavar from argument choices"""
+
+    def __str__(self):
+        msg = super().__str__()
+        return (
+            re.sub(r" \(choose from .*\)", "", super().__str__())
+            if bool(re.match(r"argument \{.*\}", msg))
+            else msg
+        )
 
 
 ############################################################################################################
 # Functions
 ############################################################################################################
+
+
+def _metavar(parser, hidden_cmds=set()):
+    """Set metavar for subparsers."""
+    parser.metavar = (
+        "{"
+        + ",".join(cmd for cmd in parser._name_parser_map if not cmd in hidden_cmds)
+        + "}"
+    )
+
+
+############################################################################################################
+
 
 def cli(args=None):
     """
@@ -23,24 +53,76 @@ def cli(args=None):
                 it runs the VIRIDIC--algorithm and parses the output to predict the taxonomy of the phage. It is only able to classify
                 to the Genus and Species level"""
 
+    ArgumentError = ArgumentErrorPatch
+
     parser = ArgumentParser(
-        description=description, conflict_handler="resolve", prog="taxmyphage",
+        description=description, conflict_handler="resolve", prog="taxmyphage"
     )
 
-    parser.add_argument(
+    # Create subparsers
+    subparsers = parser.add_subparsers(title="Commands", required=True, dest="command")
+
+    ############################################################################################################
+    # Create general subparser that will be given to all subparsers
+    ############################################################################################################
+
+    general_subparser = subparsers.add_parser("general", add_help=False)
+
+    general_subparser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Show verbose output. (For debugging purposes)",
+    )
+
+    general_subparser.add_argument(
         "-V",
         "--version",
         action="version",
         help="Show the version number and exit.",
         version=f"taxmyphage v{__version__}",
     )
-    parser.add_argument(
-        "-v",
-        "--verbose",
-        action="store_true",
+
+    database_option = general_subparser.add_argument_group(title="Databases options")
+
+    database_option.add_argument(
+        "-db",
+        "--db_folder",
+        dest="db_folder",
+        metavar="FOLDER_PATH",
+        type=str,
+        default=os.path.join(os.path.dirname(__file__), "database"),
+        help=f"Path to the database directory where the databases are stored. (Default is {os.path.join(os.path.dirname(__file__), 'database')})",
     )
 
-    general_option = parser.add_argument_group(title="General options")
+    ############################################################################################################
+    # Install subparser
+    ############################################################################################################
+
+    install_parser = subparsers.add_parser(
+        "install",
+        help="Install databases",
+        conflict_handler="resolve",
+        parents=[general_subparser],
+    )
+
+    install_option = install_parser.add_argument_group(title="Install options")
+
+    install_option.add_argument(
+        "--makeblastdb",
+        dest="makeblastdb",
+        default="makeblastdb",
+        type=str,
+        help="Path to the blastn executable (default: makeblastdb)",
+    )
+
+    ############################################################################################################
+    # I/O subparser
+    ############################################################################################################
+
+    io_parser = subparsers.add_parser("io", add_help=False)
+
+    general_option = io_parser.add_argument_group(title="General options")
 
     general_option.add_argument(
         "-i",
@@ -68,27 +150,9 @@ def cli(args=None):
         type=str,
         default="",
         dest="prefix",
-        help="will add the prefix to results and summary files that will store results of MASH and comparision to the VMR Data produced by"
+        help="Will add the prefix to results and summary files that will store results of MASH and comparision to the VMR Data produced by"
         " ICTV combines both sets of this data into a single csv file. "
         " Use this flag if you want to run multiple times and keep the results files without manual renaming of files. (Default no prefix)",
-    )
-    general_option.add_argument(
-        "-d",
-        "--distance",
-        type=float,
-        default=0.2,
-        dest="dist",
-        help="Will change the mash distance for the intial seraching for close relatives. We suggesting keeping at 0.2"
-        " If this results in the phage not being classified, then increasing to 0.3 might result in an output that shows"
-        " the phage is a new genus. We have found increasing above 0.2 does not place the query in any current genus, only"
-        " provides the output files to demonstrate it falls outside of current genera. (Default is 0.2)",
-    )
-    general_option.add_argument(
-        "--no-figures",
-        dest="Figure",
-        action="store_false",
-        help="Use this option if you don't want to generate Figures. This will speed up the time it takes to run the script"
-        " - but you get no Figures. (By default, Figures are generated)",
     )
     general_option.add_argument(
         "-t",
@@ -99,60 +163,125 @@ def cli(args=None):
         help="Maximum number of threads that will be used by BLASTn. (Default is 1)",
     )
 
-    database_option = parser.add_argument_group(title="Options related to the database")
+    ############################################################################################################
+    # MASH options
+    ############################################################################################################
 
-    database_option.add_argument(
-        "--db_folder",
-        dest="db_folder",
-        metavar="FOLDER_PATH",
+    mash_parser_options = subparsers.add_parser("mash_options", add_help=False)
+
+    mash_option = mash_parser_options.add_argument_group(title="MASH options")
+
+    mash_option.add_argument(
+        "-d",
+        "--distance",
+        type=float,
+        default=0.2,
+        dest="dist",
+        help="Will change the mash distance for the intial seraching for close relatives. We suggesting keeping at 0.2"
+        " If this results in the phage not being classified, then increasing to 0.3 might result in an output that shows"
+        " the phage is a new genus. We have found increasing above 0.2 does not place the query in any current genus, only"
+        " provides the output files to demonstrate it falls outside of current genera. (Default is 0.2)",
+    )
+    mash_option.add_argument(
+        "--mash",
+        dest="mash",
+        default="mash",
         type=str,
-        default=os.path.join(os.path.dirname(__file__), "database"),
-        help=f"Path to the database directory where the databases are stored. (Default is {os.path.join(os.path.dirname(__file__), 'database')})",
+        help="Path to the MASH executable (default: mash)",
     )
-
-    install_option = parser.add_argument_group(
-        title="Install folder and database options"
-    )
-
-    install_option.add_argument(
-        "--install",
-        dest="install",
-        action="store_true",
-        default=False,
-        help="Use this option to download and install the databases. (Default is False)",
-    )
-
-    executable_option = parser.add_argument_group(
-        title="Executable options, if not in PATH"
-    )
-
-    executable_option.add_argument(
+    mash_option.add_argument(
         "--blastdbcmd",
         dest="blastdbcmd",
         default="blastdbcmd",
         type=str,
         help="Path to the blastn executable (default: blastdbcmd)",
     )
-    executable_option.add_argument(
+
+    ############################################################################################################
+    # MASH subparser
+    ############################################################################################################
+
+    mash_parser = subparsers.add_parser(
+        "mash",
+        help="Run MASH",
+        conflict_handler="resolve",
+        parents=[io_parser, mash_parser_options, general_subparser],
+    )
+
+    ############################################################################################################
+    # Poor Man VIRIDIC options
+    ############################################################################################################
+
+    PMVIRIDIC_parser_options = subparsers.add_parser("viridic_options", add_help=False)
+
+    PMVIRIDIC_option = PMVIRIDIC_parser_options.add_argument_group(
+        title="VIRIDIC options"
+    )
+
+    PMVIRIDIC_option.add_argument(
         "--blastn",
         dest="blastn",
         default="blastn",
         type=str,
         help="Path to the blastn executable (default: blastn)",
     )
-    executable_option.add_argument(
+    PMVIRIDIC_option.add_argument(
         "--makeblastdb",
         dest="makeblastdb",
         default="makeblastdb",
         type=str,
         help="Path to the blastn executable (default: makeblastdb)",
     )
-    executable_option.add_argument(
-        "--mash",
-        dest="mash",
-        default="mash",
-        type=str,
-        help="Path to the MASH executable (default: mash)",
+    PMVIRIDIC_option.add_argument(
+        "--no-figures",
+        dest="Figure",
+        action="store_false",
+        help="Use this option if you don't want to generate Figures. This will speed up the time it takes to run the script"
+        " - but you get no Figures. (By default, Figures are generated)",
+    )
+
+    ############################################################################################################
+    # Poor Man VIRIDIC subparser
+    ############################################################################################################
+
+    PMVIRIDIC_parser = subparsers.add_parser(
+        "viridic",
+        help="Run PoorManVIRIDIC",
+        conflict_handler="resolve",
+        parents=[io_parser, PMVIRIDIC_parser_options, general_subparser],
+    )
+
+    ############################################################################################################
+    # Run subparser
+    ############################################################################################################
+
+    run_parser = subparsers.add_parser(
+        "run",
+        help="Run taxmyphage",
+        conflict_handler="resolve",
+        parents=[
+            io_parser,
+            mash_parser_options,
+            PMVIRIDIC_parser_options,
+            general_subparser,
+        ],
+    )
+
+    # install_option = install_parser.add_argument_group(
+    #     title="Install folder and database options"
+    # )
+
+    # install_option.add_argument(
+    #     "--install",
+    #     dest="install",
+    #     action="store_true",
+    #     default=False,
+    #     help="Use this option to download and install the databases. (Default is False)",
+    # )
+
+    _metavar(
+        subparsers,
+        hidden_cmds={"general", "io", "mash_options", "viridic_options", "mash"},
     )
 
     args, nargs = parser.parse_known_args(args)
