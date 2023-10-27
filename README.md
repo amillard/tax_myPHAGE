@@ -150,15 +150,6 @@ tax_myPHAGE/taxmyphage/taxmyphage.py -h
 ```
 
 
-#### From git repository
-
-```
-git clone https://github.com/amillard/tax_myPHAGE.git
-cd tax_myPHAGE
-python3 -m pip install .
-```
-
-
 ### Run with 
 
 #### Quick start
