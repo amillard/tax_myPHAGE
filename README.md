@@ -321,7 +321,8 @@ taxmyphage viridic -i input.fasta
 #### Options 
 
 ```
-usage: taxmyphage viridic [-h] -i [FASTA_FILE ...] [[FASTA_FILE ...] ...] [-o OUTPUT] [-p PREFIX] [-t THREADS] [--blastn BLASTN] [--makeblastdb MAKEBLASTDB] [--no-figures] [-v] [-V] [-db FOLDER_PATH]
+usage: taxmyphage viridic [-h] -i [FASTA_FILE ...] [[FASTA_FILE ...] ...] [-o OUTPUT] [-p PREFIX] [-t THREADS] [--reference REFERENCE] [--blastn BLASTN] [--makeblastdb MAKEBLASTDB] [--no-figures] [-v] [-V]
+                          [-db FOLDER_PATH]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -339,6 +340,11 @@ General options:
                         Use this flag if you want to run multiple times and keep the results files without manual renaming of files. (Default no prefix)
   -t THREADS, --threads THREADS
                         Maximum number of threads that will be used by BLASTn. (Default is 1)
+
+Comparison options:
+  --reference REFERENCE
+                        Path to the reference database file. Input file will be used as query against it. If not provided, input will be compare against itself. If you use reference no figure is generated.
+                        (Default is '')
 
 VIRIDIC options:
   --blastn BLASTN       Path to the blastn executable (default: blastn)
