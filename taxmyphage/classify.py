@@ -313,7 +313,8 @@ def classification_viridic(
 
     # run VIRIDIC
     PMV = PoorMansViridic(
-        viridic_in_path,
+        file = viridic_in_path,
+        reference = viridic_in_path,
         nthreads=threads,
         verbose=verbose,
         blastn_exe=blastn_exe,

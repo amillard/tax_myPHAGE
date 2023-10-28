@@ -33,6 +33,7 @@ class PoorMansViridic:
     def __init__(
         self,
         file: str,
+        reference: str,
         genus_threshold: float = 70,
         species_threshold: float = 95,
         nthreads: int = 1,
@@ -44,6 +45,7 @@ class PoorMansViridic:
         Args:
             self (PoorMansViridic): PoorMansViridic class
             file (str): Path to the input fasta file
+            reference (str, optional): Path to the reference fasta file. Defaults to "".
             genus_threshold (float, optional): Genus threshold. Defaults to 70.
             species_threshold (float, optional): Species threshold. Defaults to 95.
             nthreads (int, optional): Number of threads to use. Defaults to 1.
@@ -57,6 +59,7 @@ class PoorMansViridic:
 
         self.verbose = verbose
         self.file = file
+        self.reference = reference
         self.result_dir = os.path.dirname(self.file)
         self.nthreads = nthreads
         self.genus_threshold = genus_threshold
@@ -146,10 +149,10 @@ class PoorMansViridic:
         """
 
         # Find all the files created by makeblastdb and remove them
-        for filename in glob.glob(f"{self.file}*.n*"):
+        for filename in glob.glob(f"{self.reference}*.n*"):
             os.remove(filename)
 
-        cmd = f"{self.makeblastdb_exe} -in {self.file}  -dbtype nucl"
+        cmd = f"{self.makeblastdb_exe} -in {self.reference}  -dbtype nucl"
         ic("Creating blastn database:", cmd)
         res = subprocess.getoutput(cmd)
         ic(res)
@@ -169,7 +172,7 @@ class PoorMansViridic:
             self.result_dir, os.path.basename(self.file) + ".blastn_vs2_self.tab.gz"
         )
         if not os.path.exists(outfile):
-            cmd = f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} -word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} -db {self.file} -outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" | gzip -c > {outfile}'
+            cmd = f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} -word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} -db {self.reference} -outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" | gzip -c > {outfile}'
             ic("Blasting against itself:", cmd)
             ic(cmd)
             subprocess.getoutput(cmd)
@@ -383,52 +386,3 @@ def rawgencount(filename: str) -> int:
 
 
 ############################################################################################################
-# Main
-############################################################################################################
-
-if __name__ == "__main__":
-    from tempfile import NamedTemporaryFile
-    from argparse import ArgumentParser
-
-    description = """Provide one or several multi fasta input files to run a VIRIDIC like clustering on it
-    Does not link to taxonomy
-    Provides an output file of cluster numbers for Genus & species """
-    parser = ArgumentParser(description=description)
-    parser.add_argument("-v", "--verbose", action="store_true", default=0)
-    parser.add_argument(
-        "-t",
-        "--threads",
-        dest="threads",
-        type=str,
-        default=1,
-        help="Maximum number of threads that will be used",
-    )
-    parser.add_argument(
-        "-i",
-        "--input",
-        dest="in_fasta",
-        type=str,
-        help="Path to fasta file(s)",
-        nargs="+",
-    )
-
-    args = parser.parse_args()
-
-    with NamedTemporaryFile(mode="wt") as tmp:
-        [
-            tmp.write(
-                gzip.open(file, "rt").read()
-                if file.endswith(".gz")
-                else open(file).read()
-            )
-            for file in args.in_fasta
-        ]
-
-        mypmv = PoorMansViridic(tmp.name, verbose=args.verbose)
-
-        mypmv.run()
-
-        mypmv.save_similarities()
-        df = mypmv.dfM
-        df = df[df.A != df.B].set_index("A B".split())
-        print(df.to_csv(sep="\t", float_format="%.4f"))

@@ -12,10 +12,10 @@ from datetime import timedelta
 import pandas as pd
 from argparse import Namespace
 
-from taxmyphage.utils import print_error, print_ok, create_folder
+from taxmyphage.utils import print_error, print_ok, create_folder, print_warn
 from taxmyphage.pmv import PoorMansViridic
 from taxmyphage.plot import heatmap
-from taxmyphage.handle_files import create_files_and_result_paths
+from taxmyphage.handle_files import create_files_and_result_paths, read_write_fasta
 from taxmyphage.classify import (
     classification_mash,
     classification_viridic,
@@ -231,6 +231,24 @@ def viridic(args: Namespace, threads: int, verbose: bool) -> None:
 
     num_genomes = create_files_and_result_paths(args.in_fasta, tmp_fasta)
 
+    # Check if reference is provided
+    if args.reference:
+        print_ok(f"\nUsing {args.reference} as reference\n")
+
+        reference = os.path.join(args.output, "reference_pmv.fasta")
+
+        with open(reference, "wt") as f:
+            read_write_fasta(args.reference, f)
+
+        # Not possible if matrix not square at the moment
+        args.Figure = False
+    else:
+        print_warn(
+            "No reference provided. Will use the first genome in the input file as reference"
+        )
+        parser = SeqIO.parse(tmp_fasta, "fasta")
+        reference = tmp_fasta
+
     results_path = os.path.join(args.output)
 
     heatmap_file = os.path.join(results_path, "heatmap")
@@ -241,7 +259,8 @@ def viridic(args: Namespace, threads: int, verbose: bool) -> None:
 
     # run VIRIDIC
     PMV = PoorMansViridic(
-        tmp_fasta,
+        file=tmp_fasta,
+        reference=reference,
         nthreads=threads,
         verbose=verbose,
         blastn_exe=args.blastn,

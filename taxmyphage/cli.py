@@ -214,6 +214,19 @@ def cli(args=None):
 
     PMVIRIDIC_parser_options = subparsers.add_parser("viridic_options", add_help=False)
 
+    comparison_option = PMVIRIDIC_parser_options.add_argument_group(
+        title="Comparison options"
+    )
+    comparison_option.add_argument(
+        "--reference",
+        dest="reference",
+        default="",
+        type=str,
+        help="Path to the reference database file. Input file will be used as query against it."
+        " If not provided, input will be compare against itself."
+        " If you use reference no figure is generated. (Default is '')",
+    )
+
     PMVIRIDIC_option = PMVIRIDIC_parser_options.add_argument_group(
         title="VIRIDIC options"
     )
@@ -266,18 +279,6 @@ def cli(args=None):
             general_subparser,
         ],
     )
-
-    # install_option = install_parser.add_argument_group(
-    #     title="Install folder and database options"
-    # )
-
-    # install_option.add_argument(
-    #     "--install",
-    #     dest="install",
-    #     action="store_true",
-    #     default=False,
-    #     help="Use this option to download and install the databases. (Default is False)",
-    # )
 
     _metavar(
         subparsers,
