@@ -111,7 +111,7 @@ def classification_mash(
             dedent(
                 """
                 Error: No hits were found with the default settings
-                The phage likely represents a new species and genus 
+                If this is a phage sequence, it likely represents a new species and genus 
                 However tax_my_phage is unable to classify it at this point as it can only classify at the Genus/Species level
                 """
             )
