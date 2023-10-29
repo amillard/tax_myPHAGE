@@ -231,7 +231,7 @@ MASH options:
   --blastdbcmd BLASTDBCMD
                         Path to the blastn executable (default: blastdbcmd)
 
-VIRIDIC options:
+Similarity options:
   --blastn BLASTN       Path to the blastn executable (default: blastn)
   --makeblastdb MAKEBLASTDB
                         Path to the blastn executable (default: makeblastdb)
@@ -277,18 +277,18 @@ The time to classify a phage will depend on the number of hits and number of pha
     ├── query.fasta                                      <- Input fasta file
     ├── similarities.tsv                                 <- Similarities to the closest relatives
     ├── top_right_matrix.tsv                             <- Top right matrix of similarity to closest relatives (same as heatmap)
-    └── viridic                                          <- VIRIDIC-like analysis
-        ├── viridic_in.fa                                <- Input fasta file
-        ├── viridic_in.fa.blastn_vs2_self.tab.gz         <- Blastn output of the input fasta file against itself
-        ├── viridic_in.fa.genus_species_clusters.tsv     <- Clusters of the closest relatives
-        ├── viridic_in.fa.ndb                            <- Blastn database of the closest relatives
-        ├── viridic_in.fa.nhr
-        ├── viridic_in.fa.nin
-        ├── viridic_in.fa.njs
-        ├── viridic_in.fa.not
-        ├── viridic_in.fa.nsq
-        ├── viridic_in.fa.ntf
-        └── viridic_in.fa.nto
+    └── pmv                                              <- VIRIDIC-like analysis
+        ├── pmv_in.fa                                    <- Input fasta file
+        ├── pmv_in.fa.blastn_vs2_self.tab.gz             <- Blastn output of the input fasta file against itself
+        ├── pmv_in.fa.genus_species_clusters.tsv         <- Clusters of the closest relatives
+        ├── pmv_in.fa.ndb                                <- Blastn database of the closest relatives
+        ├── pmv_in.fa.nhr
+        ├── pmv_in.fa.nin
+        ├── pmv_in.fa.njs
+        ├── pmv_in.fa.not
+        ├── pmv_in.fa.nsq
+        ├── pmv_in.fa.ntf
+        └── pmv_in.fa.nto
 ```
 
 ##### Output files explained
@@ -319,16 +319,16 @@ Class:Caudoviricetes    Family: Not Defined Yet    Subfamily:Vequintavirinae    
  ![HeatMap](/img/heatmap.jpg)
 
 ----------
-### VIRIDIC
+### Similarity
 
 ```
-taxmyphage viridic -i input.fasta
+taxmyphage similarity -i input.fasta
 ```
 
 #### Options 
 
 ```
-usage: taxmyphage viridic [-h] -i [FASTA_FILE ...] [[FASTA_FILE ...] ...] [-o OUTPUT] [-p PREFIX] [-t THREADS] [--reference REFERENCE] [--blastn BLASTN] [--makeblastdb MAKEBLASTDB] [--no-figures] [-v] [-V]
+usage: taxmyphage similarity [-h] -i [FASTA_FILE ...] [[FASTA_FILE ...] ...] [-o OUTPUT] [-p PREFIX] [-t THREADS] [--reference REFERENCE] [--blastn BLASTN] [--makeblastdb MAKEBLASTDB] [--no-figures] [-v] [-V]
                           [-db FOLDER_PATH]
 
 optional arguments:
@@ -353,7 +353,7 @@ Comparison options:
                         Path to the reference database file. Input file will be used as query against it. If not provided, input will be compare against itself. If you use reference no figure is generated.
                         (Default is '')
 
-VIRIDIC options:
+Similarity options:
   --blastn BLASTN       Path to the blastn executable (default: blastn)
   --makeblastdb MAKEBLASTDB
                         Path to the blastn executable (default: makeblastdb)
@@ -364,7 +364,7 @@ Databases options:
                         Path to the database directory where the databases are stored. (Default is /Users/rdenise/Documents/Scripts/tax_myPHAGE/taxmyphage/database)
 ```
 
-#### Output files for the `Viridic` module
+#### Output files for the `similarity` module
 
 ```
 [output_folder]                          <- General output folder

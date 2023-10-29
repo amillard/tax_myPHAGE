@@ -228,7 +228,7 @@ def cli(args=None):
     )
 
     PMVIRIDIC_option = PMVIRIDIC_parser_options.add_argument_group(
-        title="VIRIDIC options"
+        title="Similarity options"
     )
 
     PMVIRIDIC_option.add_argument(
@@ -258,7 +258,7 @@ def cli(args=None):
     ############################################################################################################
 
     PMVIRIDIC_parser = subparsers.add_parser(
-        "viridic",
+        "similarity",
         help="Run PoorManVIRIDIC",
         conflict_handler="resolve",
         parents=[io_parser, PMVIRIDIC_parser_options, general_subparser],

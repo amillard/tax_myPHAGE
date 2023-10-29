@@ -295,11 +295,11 @@ def classification_viridic(
     """
 
     # store files for VIRIDIC run- or equivalent
-    viridic_folder = os.path.join(results_path, "viridic")
+    viridic_folder = os.path.join(results_path, "pmv")
 
     create_folder(viridic_folder)
 
-    viridic_in_path = os.path.join(viridic_folder, "viridic_in.fa")
+    viridic_in_path = os.path.join(viridic_folder, "pmv_in.fa")
 
     heatmap_file = os.path.join(results_path, "heatmap")
     top_right_matrix = os.path.join(results_path, "top_right_matrix.tsv")
