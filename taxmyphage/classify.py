@@ -118,7 +118,7 @@ def classification_mash(
         )
 
         os.system(f"touch {taxa_csv_output_path}")
-        sys.exit()
+        return pd.DataFrame(), accession_genus_dict
     else:
         print_res(
             dedent(

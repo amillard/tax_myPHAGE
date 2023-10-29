@@ -130,6 +130,9 @@ def all_classification(
             blastdbcmd_exe=args.blastdbcmd,
         )
 
+        if mash_df.empty:
+            continue
+
         merged_df, copy_merged_df = classification_viridic(
             known_taxa_path=known_taxa_path,
             query=query,
