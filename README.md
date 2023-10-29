@@ -153,6 +153,13 @@ icecream >= 2.1.3
 and run it via
 
 ```
+pip install -e --no-dependencies .
+taxmyphage -h
+```
+
+or
+
+```
 tax_myPHAGE/taxmyphage/bin/taxmyphage.py -h
 ```
 
