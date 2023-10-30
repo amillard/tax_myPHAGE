@@ -3,7 +3,7 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/taxmyphage)](https://pypi.org/project/taxmyphage/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![PyPI](https://img.shields.io/pypi/v/taxmyphage)](https://pypi.org/project/taxmyphage/)
-[![Conda](https://img.shields.io/conda/vn/bioconda/taxmyphage?style=plastic)](https://github.com/bioconda/bioconda-recipes/tree/master/recipes/taxmyphage)
+[![Conda](https://img.shields.io/conda/vn/bioconda/taxmyphage)](https://github.com/bioconda/bioconda-recipes/tree/master/recipes/taxmyphage)
 [![Downloads](https://static.pepy.tech/badge/taxmyphage)](https://pepy.tech/project/taxmyphage)
 ----------
 
