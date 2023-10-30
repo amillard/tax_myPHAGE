@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![PyPI](https://img.shields.io/pypi/v/taxmyphage)](https://pypi.org/project/taxmyphage/)
 [![Conda](https://img.shields.io/conda/vn/bioconda/taxmyphage)](https://anaconda.org/bioconda/taxmyphage)
-[![Downloads](https://static.pepy.tech/badge/taxmyphage)](https://pepy.tech/project/taxmyphage)
+[![Downloads](https://anaconda.org/bioconda/taxmyphage/badges/downloads.svg)](https://pepy.tech/project/taxmyphage)
 ----------
 
 Developed by [Andrew Millard](https://github.com/amillard) , [Thomas Sicheritz-Ponten](https://github.com/tsp-kucbd) and [Remi Denise](https://github.com/rdenise)
