@@ -1,3 +1,9 @@
+"""
+This module provides functionalities for classifying bacteriophages based on their genomes.
+It includes functions for running mash, parsing mash output, running BLAST, parsing BLAST output,
+and performing the classification.
+"""
+
 ####################################################################################################
 # IMPORTS
 ####################################################################################################
@@ -5,12 +11,11 @@
 import io
 import os
 import subprocess
-import sys
-from icecream import ic
-import pandas as pd
-from Bio import SeqIO
 from textwrap import dedent
 from typing import Tuple, Dict
+import pandas as pd
+from Bio import SeqIO
+from icecream import ic
 
 from taxmyphage.pmv import PoorMansViridic
 from taxmyphage.plot import heatmap
@@ -105,7 +110,7 @@ def classification_mash(
 
     number_hits = mash_df.shape[0]
 
-    # get the number of genomes wih mash distance < 0.2
+    # get the number of genomes wih mash distance < args.dist
     if number_hits < 1:
         print_error(
             dedent(
@@ -117,14 +122,16 @@ def classification_mash(
             )
         )
 
-        os.system(f"touch {taxa_csv_output_path}")
+        with open(taxa_csv_output_path, "w", encoding="utf-8") as wt:
+            wt.write("No hits were found with the default settings\n")
+
         return pd.DataFrame(), accession_genus_dict
     else:
         print_res(
             dedent(
                 f"""
-            Number of phage genomes detected with mash distance of < {dist} is:{number_hits}
-            """
+                Number of phage genomes detected with mash distance of < {dist} is:{number_hits}
+                """
             )
         )
 
@@ -312,7 +319,7 @@ def classification_viridic(
             SeqIO.write(SeqIO.parse(file, "fasta"), merged_file, "fasta")
 
     # run VIRIDIC
-    PMV = PoorMansViridic(
+    pmv = PoorMansViridic(
         file = viridic_in_path,
         reference = viridic_in_path,
         nthreads=threads,
@@ -320,20 +327,20 @@ def classification_viridic(
         blastn_exe=blastn_exe,
         makeblastdb_exe=makeblastdb_exe,
     )
-    df1, pmv_outfile = PMV.run()
+    df1, pmv_outfile = pmv.run()
 
     ic(df1)
     ic(pmv_outfile)
-    ic(PMV.dfM)
+    ic(pmv.dfM)
 
     # heatmap and distances
     if Figure:
         print_ok("\nWill calculate and save heatmaps now\n")
-        heatmap(PMV.dfM, heatmap_file, top_right_matrix, accession_genus_dict)
+        heatmap(pmv.dfM, heatmap_file, top_right_matrix, accession_genus_dict)
     else:
         print_error("\nSkipping calculating heatmaps and saving them\n ")
 
-    PMV.save_similarities(similarities_file)
+    pmv.save_similarities(similarities_file)
 
     # merge the ICTV dataframe with the results of viridic
     # fill in missing with Not Defined yet
@@ -395,8 +402,8 @@ def new_genus(
     with open(summary_output_path, "w") as file:
         file.write(
             f"""Try running again with if you larger distance if you want a Figure.
-        The query is both a new genus and species\n
-        New genus\tNew species\n"""
+            The query is both a new genus and species\n
+            New genus\tNew species\n"""
         )
 
     return {

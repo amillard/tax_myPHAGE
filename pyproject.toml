@@ -54,7 +54,8 @@ exclude = [
     "maybe*",
     "*old*",
     "*data*",
-    ".DS_Store"
+    ".DS_Store",
+    "taxmyphage/bin*",
     ]
 
 [tool.poetry.dependencies]

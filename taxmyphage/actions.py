@@ -1,16 +1,23 @@
-############################################################################################################
+"""
+This module provides functionalities for classifying bacteriophages based on their genomes.
+It includes functions for running all classification methods, generating heatmaps, and handling 
+files.
+"""
+
+####################################################################################################
 # Imports
-############################################################################################################
+####################################################################################################
 
 
-import os, sys
+import os
+import sys
+import time
+from datetime import timedelta
+from argparse import Namespace
 from icecream import ic
 from tqdm import tqdm
 from Bio import SeqIO
-import time
-from datetime import timedelta
 import pandas as pd
-from argparse import Namespace
 
 from taxmyphage.utils import print_error, print_ok, create_folder, print_warn
 from taxmyphage.pmv import PoorMansViridic
@@ -23,9 +30,9 @@ from taxmyphage.classify import (
 )
 
 
-############################################################################################################
+####################################################################################################
 # Functions
-############################################################################################################
+####################################################################################################
 
 
 def all_classification(
@@ -104,7 +111,7 @@ def all_classification(
         query = os.path.join(results_path, "query.fasta")
 
         # create a fasta file with just the query genome and add query_ to the id
-        with open(query, "w") as output_fid:
+        with open(query, "w", encoding="utf-8") as output_fid:
             genome.name = genome.description = ""
             genome.id = f"query_{genome_id}"
             SeqIO.write(genome, output_fid, "fasta")
@@ -131,6 +138,17 @@ def all_classification(
         )
 
         if mash_df.empty:
+            dict_taxonomy[genome_id] = {
+                "Realm": "Unknown",
+                "Kingdom": "Unknown",
+                "Phylum": "Unknown",
+                "Class": "Unknown",
+                "Order": "Unknown",
+                "Family": "Unknown",
+                "Subfamily": "Unknown",
+                "Genus": "New_genus",
+                "Species": "New_species",
+            }
             continue
 
         merged_df, copy_merged_df = classification_viridic(
@@ -155,16 +173,16 @@ def all_classification(
             prefix=args.prefix,
         )
 
-        dict_taxonomy[genome.id] = genome_taxo
+        dict_taxonomy[genome_id] = genome_taxo
 
         run_time = str(timedelta(seconds=time.time() - timer_start))
-        print(f"Run time for {genome.id}: {run_time}\n", file=sys.stderr)
+        print(f"Run time for {genome_id}: {run_time}\n", file=sys.stderr)
         print("-" * 80, file=sys.stderr)
 
     # write the taxonomy to a csv file
     taxonomy_tsv = os.path.join(args.output, "Summary_taxonomy.tsv")
 
-    with open(taxonomy_tsv, "w") as output_fid:
+    with open(taxonomy_tsv, "w", encoding="utf-8") as output_fid:
         output_fid.write(
             "Genome\tRealm\tKingdom\tPhylum\tClass\tOrder\tFamily\tSubfamily\tGenus\tSpecies\tFull_taxonomy\n"
         )
@@ -214,7 +232,7 @@ def all_classification(
     return
 
 
-############################################################################################################
+####################################################################################################
 
 
 def viridic(args: Namespace, threads: int, verbose: bool) -> None:
@@ -240,7 +258,7 @@ def viridic(args: Namespace, threads: int, verbose: bool) -> None:
 
         reference = os.path.join(args.output, "reference_pmv.fasta")
 
-        with open(reference, "wt") as f:
+        with open(reference, "wt", encoding="utf-8") as f:
             read_write_fasta(args.reference, f)
 
         # Not possible if matrix not square at the moment
@@ -261,7 +279,7 @@ def viridic(args: Namespace, threads: int, verbose: bool) -> None:
     print_ok(f"\nCalculating PoorManVIRIDIC in {results_path}...")
 
     # run VIRIDIC
-    PMV = PoorMansViridic(
+    pmv = PoorMansViridic(
         file=tmp_fasta,
         reference=reference,
         nthreads=threads,
@@ -270,19 +288,19 @@ def viridic(args: Namespace, threads: int, verbose: bool) -> None:
         makeblastdb_exe=args.makeblastdb,
     )
 
-    dfT, pmv_outfile = PMV.run()
+    dfT, pmv_outfile = pmv.run()
 
     # heatmap and distances
     if args.Figure:
         print_ok("\nWill calculate and save heatmaps now\n")
-        accession_genus_dict = {name: "" for name in PMV.dfM.A.unique()}
-        heatmap(PMV.dfM, heatmap_file, top_right_matrix, accession_genus_dict)
+        accession_genus_dict = {name: "" for name in pmv.dfM.A.unique()}
+        heatmap(pmv.dfM, heatmap_file, top_right_matrix, accession_genus_dict)
     else:
         print_error("\nSkipping calculating heatmaps and saving them\n ")
 
-    PMV.save_similarities(similarities_file)
+    pmv.save_similarities(similarities_file)
 
-    df = PMV.dfM
+    df = pmv.dfM
     df = df[df.A != df.B].set_index(["A", "B"])
 
     # print(df.to_csv(sep='\t', float_format='%.4f'))

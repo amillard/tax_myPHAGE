@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 
-############################################################################################################
+"""
+This module is used for classifying bacteriophages based on their genomes.
+It provides functionalities for checking and installing necessary databases,
+handling files, and performing classifications.
+"""
+
+###################################################################################################
 # Imports
-############################################################################################################
+###################################################################################################
 
 
-import os, sys
+import os
 from icecream import ic
-from tqdm import tqdm
-from Bio import SeqIO
-import time
-from datetime import timedelta
 
 from taxmyphage import cli
 from taxmyphage.download_check import (
@@ -19,21 +21,20 @@ from taxmyphage.download_check import (
     check_VMR,
     install_db,
 )
-from taxmyphage.utils import create_folder, print_ok, CheckSoftware
-from taxmyphage.handle_files import create_files_and_result_paths, read_VMR
+from taxmyphage.utils import create_folder, CheckSoftware
+from taxmyphage.handle_files import read_VMR
 from taxmyphage.actions import all_classification, viridic
-from taxmyphage.classify import (
-    classification_mash,
-    classification_viridic,
-    classification,
-)
 
-############################################################################################################
+
+###################################################################################################
 # Functions
-############################################################################################################
+###################################################################################################
 
 
 def main():
+    """
+    This is the main function of the script
+    """
     # Set up the arguments
     args, nargs = cli.cli()
 
@@ -44,7 +45,7 @@ def main():
         ic.disable()
 
     # this is the location of where the script and the databases are stored
-    VMR_path = os.path.join(args.db_folder, "VMR.xlsx")
+    vmr_path = os.path.join(args.db_folder, "VMR.xlsx")
     blastdb_path = os.path.join(args.db_folder, "Bacteriophage_genomes.fasta")
     mash_index_path = os.path.join(args.db_folder, "ICTV_2023.msh")
 
@@ -53,7 +54,7 @@ def main():
         CheckSoftware(args.makeblastdb)
 
         install_db(
-            VMR_path=VMR_path,
+            VMR_path=vmr_path,
             blastdb_path=blastdb_path,
             mash_index_path=mash_index_path,
             output=args.db_folder,
@@ -91,10 +92,10 @@ def main():
         mash_dist = args.dist
 
         # Check if the VMR file exists
-        check_VMR(VMR_path)
+        check_VMR(vmr_path)
 
         # read in the VMR data
-        taxa_df = read_VMR(VMR_path=VMR_path)
+        taxa_df = read_VMR(VMR_path=vmr_path)
 
         # Check if the mash index exists
         check_mash_index(mash_index_path)
@@ -126,9 +127,9 @@ def main():
         )
 
 
-############################################################################################################
+###################################################################################################
 
 if __name__ == "__main__":
     main()
 
-############################################################################################################
+###################################################################################################
