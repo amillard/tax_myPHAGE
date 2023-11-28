@@ -267,29 +267,30 @@ The time to classify a phage will depend on the number of hits and number of pha
 ```
 [output_folder]                                          <- General output folder
 ├── Summary_taxonomy.tsv                                 <- Summary of the analysis for all the genomes (summarises what was printed to screen)
-└── [genome query_id]                                    <- Results output for the genome query_id
-    ├── Output_of_taxonomy.csv                           <- Output of the taxonomy classification
-    ├── Summary_file.txt                                 <- Summary of the analysis (summarises what was printed to screen)
-    ├── heatmap.pdf                                      <- Heatmap of the similarity to the closest relatives (pdf)
-    ├── heatmap.png                                      <- Heatmap of the similarity to the closest relatives    (png)
-    ├── heatmap.svg                                      <- Heatmap of the similarity to the closest relatives (svg)
-    ├── known_taxa.fa                                    <- Fasta file of the closest relatives
-    ├── mash.txt                                         <- Output of the MASH analysis
-    ├── query.fasta                                      <- Input fasta file
-    ├── similarities.tsv                                 <- Similarities to the closest relatives
-    ├── top_right_matrix.tsv                             <- Top right matrix of similarity to closest relatives (same as heatmap)
-    └── pmv                                              <- VIRIDIC-like analysis
-        ├── pmv_in.fa                                    <- Input fasta file
-        ├── pmv_in.fa.blastn_vs2_self.tab.gz             <- Blastn output of the input fasta file against itself
-        ├── pmv_in.fa.genus_species_clusters.tsv         <- Clusters of the closest relatives
-        ├── pmv_in.fa.ndb                                <- Blastn database of the closest relatives
-        ├── pmv_in.fa.nhr
-        ├── pmv_in.fa.nin
-        ├── pmv_in.fa.njs
-        ├── pmv_in.fa.not
-        ├── pmv_in.fa.nsq
-        ├── pmv_in.fa.ntf
-        └── pmv_in.fa.nto
+└── Results_per_genome                                   <- Folder containing the results for each genome
+  └── [genome query_id]                                  <- Results output for the genome query_id
+      ├── Output_of_taxonomy.csv                         <- Output of the taxonomy classification
+      ├── Summary_file.txt                               <- Summary of the analysis (summarises what was printed to screen)
+      ├── heatmap.pdf                                    <- Heatmap of the similarity to the closest relatives (pdf)
+      ├── heatmap.png                                    <- Heatmap of the similarity to the closest relatives    (png)
+      ├── heatmap.svg                                    <- Heatmap of the similarity to the closest relatives (svg)
+      ├── known_taxa.fa                                  <- Fasta file of the closest relatives
+      ├── mash.txt                                       <- Output of the MASH analysis
+      ├── query.fasta                                    <- Input fasta file
+      ├── similarities.tsv                               <- Similarities to the closest relatives
+      ├── top_right_matrix.tsv                           <- Top right matrix of similarity to closest relatives (same as heatmap)
+      └── pmv                                            <- VIRIDIC-like analysis
+          ├── pmv_in.fa                                  <- Input fasta file
+          ├── pmv_in.fa.blastn_vs2_self.tab.gz           <- Blastn output of the input fasta file against itself
+          ├── pmv_in.fa.genus_species_clusters.tsv       <- Clusters of the closest relatives
+          ├── pmv_in.fa.ndb                              <- Blastn database of the closest relatives
+          ├── pmv_in.fa.nhr
+          ├── pmv_in.fa.nin
+          ├── pmv_in.fa.njs
+          ├── pmv_in.fa.not
+          ├── pmv_in.fa.nsq
+          ├── pmv_in.fa.ntf
+          └── pmv_in.fa.nto
 ```
 
 ##### Output files explained

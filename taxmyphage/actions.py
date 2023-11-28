@@ -97,7 +97,7 @@ def all_classification(
             if char in genome_id:
                 genome_id = genome_id.replace(char, "_")
 
-        results_path = os.path.join(args.output, genome_id)
+        results_path = os.path.join(args.output, "Results_per_genome", genome_id)
         print_ok(f"\nClassifying {genome.id} in result folder {results_path}...")
 
         timer_start = time.time()
