@@ -101,10 +101,15 @@ def main():
         check_mash_index(mash_index_path)
 
         # Check if the blastDB file exists
-        check_blastDB(
+        all_phages_name = check_blastDB(
             blastdb_path,
             output=args.output,
             makeblastdb_exe=args.makeblastdb,
+        )
+
+        # Reduce VMR to only the phages in the blastDB
+        taxa_df = taxa_df[taxa_df["Genbank"].isin(all_phages_name)].reset_index(
+            drop=True
         )
 
         # Run the classification

@@ -13,7 +13,9 @@ import sys
 import subprocess
 import gzip
 import shutil
+from typing import List
 import wget
+from Bio import SeqIO
 
 from taxmyphage.utils import print_error, print_ok, create_folder
 
@@ -98,7 +100,7 @@ def unzip_file(file_path: str, output_path: str) -> None:
 
 def check_blastDB(
     blastdb_path: str, output: str, makeblastdb_exe: str, install: bool = False
-) -> None:
+) -> List[str]:
     """
     Checks if the blastDB is present and if not downloads it and creates the database
 
@@ -109,7 +111,7 @@ def check_blastDB(
         install (bool, optional): Whether to install the blastDB. Defaults to False.
 
     Returns:
-        None
+        List[str]: List of all phage names in the blastDB
     """
 
     # Variable to check if the uncompressed blastDB needs to be removed to save space
@@ -161,6 +163,17 @@ def check_blastDB(
 
         if to_remove:
             os.remove(blastdb_path)
+    
+    # Get the name of the phage database
+    blastdb_path = f"{blastdb_path}.gz"
+
+    all_phages_name = []
+    with gzip.open(blastdb_path, "rt") as f:
+        parser = SeqIO.parse(f, "fasta")
+        for record in parser:
+            all_phages_name.append(record.id)
+
+    return all_phages_name
 
 
 ####################################################################################################
