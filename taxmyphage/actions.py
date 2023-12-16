@@ -12,6 +12,7 @@ files.
 import os
 import sys
 import time
+import io
 from datetime import timedelta
 from argparse import Namespace
 from icecream import ic
@@ -43,7 +44,8 @@ def all_classification(
     blastdb_path: str,
     threads: int,
     verbose: bool,
-) -> None:
+    max_entries: int=0,
+) -> pd.DataFrame:
     """
     This function will run all the classification methods and return the result
 
@@ -55,9 +57,9 @@ def all_classification(
         blastdb_path (str): path to the blastdb
         threads (int): number of threads to use
         verbose (bool): if True, print more information
-
+        max_entries (int): max number of sequences to analyse (default is no limit)
     Returns:
-        None
+        dataframe with taxonomy results
     """
 
     tmp_fasta = os.path.join(args.output, "tmp.fasta")
@@ -67,10 +69,15 @@ def all_classification(
     dict_taxonomy = {}
 
     num_genomes = create_files_and_result_paths(args.in_fasta, tmp_fasta)
+    if max_entries and num_genomes > max_entries:
+        print_error(f"{num_genomes} entries in fasta file larger than allowed number ({max_entries}. Skipping {num_genomes-max_entries}")
 
     parser = SeqIO.parse(tmp_fasta, "fasta")
 
+    genome_counter = 0
     for genome in tqdm(parser, desc="Classifying", total=num_genomes):
+        genome_counter +=1
+        if max_entries and genome_counter > max_entries: break
         genome_id = genome.id
 
         # replace any characters that are not allowed in a file name
@@ -98,7 +105,7 @@ def all_classification(
                 genome_id = genome_id.replace(char, "_")
 
         results_path = os.path.join(args.output, "Results_per_genome", genome_id)
-        print_ok(f"\nClassifying {genome.id} in result folder {results_path}...")
+        print(f"\nClassifying {genome.id} in result folder {results_path}...")
 
         timer_start = time.time()
 
@@ -182,54 +189,54 @@ def all_classification(
     # write the taxonomy to a csv file
     taxonomy_tsv = os.path.join(args.output, "Summary_taxonomy.tsv")
 
-    with open(taxonomy_tsv, "w", encoding="utf-8") as output_fid:
-        output_fid.write(
-            "Genome\tRealm\tKingdom\tPhylum\tClass\tOrder\tFamily\tSubfamily\tGenus\tSpecies\tFull_taxonomy\n"
-        )
-        for key, value in dict_taxonomy.items():
-            string_taxo = ""
-            full_string = ""
-            for taxo in [
-                "Realm",
-                "Kingdom",
-                "Phylum",
-                "Class",
-                "Order",
-                "Family",
-                "Subfamily",
-                "Genus",
-                "Species",
-            ]:
-                # Change the taxonomy to Not Defined Yet if it is empty or nan
-                taxonomy = (
-                    value[taxo]
-                    if value[taxo] != "" and value[taxo] == value[taxo]
-                    else "Not Defined Yet"
-                )
-                string_taxo += f"{taxonomy}\t"
+    txt = "Genome\tRealm\tKingdom\tPhylum\tClass\tOrder\tFamily\tSubfamily\tGenus\tSpecies\tFull_taxonomy\n"
 
-                # Change the taxonomy to empty string if it is empty or nan
-                taxonomy_full = (
-                    value[taxo]
-                    if value[taxo] != "" and value[taxo] == value[taxo]
-                    else ""
-                )
-                prefix = "sf" if taxo == "Subfamily" else taxo[0].lower()
-                full_string += f"{prefix}__{taxonomy_full};"
+    for key, value in dict_taxonomy.items():
+        string_taxo = ""
+        full_string = ""
+        for taxo in [
+            "Realm",
+            "Kingdom",
+            "Phylum",
+            "Class",
+            "Order",
+            "Family",
+            "Subfamily",
+            "Genus",
+            "Species",
+        ]:
+            # Change the taxonomy to Not Defined Yet if it is empty or nan
+            taxonomy = (
+                value[taxo]
+                if value[taxo] != "" and value[taxo] == value[taxo]
+                else "Not Defined Yet"
+            )
+            string_taxo += f"{taxonomy}\t"
 
-            # remove the last tab
-            string_taxo = string_taxo.rstrip("\t")
-            full_string = full_string[:-1]
+            # Change the taxonomy to empty string if it is empty or nan
+            taxonomy_full = (
+                value[taxo]
+                if value[taxo] != "" and value[taxo] == value[taxo]
+                else ""
+            )
+            prefix = "sf" if taxo == "Subfamily" else taxo[0].lower()
+            full_string += f"{prefix}__{taxonomy_full};"
 
-            # Remove query_ from the genome id
-            query = key.replace("query_", "")
+        # remove the last tab
+        string_taxo = string_taxo.rstrip("\t")
+        full_string = full_string[:-1]
 
-            output_fid.write(f"{query}\t{string_taxo}\t{full_string}\n")
+        # Remove query_ from the genome id
+        query = key.replace("query_", "")
+
+        txt = txt + f"{query}\t{string_taxo}\t{full_string}\n"
+
+    dfT = pd.read_table(io.StringIO(txt))
+    dfT.to_csv(taxonomy_tsv, sep='\t')
 
     # clean up
     os.remove(tmp_fasta)
-
-    return
+    return dfT
 
 
 ####################################################################################################
