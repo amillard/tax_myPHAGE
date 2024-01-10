@@ -180,6 +180,8 @@ def classification_mash(
     top_10 = top_10.merge(taxa_df, left_on="acc", right_on="Genbank")
     top_10["ANI"] = (1 - top_10.distance) * 100
 
+    ic(top_10[["acc", "genus", "Genus", "Virus name(s)"]].head())
+
     # returns the unique genera names found in the mash hits - top_10 is not the best name!
     unique_genera_counts = top_10.Genus.value_counts()
     ic(unique_genera_counts.to_dict())
@@ -782,7 +784,7 @@ def classification(
             taxonomic_info = new_genus_new_species(summary_output_path, mash_df)
 
     # if number of VIRIDIC genera is greater than ICTV genera
-    elif num_unique_ICTV_genera < num_unique_viridic_genus_clusters:
+    elif num_unique_ICTV_genera != num_unique_viridic_genus_clusters:
         print_error(f"""{summary_statement_inconsitent}\n""")
 
         # GENUS CHECK FIRST- Current genus and current species

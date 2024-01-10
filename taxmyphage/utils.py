@@ -129,9 +129,9 @@ statement_current_genus_sp = dedent(
 
 summary_statement_inconsitent = dedent(
     """
-    \nThe number of expected genera based on current ICTV classification is less than the predicted 
+    \nThe number of expected genera based on current ICTV classification is different from the predicted 
     number of genus clusters as predicted by VIRIDIC-algorithm. This does not mean the current ICTV 
-    classification is wrong (it might be)or that VIRIDIC-algorithm is wrong. It could be an edge 
+    classification is wrong (it might be) or that VIRIDIC-algorithm is wrong. It could be an edge 
     case that automated process cannot distinguish. It will require more manual curation to look 
     at the output files.\n 
     """
