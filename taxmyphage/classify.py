@@ -702,10 +702,7 @@ def classification(
     query_genus_cluster_number = query_row["genus_cluster"].values[0]
     query_species_cluster_number = query_row["species_cluster"].values[0]
 
-    print(
-        f"\nCluster number of species is {query_species_cluster_number} and cluster of genus is {query_genus_cluster_number}"
-    )
-
+    print(f"\nSpecies cluster number is {query_species_cluster_number}")
     print(f"Genus cluster number is {query_genus_cluster_number}")
 
     # list of VIRIDIC genus and species numbers

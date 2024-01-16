@@ -45,7 +45,8 @@ def heatmap(
     # Set up matplotlib
     plt.rcParams["text.color"] = "#131516"
     plt.rcParams["svg.fonttype"] = "none"  # Editable SVG text
-    plt.rcParams["font.family"] = "Arial"
+    plt.rcParams["font.family"] = "sans-serif"
+    plt.rcParams["font.sans-serif"] = "Arial"
     plt.rcParams["font.weight"] = "light"
 
     # define output files
