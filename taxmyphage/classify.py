@@ -12,7 +12,7 @@ import io
 import os
 import subprocess
 from textwrap import dedent
-from typing import Tuple, Dict
+from typing import Tuple, Dict, List
 import pandas as pd
 from Bio import SeqIO
 from icecream import ic
@@ -281,7 +281,7 @@ def classification_viridic(
     verbose: bool,
     blastn_exe: str,
     makeblastdb_exe: str,
-) -> Tuple[pd.DataFrame, pd.DataFrame]:
+) -> Tuple[pd.DataFrame, pd.DataFrame, str]:
     """
     Classifies the query genome using viridic
 
@@ -300,7 +300,8 @@ def classification_viridic(
 
     Returns:
         merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
-        copy_merged_df pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe with the query
+        query_merged_df pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe with the query
+        closest_genome (str): Closest genome
     """
 
     # store files for VIRIDIC run- or equivalent
@@ -322,8 +323,8 @@ def classification_viridic(
 
     # run VIRIDIC
     pmv = PoorMansViridic(
-        file = viridic_in_path,
-        reference = viridic_in_path,
+        file=viridic_in_path,
+        reference=viridic_in_path,
         nthreads=threads,
         verbose=verbose,
         blastn_exe=blastn_exe,
@@ -356,13 +357,16 @@ def classification_viridic(
     merged_df.to_csv(taxa_csv_output_path, sep="\t", index=False)
 
     # create a copy of this dataframe for later use
-    copy_merged_df = merged_df.copy()
+    query_merged_df = merged_df.copy()
 
     merged_df = merged_df[~merged_df["genome"].str.contains("query_")].reset_index(
         drop=True
     )
 
-    return merged_df, copy_merged_df
+    # get the closest species
+    closest_genome = pmv.get_query_closest()
+
+    return merged_df, query_merged_df, closest_genome
 
 
 ####################################################################################################
@@ -403,7 +407,7 @@ def new_genus(
 
     with open(summary_output_path, "w") as file:
         file.write(
-            f"""Try running again with if you larger distance if you want a Figure.
+            """Try running again with if you larger distance if you want a Figure.
             The query is both a new genus and species\n
             New genus\tNew species\n"""
         )
@@ -504,6 +508,7 @@ def current_genus_current_species(
 
 def current_genus_new_species(
     summary_output_path: str,
+    dict_genus_cluster_2_genus_name: Dict[int, str],
     query_genus_cluster_number: int,
     merged_df: pd.DataFrame,
     mash_df: pd.DataFrame,
@@ -513,6 +518,7 @@ def current_genus_new_species(
 
     Args:
         summary_output_path (str): Path to the summary output file
+        dict_genus_cluster_2_genus_name (Dict[int, str]): Dictionary of genus cluster to genus name
         query_genus_cluster_number (int): Query genus cluster number
         merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
         mash_df (pd.DataFrame): Dataframe of the mash results
@@ -528,9 +534,9 @@ def current_genus_new_species(
         )
     )
 
-    matching_genus_rows = merged_df[
-        merged_df["genus_cluster"] == query_genus_cluster_number
-    ]
+    predicted_genus = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
+
+    matching_genus_rows = merged_df[merged_df["Genus"] == predicted_genus]
 
     dict_exemplar_genus = matching_genus_rows.iloc[0].to_dict()
     genus_value = dict_exemplar_genus["Genus"]
@@ -629,24 +635,100 @@ def new_genus_new_species(
 ####################################################################################################
 
 
+def assess_taxonomic_info(
+    query_genus_cluster_number: int,
+    query_species_cluster_number: int,
+    list_ICTV_genus_clusters: List[int],
+    list_ICTV_species_clusters: List[int],
+    dict_genus_cluster_2_genus_name: Dict[int, str],
+    dict_species_cluster_2_species_name: Dict[int, str],
+    summary_output_path: str,
+    merged_df: pd.DataFrame,
+    mash_df: pd.DataFrame,
+) -> Dict[str, str]:
+    """
+    Classifies the query genome as a new genus and new species
+
+    Args:
+        query_genus_cluster_number (int): Query genus cluster number
+        query_species_cluster_number (int): Query species cluster number
+        list_ICTV_genus_clusters (List[int]): List of ICTV genus clusters
+        list_ICTV_species_clusters (List[int]): List of ICTV species clusters
+        dict_genus_cluster_2_genus_name (Dict[int, str]): Dictionary of genus cluster to genus name
+        dict_species_cluster_2_species_name (Dict[int, str]): Dictionary of species cluster to species name
+        summary_output_path (str): Path to the summary output file
+        merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
+        mash_df (pd.DataFrame): Dataframe of the mash results
+
+    Returns:
+        Dict[str, str]: Dictionary of taxonomic information
+    """
+
+    # GENUS CHECK FIRST- Current genus and current species
+    if (
+        query_genus_cluster_number in list_ICTV_genus_clusters
+        and query_species_cluster_number in list_ICTV_species_clusters
+    ):
+        # print the information that the query already have a genus and a species
+        taxonomic_info = current_genus_current_species(
+            query_species_cluster_number=query_species_cluster_number,
+            dict_species_cluster_2_species_name=dict_species_cluster_2_species_name,
+            summary_output_path=summary_output_path,
+            dict_genus_cluster_2_genus_name=dict_genus_cluster_2_genus_name,
+            query_genus_cluster_number=query_genus_cluster_number,
+            merged_df=merged_df,
+            mash_df=mash_df,
+        )
+
+        # WRITE CODE FOR GIVING INFO ON SPECIES
+
+    # SAME GENUS but different species
+    elif (
+        query_genus_cluster_number in list_ICTV_genus_clusters
+        and query_species_cluster_number not in list_ICTV_species_clusters
+    ):
+        # print the information that the query already have a genus but not a species
+        taxonomic_info = current_genus_new_species(
+            summary_output_path=summary_output_path,
+            dict_genus_cluster_2_genus_name=dict_genus_cluster_2_genus_name,
+            query_genus_cluster_number=query_genus_cluster_number,
+            merged_df=merged_df,
+            mash_df=mash_df,
+        )
+
+    # NEW GENUS and NEW SPECIES
+    elif (
+        query_genus_cluster_number not in list_ICTV_genus_clusters
+        and query_species_cluster_number not in list_ICTV_species_clusters
+    ):
+        taxonomic_info = new_genus_new_species(
+            summary_output_path=summary_output_path, mash_df=mash_df
+        )
+
+    return taxonomic_info
+
+
+####################################################################################################
+
+
 def classification(
     merged_df: pd.DataFrame,
-    copy_merged_df: pd.DataFrame,
+    query_merged_df: pd.DataFrame,
     results_path: str,
     mash_df: pd.DataFrame,
     prefix: str,
+    closest_genome: str,
 ) -> Dict[str, str]:
     """
     Classifies the query genome
 
     Args:
         merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
-        copy_merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe with the query
+        query_merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe with the query
         results_path (str): Path to the results directory
         mash_df (pd.DataFrame): Dataframe of the mash results
         prefix (str): Prefix to add to the output file
-        genome (str): Genome name
-        timer_start (float): Start time
+        closest_genome (str): Genome name
 
     Returns:
         Dict[str, str]: Dictionary of taxonomic information
@@ -662,8 +744,8 @@ def classification(
     num_unique_ICTV_genera = merged_df["Genus"].nunique()
 
     # including query
-    total_num_viridic_genus_clusters = copy_merged_df["genus_cluster"].nunique()
-    total_num_viridic_species_clusters = copy_merged_df["species_cluster"].nunique()
+    total_num_viridic_genus_clusters = query_merged_df["genus_cluster"].nunique()
+    total_num_viridic_species_clusters = query_merged_df["species_cluster"].nunique()
 
     print(
         dedent(
@@ -681,7 +763,7 @@ def classification(
 
     if num_unique_ICTV_genera == num_unique_viridic_genus_clusters:
         print(
-            f"""\n\nCurrent ICTV and VIRIDIC-algorithm predictions are consistent for the data that was used to compare against"""
+            """\n\nCurrent ICTV and VIRIDIC-algorithm predictions are consistent for the data that was used to compare against"""
         )
 
     print_ok(
@@ -692,12 +774,9 @@ def classification(
         f"""Number of current ICTV genera associated with the reference genomes is {num_unique_ICTV_genera}"""
     )
 
-    species_genus_dict = merged_df.set_index("species_cluster")["Species"].to_dict()
-    ic(species_genus_dict)
-
     # get information on the query from the dataframe
     # get species and genus cluster number
-    query_row = copy_merged_df[copy_merged_df["genome"].str.contains("query_")]
+    query_row = query_merged_df[query_merged_df["genome"].str.contains("query_")]
 
     query_genus_cluster_number = query_row["genus_cluster"].values[0]
     query_species_cluster_number = query_row["species_cluster"].values[0]
@@ -720,7 +799,38 @@ def classification(
         "Species"
     ].to_dict()
 
+    # change the value for the closest genome as the one for the cluster number
+    # this is to avoid the problem of having a random name chosen for the group
+    # the query is in (e.g. if in the cluster of the query the genus could be
+    # Agtrevirus or Limestonevirus, the value in the dictionary will be the one of
+    # of the closest genome to the query [using the similarity matrix])
+
+    cluster_closest_genus = (
+        merged_df[merged_df["genome"] == closest_genome][["genus_cluster", "Genus"]]
+        .values[0]
+        .tolist()
+    )
+    cluster_closest_species = (
+        merged_df[merged_df["genome"] == closest_genome][["species_cluster", "Species"]]
+        .values[0]
+        .tolist()
+    )
+
+    ic(cluster_closest_genus)
+    ic(cluster_closest_species)
+
+    dict_genus_cluster_2_genus_name[cluster_closest_genus[0]] = cluster_closest_genus[1]
+    dict_species_cluster_2_species_name[
+        cluster_closest_species[0]
+    ] = cluster_closest_species[1]
+
     ic(dict_genus_cluster_2_genus_name)
+    ic(
+        sorted(list(dict_genus_cluster_2_genus_name.keys()))
+        == sorted(list_ICTV_genus_clusters)
+    )
+    ic(sorted(list(dict_genus_cluster_2_genus_name.keys())))
+    ic(sorted(list(list_ICTV_genus_clusters)))
 
     # check query is within a current genus. If not, then new Genus
     if query_genus_cluster_number not in dict_genus_cluster_2_genus_name:
@@ -730,6 +840,10 @@ def classification(
             dict_genus_cluster_2_genus_name,
             summary_output_path,
         )
+
+        taxonomic_info[
+            "Message"
+        ] = "Query is a new genus and species. You could try running again with if you larger distance"
 
         # no more analysis to do so return
         return taxonomic_info
@@ -745,75 +859,40 @@ def classification(
             """Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"""
         )
 
-        # GENUS CHECK FIRST- Current genus and current species
-        if (
-            query_genus_cluster_number in list_ICTV_genus_clusters
-            and query_species_cluster_number in list_ICTV_species_clusters
-        ):
-            # print the information that the query already have a genus and a species
-            taxonomic_info = current_genus_current_species(
-                query_species_cluster_number,
-                dict_species_cluster_2_species_name,
-                summary_output_path,
-                dict_genus_cluster_2_genus_name,
-                query_genus_cluster_number,
-                merged_df,
-                mash_df,
-            )
+        taxonomic_info = assess_taxonomic_info(
+            query_genus_cluster_number=query_genus_cluster_number,
+            query_species_cluster_number=query_species_cluster_number,
+            list_ICTV_genus_clusters=list_ICTV_genus_clusters,
+            list_ICTV_species_clusters=list_ICTV_species_clusters,
+            dict_genus_cluster_2_genus_name=dict_genus_cluster_2_genus_name,
+            dict_species_cluster_2_species_name=dict_species_cluster_2_species_name,
+            summary_output_path=summary_output_path,
+            merged_df=merged_df,
+            mash_df=mash_df,
+        )
 
-            # WRITE CODE FOR GIVING INFO ON SPECIES
-
-        # SAME GENUS but different species
-        elif (
-            query_genus_cluster_number in list_ICTV_genus_clusters
-            and query_species_cluster_number not in list_ICTV_species_clusters
-        ):
-            # print the information that the query already have a genus but not a species
-            taxonomic_info = current_genus_new_species(
-                summary_output_path, query_genus_cluster_number, merged_df, mash_df
-            )
-
-        # NEW GENUS and NEW SPECIES
-        elif (
-            query_genus_cluster_number not in list_ICTV_genus_clusters
-            and query_species_cluster_number not in list_ICTV_species_clusters
-        ):
-            taxonomic_info = new_genus_new_species(summary_output_path, mash_df)
+        taxonomic_info[
+            "Message"
+        ] = "Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"
 
     # if number of VIRIDIC genera is greater than ICTV genera
     elif num_unique_ICTV_genera != num_unique_viridic_genus_clusters:
         print_error(f"""{summary_statement_inconsitent}\n""")
 
-        # GENUS CHECK FIRST- Current genus and current species
-        if (
-            query_genus_cluster_number in list_ICTV_genus_clusters
-            and query_species_cluster_number in list_ICTV_species_clusters
-        ):
-            # print the information that the query already have a genus and a species
-            taxonomic_info = current_genus_current_species(
-                query_species_cluster_number,
-                dict_species_cluster_2_species_name,
-                summary_output_path,
-                dict_genus_cluster_2_genus_name,
-                query_genus_cluster_number,
-                merged_df,
-                mash_df,
-            )
+        taxonomic_info = assess_taxonomic_info(
+            query_genus_cluster_number=query_genus_cluster_number,
+            query_species_cluster_number=query_species_cluster_number,
+            list_ICTV_genus_clusters=list_ICTV_genus_clusters,
+            list_ICTV_species_clusters=list_ICTV_species_clusters,
+            dict_genus_cluster_2_genus_name=dict_genus_cluster_2_genus_name,
+            dict_species_cluster_2_species_name=dict_species_cluster_2_species_name,
+            summary_output_path=summary_output_path,
+            merged_df=merged_df,
+            mash_df=mash_df,
+        )
 
-        # SAME GENUS but different species
-        elif (
-            query_genus_cluster_number in list_ICTV_genus_clusters
-            and query_species_cluster_number not in list_ICTV_species_clusters
-        ):
-            taxonomic_info = current_genus_new_species(
-                summary_output_path, query_genus_cluster_number, merged_df, mash_df
-            )
-
-        # NEW GENUS and NEW SPECIES
-        elif (
-            query_genus_cluster_number not in list_ICTV_genus_clusters
-            and query_species_cluster_number not in list_ICTV_species_clusters
-        ):
-            taxonomic_info = new_genus_new_species(summary_output_path, mash_df)
+        taxonomic_info[
+            "Message"
+        ] = "The number of expected genera is different from the predicted number of genus clusters. It will require more manual curation"
 
     return taxonomic_info

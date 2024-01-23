@@ -158,7 +158,7 @@ def all_classification(
             }
             continue
 
-        merged_df, copy_merged_df = classification_viridic(
+        merged_df, query_merged_df, closest_genome = classification_viridic(
             known_taxa_path=known_taxa_path,
             query=query,
             taxa_df=taxa_df,
@@ -174,10 +174,11 @@ def all_classification(
 
         genome_taxo = classification(
             merged_df=merged_df,
-            copy_merged_df=copy_merged_df,
+            query_merged_df=query_merged_df,
             results_path=results_path,
             mash_df=mash_df,
             prefix=args.prefix,
+            closest_genome=closest_genome,
         )
 
         dict_taxonomy[genome_id] = genome_taxo
@@ -189,7 +190,7 @@ def all_classification(
     # write the taxonomy to a csv file
     taxonomy_tsv = os.path.join(args.output, "Summary_taxonomy.tsv")
 
-    txt = "Genome\tRealm\tKingdom\tPhylum\tClass\tOrder\tFamily\tSubfamily\tGenus\tSpecies\tFull_taxonomy\n"
+    txt = "Genome\tRealm\tKingdom\tPhylum\tClass\tOrder\tFamily\tSubfamily\tGenus\tSpecies\tFull_taxonomy\tMessage\n"
 
     for key, value in dict_taxonomy.items():
         string_taxo = ""
@@ -229,7 +230,10 @@ def all_classification(
         # Remove query_ from the genome id
         query = key.replace("query_", "")
 
-        txt = txt + f"{query}\t{string_taxo}\t{full_string}\n"
+        # Get the information message
+        info = value["Message"]
+
+        txt = txt + f"{query}\t{string_taxo}\t{full_string}\t{info}\n"
 
     dfT = pd.read_table(io.StringIO(txt))
     dfT.to_csv(taxonomy_tsv, sep='\t')

@@ -350,6 +350,28 @@ class PoorMansViridic:
         # Save the dataframe
         df.to_csv(outfile, index=False, sep="\t")
 
+    def get_query_closest(self):
+        """
+        Gets the query closest genomes
+
+        Args:
+            self (PoorMansViridic): PoorMansViridic class
+
+        Returns:
+            pd.DataFrame: DataFrame containing the query similarities
+        """
+
+        df = self.dfM[["A", "B", "sim"]]
+        df = df[df.A != df.B]
+        df.sort_values("sim", ascending=False, inplace=True)
+
+        df_query = df[(df.A.str.contains("query_")) | (df.B.str.contains("query_"))].reset_index(drop=True)
+
+        closest_genomes = df_query.A.values[0] if not df_query.A.values[0].startswith("query_") else df_query.B.values[0]
+
+        closest_genomes = closest_genomes.split(":")[0]
+
+        return closest_genomes
 
 ####################################################################################################
 # Functions
