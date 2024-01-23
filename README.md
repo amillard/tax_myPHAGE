@@ -297,11 +297,11 @@ The time to classify a phage will depend on the number of hits and number of pha
 
 - **Summary_taxonomy.tsv** - Summarises what was printed to screen for all the genomes
 
-| Query sequence header | Realm | Kingdom | Phylum | Class | Order | Family | Subfamily | Genus | Species | Full classification |
-|-----------------------|-------|---------|--------|-------|-------|--------|-----------|-------|---------|---------------------|
-| MZ130489 | Duplodnaviria | Heunggongvirae | Uroviricota | Caudoviricetes | Crassvirales | Crevaviridae | Coarsevirinae | Junduvirus | Junduvirus communis | r__Duplodnaviria;k__Heunggongvirae;p__Uroviricota;c__Caudoviricetes;o__Crassvirales;f__Crevaviridae;sf__Coarsevirinae;g__Junduvirus;s__Junduvirus communis |
-| newGenus_phage | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | New_genus | New_genus new_species | r__Unknown;k__Unknown;p__Unknown;c__Unknown;o__Unknown;f__Unknown;sf_Unknown;g__New_genus;s__New_genus new_species |
-| test1 | Duplodnaviria | Heunggongvirae | Uroviricota | Caudoviricetes | Not Defined Yet | Not Defined Yet | Vequintavirinae | Certrevirus | Certrevirus name_your_species | r__Duplodnaviria;k__Heunggongvirae;p__Uroviricota;c__Caudoviricetes;o__;f__;g__Certrevirus;s__Certrevirus name_your_species |
+| Query sequence header | Realm | Kingdom | Phylum | Class | Order | Family | Subfamily | Genus | Species | Full classification | Message |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| MZ130489 | Duplodnaviria | Heunggongvirae | Uroviricota | Caudoviricetes | Crassvirales | Crevaviridae | Coarsevirinae | Junduvirus | Junduvirus communis | r__Duplodnaviria;k__Heunggongvirae;p__Uroviricota;c__Caudoviricetes;o__Crassvirales;f__Crevaviridae;sf__Coarsevirinae;g__Junduvirus;s__Junduvirus communis | Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level |
+| newGenus_phage | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | Unknown | New_genus | New_genus new_species | r__Unknown;k__Unknown;p__Unknown;c__Unknown;o__Unknown;f__Unknown;sf_Unknown;g__New_genus;s__New_genus new_species | Query is a new genus and species. You could try running again with if you larger distance |
+| test1 | Duplodnaviria | Heunggongvirae | Uroviricota | Caudoviricetes | Not Defined Yet | Not Defined Yet | Vequintavirinae | Certrevirus | Certrevirus name_your_species | r__Duplodnaviria;k__Heunggongvirae;p__Uroviricota;c__Caudoviricetes;o__;f__;g__Certrevirus;s__Certrevirus name_your_species | The number of expected genera is different from the predicted number of genus clusters. It will require more manual curation |
 
 - **Summary_file.txt** - Summarises what was printed to screen 
 
