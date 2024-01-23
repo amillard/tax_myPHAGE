@@ -259,6 +259,8 @@ def viridic(args: Namespace, threads: int, verbose: bool) -> None:
         None
     """
 
+    print("Similarity analysis...")
+
     tmp_fasta = os.path.join(args.output, "pmv.fasta")
 
     num_genomes = create_files_and_result_paths(args.in_fasta, tmp_fasta)

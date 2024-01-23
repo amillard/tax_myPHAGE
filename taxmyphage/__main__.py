@@ -123,7 +123,7 @@ def main():
             verbose=verbose,
         )
 
-    elif args.command == "viridic":
+    elif args.command == "similarity":
         # Run Poor Man VIRIDIC
         viridic(
             args=args,
