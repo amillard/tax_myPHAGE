@@ -73,7 +73,8 @@ This should check the required software is installed and give a warning if not. 
 
 Output of the test should have the following lines at the bottom 
 
- ![example](/img/example_result.png)
+<img src="/img/example_result.png" width="70%" height="70%">
+
 
 ----------
 
@@ -318,7 +319,7 @@ Class:Caudoviricetes    Family: Not Defined Yet    Subfamily:Vequintavirinae    
 
 - ***.pdf, *.svg, *.png**  - image files of top right matrix of similarity to closest currently classified phages 
 
- ![HeatMap](/img/heatmap.png)
+<img src="/img/heatmap.png" width="60%" height="60%">
 
 ----------
 ### Similarity
@@ -392,4 +393,4 @@ Databases options:
 
 - ***.pdf, *.svg, *.png**  - image files of top right matrix of similarity to closest currently classified phages 
 
-<img src="/img/heatmap.png" width="50%" height="50%">
+<img src="/img/heatmap.png" width="60%" height="60%">
