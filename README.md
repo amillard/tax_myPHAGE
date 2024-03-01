@@ -392,5 +392,5 @@ Databases options:
 
 - ***.pdf, *.svg, *.png**  - image files of top right matrix of similarity to closest currently classified phages 
 
- ![HeatMap](/img/heatmap.png)
+ ![HeatMap](/img/heatmap.png){: width="50%"}
 
