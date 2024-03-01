@@ -73,7 +73,7 @@ This should check the required software is installed and give a warning if not. 
 
 Output of the test should have the following lines at the bottom 
 
- ![example](/img/example_result1.png)
+ ![example](/img/example_result.png)
 
 ----------
 
