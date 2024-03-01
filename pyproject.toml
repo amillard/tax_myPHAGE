@@ -86,10 +86,6 @@ taxmyphage = 'taxmyphage.__main__:main'
 [tool.pytest.ini_options]
 norecursedirs = [".*", "*.egg*", "build", "dist", "conda.recipe"]
 addopts = """
---junitxml=junit.xml
---ignore setup.py
---ignore run_test.py
---cov-report term-missing
 --tb native
 --strict-markers
 --durations=20"""

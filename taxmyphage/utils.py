@@ -4,9 +4,10 @@
 # Imports
 ####################################################################################################
 
-import sys, os
+import sys
+import os
 import shutil
-from textwrap import dedent
+from typing import Dict, Callable
 
 ####################################################################################################
 # Functions
@@ -104,37 +105,63 @@ def create_folder(mypath):
 ####################################################################################################
 
 # Statments to output to summary file
-summary_statement1 = dedent(
-    """
-    \nThe data from the initial mash searching is below as tsv format\n
-    Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if 
-    it represents a new species or genus. It does not tell you if it is similar to other phages 
-    that have yet to be classified. 
-    You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared 
-    or BLAST etc \n\n
-    """
+summary_statement1 = (
+    "\nThe data from the initial mash searching is below as tsv format\n\n"
+    "/!\ Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if "
+    "it represents a new species or genus.\nIt does not tell you if it is similar to other phages "
+    "that have yet to be classified.\n"
+    "You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared "
+    "or BLAST etc.\n\n"
 )
 
-statement_current_genus_new_sp = dedent(
-    """
-    \nQuery sequence can be classified within a current genus and represents a new species, it is in:\n
-    """
+
+statement_current_genus_new_sp = (
+    "Query sequence can be classified within a current genus and represents a new species, it is in:\n\n"
 )
 
-statement_current_genus_sp = dedent(
-    """
-    \nQuery sequence can be classified within a current genus and species, it is in:\n
-    """
+statement_current_genus_sp = (
+    "Query sequence can be classified within a current genus and species, it is in:\n\n"
 )
 
-summary_statement_inconsitent = dedent(
-    """
-    \nThe number of expected genera based on current ICTV classification is different from the predicted 
-    number of genus clusters as predicted by VIRIDIC-algorithm. This does not mean the current ICTV 
-    classification is wrong (it might be) or that VIRIDIC-algorithm is wrong. It could be an edge 
-    case that automated process cannot distinguish. It will require more manual curation to look 
-    at the output files.\n 
-    """
+
+summary_statement_inconsitent = (
+    "The number of expected genera based on current ICTV classification is different from the predicted "
+    "number of genus clusters as predicted by VIRIDIC-algorithm.\nThis does not mean the current ICTV "
+    "classification is wrong (it might be) or that VIRIDIC-algorithm is wrong.\nIt could be an edge "
+    "case that automated process cannot distinguish. It will require more manual curation to look "
+    "at the output files." 
 )
+
+####################################################################################################
+
+def print_table(data:Dict[str, float], print_func:Callable[[str], None]=print) -> None:
+    """
+    Print a formatted table with the given data
+    
+    Args:
+        data (Dict[str, float]): The data to print in the table
+        print_func (function, optional): The function to use to print the table. Defaults to print.
+
+    Returns:
+        None
+    """
+    # Get the maximum length of each column
+    column_lengths = [max(len(str(value)) for value in column_data) for column_data in data.values()]
+
+    # Print the table header
+    header = "+".join(f"+{'-' * (column_length + 2)}" for column_length in column_lengths)
+    print_func(f"{header}+")
+    print_func(f"|{'|'.join(f' {column_name:^{column_length}} |' for column_name, column_length in zip(data.keys(), column_lengths))}")
+    print_func(f"{header}+")
+
+    # Print the table rows
+    for row in zip(*data.values()):
+        row_str = "|".join(f" {value:^{column_length}} |" if len(str(value)) == column_length else f" {value:^{column_length}} " for value, column_length in zip(row, column_lengths))
+        print_func(f"|{row_str}")
+        print_func(f"{header}+")
+
+    print()
+
+    return
 
 ####################################################################################################

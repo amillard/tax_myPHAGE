@@ -1,0 +1,3 @@
+Reference,Query,distance,p-value,shared-hashes,ANI
+./Junduvirus/MZ130489.fna,test/Junduvirus/Results_per_genome/MZ130489/query.fasta,0.00253013,0,4508/5000,
+./Junduvirus/MZ130487.fna,test/Junduvirus/Results_per_genome/MZ130489/query.fasta,0.0862491,0,445/5000,

@@ -71,6 +71,10 @@ def all_classification(
     num_genomes = create_files_and_result_paths(args.in_fasta, tmp_fasta)
     if max_entries and num_genomes > max_entries:
         print_error(f"{num_genomes} entries in fasta file larger than allowed number ({max_entries}. Skipping {num_genomes-max_entries}")
+    else:
+        print("\n------------------------------")
+        print("Starting tax_my_phage analysis")
+        print("------------------------------\n")
 
     parser = SeqIO.parse(tmp_fasta, "fasta")
 
@@ -105,11 +109,10 @@ def all_classification(
                 genome_id = genome_id.replace(char, "_")
 
         results_path = os.path.join(args.output, "Results_per_genome", genome_id)
-        print(f"\nClassifying {genome.id} in result folder {results_path}...")
+        print(f"\n\nClassifying {genome.id} in result folder {results_path}\n")
 
         timer_start = time.time()
 
-        print("\nStarting tax_my_phage analysis...\n")
 
         # create the results folder
         create_folder(results_path)
@@ -124,11 +127,15 @@ def all_classification(
             SeqIO.write(genome, output_fid, "fasta")
 
         # path to the combined df containing mash and VMR data
-        out_csv_of_taxonomy = args.prefix + "Output_of_taxonomy.csv"
+        out_csv_of_taxonomy = args.prefix + "Output_of_taxonomy.tsv"
         taxa_csv_output_path = os.path.join(results_path, out_csv_of_taxonomy)
 
         # fasta file to store known taxa
         known_taxa_path = os.path.join(results_path, "known_taxa.fa")
+
+        print("-------------")
+        print("MASH analysis")
+        print("-------------\n")
 
         mash_df, accession_genus_dict = classification_mash(
             known_taxa_path=known_taxa_path,
@@ -155,8 +162,13 @@ def all_classification(
                 "Subfamily": "Unknown",
                 "Genus": "New_genus",
                 "Species": "New_species",
+                "Message": "No hits were found with the default settings",
             }
             continue
+
+        print("----------------")
+        print("VIRIDIC analysis")
+        print("----------------")
 
         merged_df, query_merged_df, closest_genome = classification_viridic(
             known_taxa_path=known_taxa_path,
@@ -171,6 +183,10 @@ def all_classification(
             blastn_exe=args.blastn,
             makeblastdb_exe=args.makeblastdb,
         )
+
+        print("--------------------")
+        print("Final classification")
+        print("--------------------")
 
         genome_taxo = classification(
             merged_df=merged_df,

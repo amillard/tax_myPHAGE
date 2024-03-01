@@ -1,5 +1,0 @@
-[report]
-omit =
-    setup.py
-    taxmyphage/__main__.py
-    tests/*

@@ -73,7 +73,7 @@ This should check the required software is installed and give a warning if not. 
 
 Output of the test should have the following lines at the bottom 
 
- ![example](/img/example_result1.jpg)
+ ![example](/img/example_result1.png)
 
 ----------
 
@@ -269,7 +269,7 @@ The time to classify a phage will depend on the number of hits and number of pha
 ├── Summary_taxonomy.tsv                                 <- Summary of the analysis for all the genomes (summarises what was printed to screen)
 └── Results_per_genome                                   <- Folder containing the results for each genome
   └── [genome query_id]                                  <- Results output for the genome query_id
-      ├── Output_of_taxonomy.csv                         <- Output of the taxonomy classification
+      ├── Output_of_taxonomy.tsv                         <- Output of the taxonomy classification
       ├── Summary_file.txt                               <- Summary of the analysis (summarises what was printed to screen)
       ├── heatmap.pdf                                    <- Heatmap of the similarity to the closest relatives (pdf)
       ├── heatmap.png                                    <- Heatmap of the similarity to the closest relatives    (png)
@@ -318,7 +318,7 @@ Class:Caudoviricetes    Family: Not Defined Yet    Subfamily:Vequintavirinae    
 
 - ***.pdf, *.svg, *.png**  - image files of top right matrix of similarity to closest currently classified phages 
 
- ![HeatMap](/img/heatmap.jpg)
+ ![HeatMap](/img/heatmap.png)
 
 ----------
 ### Similarity

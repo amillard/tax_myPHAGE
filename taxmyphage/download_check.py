@@ -119,11 +119,11 @@ def check_blastDB(
 
     # Check if the blastDB has been created and if not create it
     if os.path.exists(blastdb_path + ".nhr"):
-        print_ok(f"Found {blastdb_path}.nhr as expected\n")
+        print_ok(f"Found {blastdb_path}.nhr as expected")
     else:
         # check if blastDB is present
         if os.path.exists(blastdb_path):
-            print_ok(f"Found {blastdb_path} as expected\n")
+            print_ok(f"Found {blastdb_path} as expected")
 
             # Unzip the file if it is zipped
             if blastdb_path.endswith(".gz"):
@@ -193,7 +193,7 @@ def check_mash_index(mash_index_path: str, install: bool = False) -> None:
 
     # check if mash index is present
     if os.path.exists(mash_index_path):
-        print_ok(f"Found {mash_index_path} as expected\n")
+        print_ok(f"Found {mash_index_path} as expected")
     else:
         if install:
             print_error(
@@ -232,7 +232,7 @@ def check_VMR(VMR_path: str, install: bool = False) -> None:
 
     # check if VMR is present
     if os.path.exists(VMR_path):
-        print_ok(f"Found {VMR_path} as expected\n")
+        print_ok(f"Found {VMR_path} as expected")
     else:
         if install:
             print_error(f"File {VMR_path} does not exist will try downloading now")

@@ -21,6 +21,8 @@ from taxmyphage.download_check import (
     check_VMR,
     install_db,
 )
+
+from taxmyphage import __version__
 from taxmyphage.utils import create_folder, CheckSoftware
 from taxmyphage.handle_files import read_VMR
 from taxmyphage.actions import all_classification, viridic
@@ -39,6 +41,10 @@ def main():
     args, nargs = cli.cli()
 
     verbose = args.verbose
+
+    print("="*25)
+    print(f"TAXMYPHAGE version {__version__}")
+    print("="*25 + "\n")
 
     # turn on ICECREAM reporting
     if not verbose:
@@ -86,7 +92,9 @@ def main():
     create_folder(args.output)
 
     if args.command == "run":
-        print("Looking for database files...\n")
+        print("--------------------------")
+        print("Looking for database files")
+        print("--------------------------\n")
 
         # Get the mash distance
         mash_dist = args.dist

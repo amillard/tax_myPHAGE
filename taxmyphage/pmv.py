@@ -24,7 +24,6 @@ from icecream import ic
 # Classes
 ####################################################################################################
 
-
 class PoorMansViridic:
     """
     PoorMansViridic class for clustering genomes based on similarity
@@ -40,6 +39,7 @@ class PoorMansViridic:
         verbose: bool = True,
         blastn_exe: str = "blastn",
         makeblastdb_exe: str = "makeblastdb",
+        output_dir: str = "",
     ):
         """
         Args:
@@ -52,7 +52,8 @@ class PoorMansViridic:
             verbose (bool, optional): Whether to print messages. Defaults to True.
             blastn_exe (str, optional): Path to the blastn executable. Defaults to "blastn".
             makeblastdb_exe (str, optional): Path to the makeblastdb executable. Defaults to "makeblastdb".
-
+            output_dir (str, optional): Path to the output directory. Defaults to "".
+            
         Returns:
             None
         """
@@ -66,6 +67,29 @@ class PoorMansViridic:
         self.species_threshold = species_threshold
         self.blastn_exe = blastn_exe
         self.makeblastdb_exe = makeblastdb_exe
+        self.pmv_outdir = output_dir
+        self.pmv_outfile = ''
+        self.dfT = pd.DataFrame()
+        self.db_blast = reference
+
+        self.existing_files()
+
+    def existing_files(self):
+        """
+        Checks if the input files exist
+
+        Args:
+            self (PoorMansViridic): PoorMansViridic class
+
+        Returns:
+            None
+        """
+
+        if not os.path.exists(self.file):
+            raise FileNotFoundError(f"File {self.file} does not exist")
+
+        if not os.path.exists(self.reference):
+            raise FileNotFoundError(f"File {self.reference} does not exist")
 
     def run(self) -> Tuple[pd.DataFrame, str]:
         """
@@ -152,7 +176,11 @@ class PoorMansViridic:
         for filename in glob.glob(f"{self.reference}*.n*"):
             os.remove(filename)
 
-        cmd = f"{self.makeblastdb_exe} -in {self.reference}  -dbtype nucl"
+        # Get the temporary directory for tests
+        if self.pmv_outdir:
+            self.db_blast = os.path.join(self.pmv_outdir, "tmp_blastdb")
+
+        cmd = f"{self.makeblastdb_exe} -in {self.reference} -out {self.db_blast} -dbtype nucl"
         ic("Creating blastn database:", cmd)
         res = subprocess.getoutput(cmd)
         ic(res)
@@ -172,7 +200,14 @@ class PoorMansViridic:
             self.result_dir, os.path.basename(self.file) + ".blastn_vs2_self.tab.gz"
         )
         if not os.path.exists(outfile):
-            cmd = f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} -word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} -db {self.reference} -outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" | gzip -c > {outfile}'
+            cmd = (
+                f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} '
+                f'-word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} '
+                f'-db {self.db_blast} '
+                '-outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" '
+                f'| gzip -c > {outfile}'
+            )
+
             ic("Blasting against itself:", cmd)
             ic(cmd)
             subprocess.getoutput(cmd)

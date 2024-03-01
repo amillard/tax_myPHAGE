@@ -11,7 +11,6 @@ and performing the classification.
 import io
 import os
 import subprocess
-from textwrap import dedent
 from typing import Tuple, Dict, List
 import pandas as pd
 from Bio import SeqIO
@@ -25,12 +24,12 @@ from taxmyphage.utils import (
     statement_current_genus_sp,
     summary_statement1,
     summary_statement_inconsitent,
+    print_table,
 )
 
 ####################################################################################################
 # FUNCTIONS
 ####################################################################################################
-
 
 def run_mash(
     query: str, mash_index_path: str, dist: float, threads: int, mash_exe: str
@@ -65,9 +64,7 @@ def run_mash(
 
     return mash_df
 
-
 ####################################################################################################
-
 
 def classification_mash(
     known_taxa_path: str,
@@ -113,13 +110,9 @@ def classification_mash(
     # get the number of genomes wih mash distance < args.dist
     if number_hits < 1:
         print_error(
-            dedent(
-                """
-                Error: No hits were found with the default settings
-                If this is a phage sequence, it likely represents a new species and genus 
-                However tax_my_phage is unable to classify it at this point as it can only classify at the Genus/Species level
-                """
-            )
+                "Error: No hits were found with the default settings.\n"
+                "If this is a phage sequence, it likely represents a new species and genus.\n"
+                "However tax_my_phage is unable to classify it at this point as it can only classify at the Genus/Species level.\n"
         )
 
         with open(taxa_csv_output_path, "w", encoding="utf-8") as wt:
@@ -127,13 +120,7 @@ def classification_mash(
 
         return pd.DataFrame(), accession_genus_dict
     else:
-        print_res(
-            dedent(
-                f"""
-                Number of phage genomes detected with mash distance of < {dist} is:{number_hits}
-                """
-            )
-        )
+        print_res(f"Number of phage genomes detected with mash distance of < {dist} is:{number_hits}")
 
     # sort dataframe by distance so they are at the top
     mash_df = mash_df.sort_values(by="distance", ascending=True)
@@ -145,13 +132,13 @@ def classification_mash(
     minimum_value = mash_df["distance"].min()
     maximum_value = mash_df["distance"].max()
 
-    print_ok(
-        dedent(
-            f"""
-            \nThe mash distances obtained for this query phage
-            is a minimum value of {minimum_value} and maximum value of {maximum_value}\n
-            """
-        )
+    print_ok("\nThe mash distances obtained for this query phage:\n")
+    print_table(
+        {
+            "Minimum": [minimum_value],
+            "Maximum": [maximum_value],
+        },
+        print_func=print_ok,
     )
 
     # set the maximum number of hits to take forward. Max is 10 or the max number in the table if <10
@@ -268,7 +255,6 @@ def classification_mash(
 
 ####################################################################################################
 
-
 def classification_viridic(
     known_taxa_path: str,
     query: str,
@@ -316,7 +302,7 @@ def classification_viridic(
     similarities_file = os.path.join(results_path, "similarities.tsv")
 
     # Merge the query and known taxa into a single file
-    with open(viridic_in_path, "w") as merged_file:
+    with open(viridic_in_path, "w", encoding="utf-8") as merged_file:
         list_genomes = [known_taxa_path, query]
         for file in list_genomes:
             SeqIO.write(SeqIO.parse(file, "fasta"), merged_file, "fasta")
@@ -371,11 +357,11 @@ def classification_viridic(
 
 ####################################################################################################
 
-
 def new_genus(
     query_genus_cluster_number: int,
     dict_genus_cluster_2_genus_name: Dict[int, str],
     summary_output_path: str,
+    message: str,
 ) -> Dict[str, str]:
     """
     Classifies the query genome as a new genus
@@ -385,32 +371,28 @@ def new_genus(
         dict_genus_cluster_2_genus_name (Dict[int, str]): Dictionary of genus cluster to genus name
         summary_output_path (str): Path to the summary output file
         prefix (str): Prefix to add to the output file
+        message (str): Informative message giving the confidence of the annotation
 
     Returns:
         Dict[str, str]: Dictionary of taxonomic information
     """
 
     print_warn(
-        dedent(
-            f"""Cluster Number: {query_genus_cluster_number} is not in the dictionary of 
-                known Genera: {dict_genus_cluster_2_genus_name}"""
-        )
+        f"Cluster Number: {query_genus_cluster_number} is not in the dictionary of " 
+        f"known Genera: {dict_genus_cluster_2_genus_name}"
     )
 
-    print_res(
-        dedent(
-            """
-            Phage is NOT within a current genus or species and therefore a both 
-            a new Genus and species.\n"""
-        )
-    )
-
-    with open(summary_output_path, "w") as file:
-        file.write(
-            """Try running again with if you larger distance if you want a Figure.
-            The query is both a new genus and species\n
-            New genus\tNew species\n"""
-        )
+    if summary_output_path:
+        with open(summary_output_path, "w", encoding="utf-8") as file:
+            file.write("--------------- TAXMYPHAGE RESULTS ---------------\n\n")
+            file.write(
+                "Try running again with if you larger distance if you want a Figure. "
+                "The query is both a new genus and species\n\n"
+                "Genus: New genus\n"
+                "Species: New species\n\n"
+                "-------------- INFORMATION MESSAGES --------------\n\n"
+                f"INFO: {message}\n"
+            )
 
     return {
         "Realm": "Unknown",
@@ -422,6 +404,7 @@ def new_genus(
         "Subfamily": "Unknown",
         "Genus": "New_genus",
         "Species": "New_species",
+        "Message": message,
     }
 
 
@@ -436,6 +419,7 @@ def current_genus_current_species(
     query_genus_cluster_number: int,
     merged_df: pd.DataFrame,
     mash_df: pd.DataFrame,
+    message: str,
 ) -> Dict[str, str]:
     """
     Classifies the query genome as a current genus and current species
@@ -448,57 +432,59 @@ def current_genus_current_species(
         query_genus_cluster_number (int): Query genus cluster number
         merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
         mash_df (pd.DataFrame): Dataframe of the mash results
+        message (str): Informative message giving the confidence of the annotation
 
     Returns:
         Dict[str, str]: Dictionary of taxonomic information
     """
 
     print(
-        dedent(
-            """\nPhage is within a current genus and same as a current species 
-                ....working out which one now .....\n"""
-        )
+            "Phage is within a current genus and same as a current species\n"
+            "....working out which one now ....."
     )
     predicted_genus = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
     predicted_species = dict_species_cluster_2_species_name[
         query_species_cluster_number
     ]
     print(
-        f"""QUERY is in the genus: {predicted_genus} and is species: {predicted_species}"""
+        f"QUERY is in the genus: {predicted_genus} and is species: {predicted_species}"
     )
     # identify the row in the pandas data frame that is the same species
     matching_species_row = merged_df[merged_df["Species"] == predicted_species]
     ic(matching_species_row)
 
     list_of_S_data = matching_species_row.iloc[0].to_dict()
+
+    list_of_S_data["Message"] = message
+
     ic(list_of_S_data)
 
     print_res(
-        dedent(
-            f"""\nQuery sequence is: 
-            Class: {list_of_S_data["Class"]}
-            Family: {list_of_S_data["Family"]}
-            Subfamily: {list_of_S_data["Subfamily"]}
-            Genus: {list_of_S_data["Genus"]}
-            Species: {list_of_S_data["Species"]}
-            """
-        )
+        "\nQuery sequence is:\n"
+        f'Class: {list_of_S_data["Class"]}\n'
+        f'Family: {list_of_S_data["Family"]}\n'
+        f'Subfamily: {list_of_S_data["Subfamily"]}\n'
+        f'Genus: {list_of_S_data["Genus"]}\n'
+        f'Species: {list_of_S_data["Species"]}\n'
     )
 
-    with open(summary_output_path, "w") as file:
-        file.write(
-            dedent(
-                f"""
-                {statement_current_genus_sp}\n
-                Class: {list_of_S_data["Class"]}\tFamily: {list_of_S_data["Family"]}\t
-                Subfamily: {list_of_S_data["Subfamily"]}\tGenus: {list_of_S_data["Genus"]}\t
-                Species: {list_of_S_data["Species"]}\n
-                {summary_statement1}
-                """
-            )
-        )
+    if summary_output_path:
+        with open(summary_output_path, "w", encoding="utf-8") as file:
+            file.write("--------------- TAXMYPHAGE RESULTS ---------------\n\n")
 
-    mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
+            file.write(
+                f'{statement_current_genus_sp}'
+                f'Class: {list_of_S_data["Class"]}\nFamily: {list_of_S_data["Family"]}\n'
+                f'Subfamily: {list_of_S_data["Subfamily"]}\nGenus: {list_of_S_data["Genus"]}\n'
+                f'Species: {list_of_S_data["Species"]}\n\n'
+                "-------------- INFORMATION MESSAGES --------------\n\n"
+                f'INFO: {message}\n'
+                f'{summary_statement1}'
+            )
+
+            file.write("------------------ MASH RESULTS ------------------\n\n")
+
+        mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
 
     return list_of_S_data
 
@@ -512,6 +498,7 @@ def current_genus_new_species(
     query_genus_cluster_number: int,
     merged_df: pd.DataFrame,
     mash_df: pd.DataFrame,
+    message: str,
 ) -> Dict[str, str]:
     """
     Classifies the query genome as a current genus and new species
@@ -522,16 +509,15 @@ def current_genus_new_species(
         query_genus_cluster_number (int): Query genus cluster number
         merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
         mash_df (pd.DataFrame): Dataframe of the mash results
+        message (str): Informative message giving the confidence of the annotation
 
     Returns:
         Dict[str, str]: Dictionary of taxonomic information
     """
 
     print(
-        dedent(
-            """\nPhage is within a current genus, BUT is representative of a new species 
-            ....working out which one now .....\n"""
-        )
+        "Phage is within a current genus, BUT is representative of a new species\n"
+        "....working out which one now ....."
     )
 
     predicted_genus = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
@@ -542,45 +528,46 @@ def current_genus_new_species(
     genus_value = dict_exemplar_genus["Genus"]
     dict_exemplar_genus["Species"] = genus_value + " new_name"
 
+    dict_exemplar_genus["Message"] = message
+
     ic(matching_genus_rows)
     ic(genus_value)
 
     print_res(
-        dedent(
-            f"""\n
-            Query sequence is: 
-            Class: {dict_exemplar_genus['Class']}
-            Family: {dict_exemplar_genus['Family']} 
-            Subfamily: {dict_exemplar_genus['Subfamily']}
-            Genus: {dict_exemplar_genus['Genus']}
-            Species: {dict_exemplar_genus['Species']}
-            """
-        )
+        "\nQuery sequence is:\n"
+        f'Class: {dict_exemplar_genus["Class"]}\n'
+        f'Family: {dict_exemplar_genus["Family"]}\n'
+        f'Subfamily: {dict_exemplar_genus["Subfamily"]}\n'
+        f'Genus: {dict_exemplar_genus["Genus"]}\n'
+        f'Species: {dict_exemplar_genus["Species"]}\n'
     )
 
-    with open(summary_output_path, "a") as file:
-        file.write(
-            dedent(
-                f"""
-                {statement_current_genus_new_sp}\n
-                Class: {dict_exemplar_genus['Class']}\tFamily: {dict_exemplar_genus['Family']}\t
-                Subfamily: {dict_exemplar_genus['Subfamily']}\tGenus: {dict_exemplar_genus['Genus']}\t
-                Species: new_specices_name\n
-                {summary_statement1}
-                """
+    if summary_output_path:
+        with open(summary_output_path, "w", encoding="utf-8") as file:
+            file.write("--------------- TAXMYPHAGE RESULTS ---------------\n\n")
+            
+            file.write(
+                f'{statement_current_genus_new_sp}'
+                f'Class: {dict_exemplar_genus["Class"]}\nFamily: {dict_exemplar_genus["Family"]}\n'
+                f'Subfamily: {dict_exemplar_genus["Subfamily"]}\nGenus: {dict_exemplar_genus["Genus"]}\n'
+                f'Species: {dict_exemplar_genus["Species"]}\n\n'
+                '-------------- INFORMATION MESSAGES --------------\n\n'
+                f'INFO: {message}\n'
+                f'{summary_statement1}'
             )
-        )
 
-    mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
+            file.write("------------------ MASH RESULTS ------------------\n\n")
+
+        mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
 
     return dict_exemplar_genus
 
 
 ####################################################################################################
-
-
 def new_genus_new_species(
-    summary_output_path: str, mash_df: pd.DataFrame
+    summary_output_path: str, 
+    mash_df: pd.DataFrame,
+    message: str,
 ) -> Dict[str, str]:
     """
     Classifies the query genome as a new genus and new species
@@ -588,36 +575,36 @@ def new_genus_new_species(
     Args:
         summary_output_path (str): Path to the summary output file
         mash_df (pd.DataFrame): Dataframe of the mash results
+        message (str): Informative message giving the confidence of the annotation
 
     Returns:
         Dict[str, str]: Dictionary of taxonomic information
     """
 
     print(
-        dedent(
-            """\nQuery does not fall within a current genus or species as defined by ICTV
-            Therefore the query sequence is likely the first representative of both a new species and new genus.\n
-            Data produced by taxmyphage will help you write a Taxonomy proposal so it can be offically classified.
-            \n"""
-        )
+        "\nQuery does not fall within a current genus or species as defined by ICTV. "
+        "Therefore the query sequence is likely the first representative of both a new species and new genus.\n"
+        "Data produced by taxmyphage will help you write a Taxonomy proposal so it can be offically classified.\n"
     )
 
     print_warn(
         "WARNING:: taxmyphage does not compare against all other known phages, only those that have been classified\n"
     )
 
-    with open(summary_output_path, "w") as file:
-        file.write(
-            dedent(
-                """
-                Query sequence can not be classified within a current genus or species, it is in:\n
-                Remember taxmyphage compared against viruses classified by the ICTV. Allowing determine if it represents a new 
-                species or geneus. It does not tell you if it is similar to other phages that have yet to be classified
-                You can do this by comparison with INPHARED database if you wish.\n
-                """
+    if summary_output_path:
+        with open(summary_output_path, "w", encoding="utf-8") as file:
+            file.write("--------------- TAXMYPHAGE RESULTS ---------------\n\n")
+
+            file.write(
+                "Query sequence can not be classified within a current genus or species, it is in.\n\n"
+                "Remember taxmyphage compared against viruses classified by the ICTV. Allowing determine if it represents a new "
+                "species or geneus.\nIt does not tell you if it is similar to other phages that have yet to be classified \n"
+                "You can do this by comparison with INPHARED database if you wish.\n"
             )
-        )
-    mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
+        
+            file.write("------------------ MASH RESULTS ------------------\n\n")
+
+        mash_df.to_csv(summary_output_path, mode="a", header=True, index=False, sep="\t")
 
     return {
         "Realm": "Unknown",
@@ -629,11 +616,11 @@ def new_genus_new_species(
         "Subfamily": "Unknown",
         "Genus": "New_genus",
         "Species": "New_species",
+        "Message": message,
     }
 
 
 ####################################################################################################
-
 
 def assess_taxonomic_info(
     query_genus_cluster_number: int,
@@ -645,6 +632,7 @@ def assess_taxonomic_info(
     summary_output_path: str,
     merged_df: pd.DataFrame,
     mash_df: pd.DataFrame,
+    message: str,
 ) -> Dict[str, str]:
     """
     Classifies the query genome as a new genus and new species
@@ -659,6 +647,7 @@ def assess_taxonomic_info(
         summary_output_path (str): Path to the summary output file
         merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
         mash_df (pd.DataFrame): Dataframe of the mash results
+        message (str): Informative message giving the confidence of the annotation
 
     Returns:
         Dict[str, str]: Dictionary of taxonomic information
@@ -678,6 +667,7 @@ def assess_taxonomic_info(
             query_genus_cluster_number=query_genus_cluster_number,
             merged_df=merged_df,
             mash_df=mash_df,
+            message=message,
         )
 
         # WRITE CODE FOR GIVING INFO ON SPECIES
@@ -694,6 +684,7 @@ def assess_taxonomic_info(
             query_genus_cluster_number=query_genus_cluster_number,
             merged_df=merged_df,
             mash_df=mash_df,
+            message=message,
         )
 
     # NEW GENUS and NEW SPECIES
@@ -702,14 +693,15 @@ def assess_taxonomic_info(
         and query_species_cluster_number not in list_ICTV_species_clusters
     ):
         taxonomic_info = new_genus_new_species(
-            summary_output_path=summary_output_path, mash_df=mash_df
+            summary_output_path=summary_output_path, 
+            mash_df=mash_df,
+            message=message,
         )
 
     return taxonomic_info
 
 
 ####################################################################################################
-
 
 def classification(
     merged_df: pd.DataFrame,
@@ -734,6 +726,8 @@ def classification(
         Dict[str, str]: Dictionary of taxonomic information
     """
 
+    ic.disable()
+
     # path the final results summary file
     summary_results = prefix + "Summary_file.txt"
     summary_output_path = os.path.join(results_path, summary_results)
@@ -748,22 +742,20 @@ def classification(
     total_num_viridic_species_clusters = query_merged_df["species_cluster"].nunique()
 
     print(
-        dedent(
-            f"""\n\nTotal number of VIRIDIC-algorithm genus clusters in the input including QUERY sequence was: {total_num_viridic_genus_clusters}
-            Total number of VIRIDIC-algorithm species clusters including QUERY sequence was {total_num_viridic_species_clusters}"""
-        )
+        "\nTotal number of VIRIDIC-algorithm genus clusters in the input including "
+        f"QUERY sequence was: {total_num_viridic_genus_clusters}\n"
+        "Total number of VIRIDIC-algorithm species clusters including "
+        f"QUERY sequence was: {total_num_viridic_species_clusters}"
     )
 
     print(
-        dedent(
-            f"""\nNumber of current ICTV defined genera was: {num_unique_ICTV_genera}
-            Number of VIRIDIC-algorithm predicted genera (excluding query) was: {num_unique_viridic_genus_clusters}"""
-        )
+        f"\nNumber of current ICTV defined genera was: {num_unique_ICTV_genera}\n"
+        f"Number of VIRIDIC-algorithm predicted genera (excluding query) was: {num_unique_viridic_genus_clusters}"
     )
 
     if num_unique_ICTV_genera == num_unique_viridic_genus_clusters:
         print(
-            """\n\nCurrent ICTV and VIRIDIC-algorithm predictions are consistent for the data that was used to compare against"""
+            "\n\nCurrent ICTV and VIRIDIC-algorithm predictions are consistent for the data that was used to compare against"
         )
 
     print_ok(
@@ -771,7 +763,7 @@ def classification(
     )
 
     print_ok(
-        f"""Number of current ICTV genera associated with the reference genomes is {num_unique_ICTV_genera}"""
+        f"Number of current ICTV genera associated with the reference genomes is: {num_unique_ICTV_genera}"
     )
 
     # get information on the query from the dataframe
@@ -781,8 +773,8 @@ def classification(
     query_genus_cluster_number = query_row["genus_cluster"].values[0]
     query_species_cluster_number = query_row["species_cluster"].values[0]
 
-    print(f"\nSpecies cluster number is {query_species_cluster_number}")
-    print(f"Genus cluster number is {query_genus_cluster_number}")
+    print(f"\nSpecies cluster number is: {query_species_cluster_number}")
+    print(f"Genus cluster number is: {query_genus_cluster_number}")
 
     # list of VIRIDIC genus and species numbers
     list_ICTV_genus_clusters = merged_df["genus_cluster"].unique().tolist()
@@ -835,15 +827,14 @@ def classification(
     # check query is within a current genus. If not, then new Genus
     if query_genus_cluster_number not in dict_genus_cluster_2_genus_name:
         # print the information that the query is a new genus
+        message = "Query is a new genus and species. You could try running again with if you larger distance"
+
         taxonomic_info = new_genus(
             query_genus_cluster_number,
             dict_genus_cluster_2_genus_name,
             summary_output_path,
+            message,
         )
-
-        taxonomic_info[
-            "Message"
-        ] = "Query is a new genus and species. You could try running again with if you larger distance"
 
         # no more analysis to do so return
         return taxonomic_info
@@ -855,9 +846,9 @@ def classification(
     # create a dict of species to species_cluster
     # if number of ICTV genera and predicted VIRIDIC genera match:
     if num_unique_ICTV_genera == num_unique_viridic_genus_clusters:
-        print(
-            """Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"""
-        )
+        message = "Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"
+        
+        print(message)
 
         taxonomic_info = assess_taxonomic_info(
             query_genus_cluster_number=query_genus_cluster_number,
@@ -869,16 +860,15 @@ def classification(
             summary_output_path=summary_output_path,
             merged_df=merged_df,
             mash_df=mash_df,
+            message=message,
         )
-
-        taxonomic_info[
-            "Message"
-        ] = "Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"
 
     # if number of VIRIDIC genera is greater than ICTV genera
     elif num_unique_ICTV_genera != num_unique_viridic_genus_clusters:
         print_error(f"""{summary_statement_inconsitent}\n""")
 
+        message = "The number of expected genera is different from the predicted number of genus clusters. It will require more manual curation"
+
         taxonomic_info = assess_taxonomic_info(
             query_genus_cluster_number=query_genus_cluster_number,
             query_species_cluster_number=query_species_cluster_number,
@@ -889,10 +879,9 @@ def classification(
             summary_output_path=summary_output_path,
             merged_df=merged_df,
             mash_df=mash_df,
+            message=message,
         )
 
-        taxonomic_info[
-            "Message"
-        ] = "The number of expected genera is different from the predicted number of genus clusters. It will require more manual curation"
-
     return taxonomic_info
+
+####################################################################################################

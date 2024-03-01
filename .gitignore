@@ -45,6 +45,7 @@ coverage.xml
 *,cover
 .hypothesis/
 .mypy_cache*
+.pytest*
 
 # Translations
 *.mo
@@ -66,3 +67,7 @@ target/
 
 # Database
 *database*
+
+# Environments
+*.env
+.vscode*

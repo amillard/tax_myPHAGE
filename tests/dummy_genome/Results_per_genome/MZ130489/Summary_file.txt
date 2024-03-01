@@ -1,0 +1,25 @@
+--------------- TAXMYPHAGE RESULTS ---------------
+
+Query sequence can be classified within a current genus and species, it is in:
+
+Class: Caudoviricetes
+Family: Crevaviridae
+Subfamily: Coarsevirinae
+Genus: Junduvirus
+Species: Junduvirus communis
+
+-------------- INFORMATION MESSAGES --------------
+
+INFO: Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level
+
+The data from the initial mash searching is below as tsv format
+
+/!\ Remember taxmyPHAGE compared against viruses classified by the ICTV. Allowing you determine if it represents a new species or genus.
+It does not tell you if it is similar to other phages that have yet to be classified.
+You can do this by comparison with INPHARED database if you wish https://github.com/RyanCook94/inphared or BLAST etc.
+
+------------------ MASH RESULTS ------------------
+
+Reference	Query	distance	p-value	shared-hashes	ANI
+./Junduvirus/MZ130489.fna	test/Junduvirus/Results_per_genome/MZ130489/query.fasta	0.00253013	0	4508/5000	
+./Junduvirus/MZ130487.fna	test/Junduvirus/Results_per_genome/MZ130489/query.fasta	0.0862491	0	445/5000	
