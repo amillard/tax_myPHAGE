@@ -26,7 +26,7 @@ A clear and concise description of any alternative solutions or features you've 
 
 ***taxmyPHAGE Version:***
 
-  copy/paste here the output of taxmyphage --version
+  copy/paste here the output of taxmyphage run --version
 
 **Additional context**
 Add any other context or screenshots about the feature request here.

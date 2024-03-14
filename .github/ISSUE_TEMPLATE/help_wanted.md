@@ -29,7 +29,7 @@ to help explain your problem.
 
 ***taxmyPHAGE Version:***
 
-  copy/paste here the output of taxmyphage --version
+  copy/paste here the output of taxmyphage run --version
 
 **Additional context**
 Add any other context about the problem here.
