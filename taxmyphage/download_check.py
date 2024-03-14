@@ -171,7 +171,8 @@ def check_blastDB(
     with gzip.open(blastdb_path, "rt") as f:
         parser = SeqIO.parse(f, "fasta")
         for record in parser:
-            all_phages_name.append(record.id)
+            # Remove the version number from the phage name
+            all_phages_name.append(record.id.split('.')[0])
 
     return all_phages_name
 

@@ -439,8 +439,8 @@ def current_genus_current_species(
     """
 
     print(
-            "Phage is within a current genus and same as a current species\n"
-            "....working out which one now ....."
+        "Phage is within a current genus and same as a current species\n"
+        "....working out which one now .....\n"
     )
     predicted_genus = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
     predicted_species = dict_species_cluster_2_species_name[
@@ -517,7 +517,7 @@ def current_genus_new_species(
 
     print(
         "Phage is within a current genus, BUT is representative of a new species\n"
-        "....working out which one now ....."
+        "....working out which one now .....\n"
     )
 
     predicted_genus = dict_genus_cluster_2_genus_name[query_genus_cluster_number]
