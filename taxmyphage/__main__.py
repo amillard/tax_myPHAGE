@@ -120,8 +120,6 @@ def main():
             drop=True
         )
 
-        print(taxa_df[taxa_df["Genbank"].str.contains("V00642")])
-
         # Run the classification
         all_classification(
             args=args,
