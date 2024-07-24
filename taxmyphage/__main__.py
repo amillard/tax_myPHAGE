@@ -25,7 +25,7 @@ from taxmyphage.download_check import (
 from taxmyphage import __version__
 from taxmyphage.utils import create_folder, CheckSoftware
 from taxmyphage.handle_files import read_VMR
-from taxmyphage.actions import all_classification, viridic
+from taxmyphage.actions import all_classification, clustering_on_genomic_similarity
 
 
 ###################################################################################################
@@ -132,8 +132,8 @@ def main():
         )
 
     elif args.command == "similarity":
-        # Run Poor Man VIRIDIC
-        viridic(
+        # Run Clustering on Genomic Similarity
+        clustering_on_genomic_similarity(
             args=args,
             threads=threads,
             verbose=verbose,

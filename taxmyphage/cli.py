@@ -55,7 +55,7 @@ def cli(args=None):
 
     description = """Takes a phage genome as as fasta file and compares against all phage genomes that are currently classified
                 by the ICTV. It does not compare against ALL phage genomes, just classified genomes. Having found the closet related phages
-                it runs the VIRIDIC--algorithm and parses the output to predict the taxonomy of the phage. It is only able to classify
+                it runs the clustering on genomic similarity algorithm and parses the output to predict the taxonomy of the phage. It is only able to classify
                 to the Genus and Species level"""
 
     ArgumentError = ArgumentErrorPatch
@@ -214,12 +214,12 @@ def cli(args=None):
     )
 
     ####################################################################################################
-    # Poor Man VIRIDIC options
+    # Clustering on Genomic Similarity options
     ####################################################################################################
 
-    PMVIRIDIC_parser_options = subparsers.add_parser("viridic_options", add_help=False)
+    PMV_parser_options = subparsers.add_parser("genomic_similarity_options", add_help=False)
 
-    comparison_option = PMVIRIDIC_parser_options.add_argument_group(
+    comparison_option = PMV_parser_options.add_argument_group(
         title="Comparison options"
     )
     comparison_option.add_argument(
@@ -232,25 +232,25 @@ def cli(args=None):
         " If you use reference no figure is generated. (Default is '')",
     )
 
-    PMVIRIDIC_option = PMVIRIDIC_parser_options.add_argument_group(
+    PMV_option = PMV_parser_options.add_argument_group(
         title="Similarity options"
     )
 
-    PMVIRIDIC_option.add_argument(
+    PMV_option.add_argument(
         "--blastn",
         dest="blastn",
         default="blastn",
         type=str,
         help="Path to the blastn executable (default: blastn)",
     )
-    PMVIRIDIC_option.add_argument(
+    PMV_option.add_argument(
         "--makeblastdb",
         dest="makeblastdb",
         default="makeblastdb",
         type=str,
         help="Path to the blastn executable (default: makeblastdb)",
     )
-    PMVIRIDIC_option.add_argument(
+    PMV_option.add_argument(
         "--no-figures",
         dest="Figure",
         action="store_false",
@@ -259,14 +259,14 @@ def cli(args=None):
     )
 
     ####################################################################################################
-    # Poor Man VIRIDIC subparser
+    # Clustering on Genomic Similarity subparser
     ####################################################################################################
 
-    PMVIRIDIC_parser = subparsers.add_parser(
+    PMV_parser = subparsers.add_parser(
         "similarity",
-        help="Run PoorManVIRIDIC",
+        help="Run clustering on genomic similarity",
         conflict_handler="resolve",
-        parents=[io_parser, PMVIRIDIC_parser_options, general_subparser],
+        parents=[io_parser, PMV_parser_options, general_subparser],
     )
 
     ####################################################################################################
@@ -280,14 +280,14 @@ def cli(args=None):
         parents=[
             io_parser,
             mash_parser_options,
-            PMVIRIDIC_parser_options,
+            PMV_parser_options,
             general_subparser,
         ],
     )
 
     _metavar(
         subparsers,
-        hidden_cmds={"general", "io", "mash_options", "viridic_options", "mash"},
+        hidden_cmds={"general", "io", "mash_options", "similarity_options", "mash"},
     )
 
     args, nargs = parser.parse_known_args(args)

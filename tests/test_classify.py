@@ -8,7 +8,7 @@ from taxmyphage.classify import current_genus_new_species
 from taxmyphage.classify import new_genus_new_species
 from taxmyphage.classify import assess_taxonomic_info
 from taxmyphage.classify import classification
-from taxmyphage.classify import classification_viridic
+from taxmyphage.classify import classification_similarity
 
 from taxmyphage.handle_files import read_VMR
 
@@ -103,7 +103,7 @@ class TestCurrentGenusCurrentSpecies:
         merged_df = pd.DataFrame({"Species": ["species1"], "Genus": ["genus1"], "Class": ["class1"], "Family": ["family1"], "Subfamily": ["subfamily1"]})
         mash_df = pd.DataFrame()
 
-        message = "Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"
+        message = "Current ICTV taxonomy and the clustering on genomic similarity algorithm output appear to be consistent at the genus level"
 
         # Act
         result = current_genus_current_species(
@@ -137,7 +137,7 @@ class TestCurrentGenusCurrentSpecies:
         merged_df = pd.DataFrame({"Species": ["species1"], "Genus": ["genus1"], "Class": ["class1"], "Family": ["family1"], "Subfamily": ["subfamily1"]})
         mash_df = pd.DataFrame()
 
-        message = "Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"
+        message = "Current ICTV taxonomy and the clustering on genomic similarity algorithm output appear to be consistent at the genus level"
 
         # Act
         current_genus_current_species(
@@ -175,7 +175,7 @@ class TestCurrentGenusCurrentSpecies:
         merged_df = pd.DataFrame({"Species": ["species1"], "Genus": ["genus1"], "Class": ["class1"], "Family": ["family1"], "Subfamily": ["subfamily1"]})
         mash_df = pd.DataFrame()
 
-        message = "Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"
+        message = "Current ICTV taxonomy and the clustering on genomic similarity algorithm output appear to be consistent at the genus level"
 
         # Act
         current_genus_current_species(
@@ -215,7 +215,7 @@ class TestCurrentGenusCurrentSpecies:
         merged_df = pd.DataFrame({"Species": ["species1"], "Genus": ["genus1"], "Class": ["class1"], "Family": ["family1"], "Subfamily": ["subfamily1"]})
         mash_df = pd.DataFrame()
 
-        message = "Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"
+        message = "Current ICTV taxonomy and the clustering on genomic similarity algorithm output appear to be consistent at the genus level"
 
         # Act
         result = current_genus_current_species(
@@ -509,7 +509,7 @@ class TestAssessTaxonomicInfo:
         merged_df = pd.DataFrame({"Species": ["Species1", "Species2", "Species3"], "Class": ["", "", ""], "Family": ["", "", ""], "Subfamily": ["", "", ""], "Genus": ["Genus1", "Genus2", "Genus3"]})
         mash_df = pd.DataFrame()
 
-        message = "Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"
+        message = "Current ICTV taxonomy and the clustering on genomic similarity algorithm output appear to be consistent at the genus level"
 
         taxonomic_info = assess_taxonomic_info(
             query_genus_cluster_number=query_genus_cluster_number,
@@ -695,10 +695,10 @@ class TestClassification:
     """
     Test the classification function
     """
-    # Classifies the query genome with consistent ICTV and VIRIDIC-algorithm predictions at the genus level
+    # Classifies the query genome with consistent ICTV and clustering on genomic similarity algorithm predictions at the genus level
     def test_consistent_predictions_with_genome_column(self, tmp_path):
         """
-        Classifies the query genome with consistent ICTV and VIRIDIC-algorithm predictions at the genus level
+        Classifies the query genome with consistent ICTV and clustering on genomic similarity algorithm predictions at the genus level
         """
 
         # Initialize the required input dataframes and variables
@@ -739,7 +739,7 @@ class TestClassification:
         print(taxonomic_info)
 
         # Assert that the taxonomic information is as expected
-        assert taxonomic_info["Message"] == "Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"
+        assert taxonomic_info["Message"] == "Current ICTV taxonomy and the clustering on genomic similarity algorithm output appear to be consistent at the genus level"
         assert taxonomic_info["Genus"] == "Genus1"
         assert taxonomic_info["Species"] == "Species1"
         assert taxonomic_info["Family"] == "Family1"
@@ -747,10 +747,10 @@ class TestClassification:
         assert taxonomic_info["Class"] == "Class1"
         assert taxonomic_info["Phylum"] == "Phylum1"
 
-    # Classifies the query genome with inconsistent ICTV and VIRIDIC-algorithm predictions at the genus level
+    # Classifies the query genome with inconsistent ICTV and clustering on genomic similarity algorithm predictions at the genus level
     def test_inconsistent_predictions_with_genus_cluster_column(self, tmp_path):
         """
-        Classifies the query genome with inconsistent ICTV and VIRIDIC-algorithm predictions at the genus level
+        Classifies the query genome with inconsistent ICTV and clustering on genomic similarity algorithm predictions at the genus level
         """
         
         # Initialize the required input dataframes and variables
@@ -846,10 +846,10 @@ class TestClassification:
 
 ####################################################################################################
 
-class TestClassificationViridic:
+class TestClassificationSimilarity:
 
-    # Runs VIRIDIC on input fasta files and generates a merged dataframe
-    def test_runs_viridic_and_generates_merged_dataframe(self, tmpdir):
+    # Runs similarity on input fasta files and generates a merged dataframe
+    def test_runs_similarity_and_generates_merged_dataframe(self, tmpdir):
         test_file_dir = os.path.dirname(__file__)
         
         # Initialize input variables
@@ -889,7 +889,7 @@ class TestClassificationViridic:
         makeblastdb_exe = "makeblastdb"
 
         # Invoke the function under test
-        merged_df, query_merged_df, closest_genome = classification_viridic(
+        merged_df, query_merged_df, closest_genome = classification_similarity(
             known_taxa_path,
             query,
             taxa_df,
@@ -953,7 +953,7 @@ class TestClassificationViridic:
         # Mock the necessary functions and objects
 
         # Invoke the function under test
-        merged_df, query_merged_df, closest_genome = classification_viridic(
+        merged_df, query_merged_df, closest_genome = classification_similarity(
             known_taxa_path,
             query,
             taxa_df,
@@ -1015,7 +1015,7 @@ class TestClassificationViridic:
         # Mock the necessary functions and objects
 
         # Invoke the function under test
-        merged_df, query_merged_df, closest_genome = classification_viridic(
+        merged_df, query_merged_df, closest_genome = classification_similarity(
             known_taxa_path,
             query,
             taxa_df,

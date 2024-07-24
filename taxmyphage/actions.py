@@ -21,12 +21,12 @@ from Bio import SeqIO
 import pandas as pd
 
 from taxmyphage.utils import print_error, print_ok, create_folder, print_warn
-from taxmyphage.pmv import PoorMansViridic
+from taxmyphage.pmv import ClusteringOnGenomicSimilarity
 from taxmyphage.plot import heatmap
 from taxmyphage.handle_files import create_files_and_result_paths, read_write_fasta
 from taxmyphage.classify import (
     classification_mash,
-    classification_viridic,
+    classification_similarity,
     classification,
 )
 
@@ -166,11 +166,11 @@ def all_classification(
             }
             continue
 
-        print("----------------")
-        print("VIRIDIC analysis")
-        print("----------------")
+        print("-----------------------------------------")
+        print("Clustering on genomic similarity analysis")
+        print("-----------------------------------------")
 
-        merged_df, query_merged_df, closest_genome = classification_viridic(
+        merged_df, query_merged_df, closest_genome = classification_similarity(
             known_taxa_path=known_taxa_path,
             query=query,
             taxa_df=taxa_df,
@@ -262,9 +262,9 @@ def all_classification(
 ####################################################################################################
 
 
-def viridic(args: Namespace, threads: int, verbose: bool) -> None:
+def clustering_on_genomic_similarity(args: Namespace, threads: int, verbose: bool) -> None:
     """
-    Run viridic on the input multi fasta file
+    Run the clustering on genomic similarity algorithm on the input multi fasta file
 
     Args:
         args (Namespace): arguments from the command line
@@ -305,10 +305,10 @@ def viridic(args: Namespace, threads: int, verbose: bool) -> None:
     top_right_matrix = os.path.join(results_path, "top_right_matrix.tsv")
     similarities_file = os.path.join(results_path, "similarities.tsv")
 
-    print_ok(f"\nCalculating PoorManVIRIDIC in {results_path}...")
+    print_ok(f"\nCalculating the genomic similarity in {results_path}...")
 
-    # run VIRIDIC
-    pmv = PoorMansViridic(
+    # run ClusteringOnGenomicSimilarity
+    pmv = ClusteringOnGenomicSimilarity(
         file=tmp_fasta,
         reference=reference,
         nthreads=threads,

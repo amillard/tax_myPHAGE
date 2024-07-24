@@ -1,7 +1,7 @@
 """
-This module provides functionalities for the Poor Man's Viridic (PMV) method in 
+This module provides functionalities for the clustering of genomes based on similarity (PMV) method in 
 the taxmyphage package.
-It includes the PoorMansViridic class which clusters genomes based on similarity.
+It includes the clusteringSimilarityGenome class which clusters genomes based on similarity.
 """
 
 ####################################################################################################
@@ -24,9 +24,9 @@ from icecream import ic
 # Classes
 ####################################################################################################
 
-class PoorMansViridic:
+class ClusteringOnGenomicSimilarity:
     """
-    PoorMansViridic class for clustering genomes based on similarity
+    ClusteringOnGenomicSimilarity class for clustering genomes based on similarity
     """
 
     def __init__(
@@ -43,7 +43,7 @@ class PoorMansViridic:
     ):
         """
         Args:
-            self (PoorMansViridic): PoorMansViridic class
+            self (clusteringSimilarityGenome): clusteringSimilarityGenome class
             file (str): Path to the input fasta file
             reference (str, optional): Path to the reference fasta file. Defaults to "".
             genus_threshold (float, optional): Genus threshold. Defaults to 70.
@@ -71,6 +71,7 @@ class PoorMansViridic:
         self.pmv_outfile = ''
         self.dfT = pd.DataFrame()
         self.db_blast = reference
+        self.blastn_result_file = ''
 
         self.existing_files()
 
@@ -79,7 +80,7 @@ class PoorMansViridic:
         Checks if the input files exist
 
         Args:
-            self (PoorMansViridic): PoorMansViridic class
+            self (clusteringSimilarityGenome): clusteringSimilarityGenome class
 
         Returns:
             None
@@ -93,16 +94,16 @@ class PoorMansViridic:
 
     def run(self) -> Tuple[pd.DataFrame, str]:
         """
-        Runs the PoorMansViridic pipeline
+        Runs the clusteringSimilarityGenome pipeline
 
         Args:
-            self (PoorMansViridic): PoorMansViridic class
+            self (clusteringSimilarityGenome): clusteringSimilarityGenome class
 
         Returns:
             dfT (pd.DataFrame): DataFrame containing the clusters
             pmv_outfile (str): Path to the output file
         """
-        ic(f"Running PoorMansViridic on {self.file}\n")
+        ic(f"Running clusteringSimilarityGenome on {self.file}\n")
         self.makeblastdb()
         self.blastn()
         self.parse_blastn_file()
@@ -115,7 +116,7 @@ class PoorMansViridic:
         Clusters all the genomes
 
         Args:
-            self (PoorMansViridic): PoorMansViridic class
+            self (clusteringSimilarityGenome): clusteringSimilarityGenome class
 
         Returns:
             None
@@ -138,7 +139,7 @@ class PoorMansViridic:
         Clusters the genomes based on the similarity threshold
 
         Args:
-            self (PoorMansViridic): PoorMansViridic class
+            self (clusteringSimilarityGenome): clusteringSimilarityGenome class
             th (float): Similarity threshold
             tax_level (str): Taxonomic level
 
@@ -166,7 +167,7 @@ class PoorMansViridic:
         Creates the blastDB
 
         Args:
-            self (PoorMansViridic): PoorMansViridic class
+            self (clusteringSimilarityGenome): clusteringSimilarityGenome class
 
         Returns:
             None
@@ -190,7 +191,7 @@ class PoorMansViridic:
         Runs blastn against itself
 
         Args:
-            self (PoorMansViridic): PoorMansViridic class
+            self (clusteringSimilarityGenome): clusteringSimilarityGenome class
 
         Returns:
             None
@@ -219,7 +220,7 @@ class PoorMansViridic:
         Parses the blastn file
 
         Args:
-            self (PoorMansViridic): PoorMansViridic class
+            self (clusteringSimilarityGenome): clusteringSimilarityGenome class
 
         Returns:
             None
@@ -301,7 +302,7 @@ class PoorMansViridic:
         Calculates the distances between genomes
 
         Args:
-            self (PoorMansViridic): PoorMansViridic class
+            self (clusteringSimilarityGenome): clusteringSimilarityGenome class
 
         Returns:
             None
@@ -371,7 +372,7 @@ class PoorMansViridic:
         Saves the similarities
 
         Args:
-            self (PoorMansViridic): PoorMansViridic class
+            self (clusteringSimilarityGenome): clusteringSimilarityGenome class
             outfile (str, optional): Path to the output file. Defaults to "similarities.tsv".
 
         Returns:
@@ -390,7 +391,7 @@ class PoorMansViridic:
         Gets the query closest genomes
 
         Args:
-            self (PoorMansViridic): PoorMansViridic class
+            self (clusteringSimilarityGenome): clusteringSimilarityGenome class
 
         Returns:
             pd.DataFrame: DataFrame containing the query similarities

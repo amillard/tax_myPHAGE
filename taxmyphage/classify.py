@@ -16,7 +16,7 @@ import pandas as pd
 from Bio import SeqIO
 from icecream import ic
 
-from taxmyphage.pmv import PoorMansViridic
+from taxmyphage.pmv import ClusteringOnGenomicSimilarity
 from taxmyphage.plot import heatmap
 from taxmyphage.utils import print_error, print_ok, print_res, print_warn, create_folder
 from taxmyphage.utils import (
@@ -255,7 +255,7 @@ def classification_mash(
 
 ####################################################################################################
 
-def classification_viridic(
+def classification_similarity(
     known_taxa_path: str,
     query: str,
     taxa_df: pd.DataFrame,
@@ -269,7 +269,7 @@ def classification_viridic(
     makeblastdb_exe: str,
 ) -> Tuple[pd.DataFrame, pd.DataFrame, str]:
     """
-    Classifies the query genome using viridic
+    Classifies the query genome using similarity
 
     Args:
         known_taxa_path (str): Path to the known taxa
@@ -285,32 +285,32 @@ def classification_viridic(
         makeblastdb_exe (str): Path to the makeblastdb executable
 
     Returns:
-        merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
-        query_merged_df pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe with the query
+        merged_df (pd.DataFrame): Dataframe of the merged results of similarity and ICTV dataframe without the query
+        query_merged_df pd.DataFrame): Dataframe of the merged results of similarity and ICTV dataframe with the query
         closest_genome (str): Closest genome
     """
 
-    # store files for VIRIDIC run- or equivalent
-    viridic_folder = os.path.join(results_path, "pmv")
+    # store files for similarity run- or equivalent
+    similarity_folder = os.path.join(results_path, "pmv")
 
-    create_folder(viridic_folder)
+    create_folder(similarity_folder)
 
-    viridic_in_path = os.path.join(viridic_folder, "pmv_in.fa")
+    similarity_in_path = os.path.join(similarity_folder, "pmv_in.fa")
 
     heatmap_file = os.path.join(results_path, "heatmap")
     top_right_matrix = os.path.join(results_path, "top_right_matrix.tsv")
     similarities_file = os.path.join(results_path, "similarities.tsv")
 
     # Merge the query and known taxa into a single file
-    with open(viridic_in_path, "w", encoding="utf-8") as merged_file:
+    with open(similarity_in_path, "w", encoding="utf-8") as merged_file:
         list_genomes = [known_taxa_path, query]
         for file in list_genomes:
             SeqIO.write(SeqIO.parse(file, "fasta"), merged_file, "fasta")
 
-    # run VIRIDIC
-    pmv = PoorMansViridic(
-        file=viridic_in_path,
-        reference=viridic_in_path,
+    # run ClusteringOnGenomicSimilarity
+    pmv = ClusteringOnGenomicSimilarity(
+        file=similarity_in_path,
+        reference=similarity_in_path,
         nthreads=threads,
         verbose=verbose,
         blastn_exe=blastn_exe,
@@ -331,7 +331,7 @@ def classification_viridic(
 
     pmv.save_similarities(similarities_file)
 
-    # merge the ICTV dataframe with the results of viridic
+    # merge the ICTV dataframe with the results of similarity
     # fill in missing with Not Defined yet
     merged_df = pd.merge(
         df1, taxa_df, left_on="genome", right_on="Genbank", how="left"
@@ -430,7 +430,7 @@ def current_genus_current_species(
         summary_output_path (str): Path to the summary output file
         dict_genus_cluster_2_genus_name (Dict[int, str]): Dictionary of genus cluster to genus name
         query_genus_cluster_number (int): Query genus cluster number
-        merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
+        merged_df (pd.DataFrame): Dataframe of the merged results of similarity and ICTV dataframe without the query
         mash_df (pd.DataFrame): Dataframe of the mash results
         message (str): Informative message giving the confidence of the annotation
 
@@ -507,7 +507,7 @@ def current_genus_new_species(
         summary_output_path (str): Path to the summary output file
         dict_genus_cluster_2_genus_name (Dict[int, str]): Dictionary of genus cluster to genus name
         query_genus_cluster_number (int): Query genus cluster number
-        merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
+        merged_df (pd.DataFrame): Dataframe of the merged results of similarity and ICTV dataframe without the query
         mash_df (pd.DataFrame): Dataframe of the mash results
         message (str): Informative message giving the confidence of the annotation
 
@@ -645,7 +645,7 @@ def assess_taxonomic_info(
         dict_genus_cluster_2_genus_name (Dict[int, str]): Dictionary of genus cluster to genus name
         dict_species_cluster_2_species_name (Dict[int, str]): Dictionary of species cluster to species name
         summary_output_path (str): Path to the summary output file
-        merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
+        merged_df (pd.DataFrame): Dataframe of the merged results of similarity and ICTV dataframe without the query
         mash_df (pd.DataFrame): Dataframe of the mash results
         message (str): Informative message giving the confidence of the annotation
 
@@ -715,8 +715,8 @@ def classification(
     Classifies the query genome
 
     Args:
-        merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe without the query
-        query_merged_df (pd.DataFrame): Dataframe of the merged results of VIRIDIC and ICTV dataframe with the query
+        merged_df (pd.DataFrame): Dataframe of the merged results of similarity and ICTV dataframe without the query
+        query_merged_df (pd.DataFrame): Dataframe of the merged results of similarity and ICTV dataframe with the query
         results_path (str): Path to the results directory
         mash_df (pd.DataFrame): Dataframe of the mash results
         prefix (str): Prefix to add to the output file
@@ -734,32 +734,32 @@ def classification(
 
     # Count the number genera
     # excluding query
-    num_unique_viridic_genus_clusters = merged_df["genus_cluster"].nunique()
+    num_unique_similarity_genus_clusters = merged_df["genus_cluster"].nunique()
     num_unique_ICTV_genera = merged_df["Genus"].nunique()
 
     # including query
-    total_num_viridic_genus_clusters = query_merged_df["genus_cluster"].nunique()
-    total_num_viridic_species_clusters = query_merged_df["species_cluster"].nunique()
+    total_num_similarity_genus_clusters = query_merged_df["genus_cluster"].nunique()
+    total_num_similarity_species_clusters = query_merged_df["species_cluster"].nunique()
 
     print(
-        "\nTotal number of VIRIDIC-algorithm genus clusters in the input including "
-        f"QUERY sequence was: {total_num_viridic_genus_clusters}\n"
-        "Total number of VIRIDIC-algorithm species clusters including "
-        f"QUERY sequence was: {total_num_viridic_species_clusters}"
+        "\nTotal number of the clustering on genomic similarity algorithm genus clusters in the input including "
+        f"QUERY sequence was: {total_num_similarity_genus_clusters}\n"
+        "Total number of the clustering on genomic similarity algorithm species clusters including "
+        f"QUERY sequence was: {total_num_similarity_species_clusters}"
     )
 
     print(
         f"\nNumber of current ICTV defined genera was: {num_unique_ICTV_genera}\n"
-        f"Number of VIRIDIC-algorithm predicted genera (excluding query) was: {num_unique_viridic_genus_clusters}"
+        f"Number of the clustering on genomic similarity algorithm predicted genera (excluding query) was: {num_unique_similarity_genus_clusters}"
     )
 
-    if num_unique_ICTV_genera == num_unique_viridic_genus_clusters:
+    if num_unique_ICTV_genera == num_unique_similarity_genus_clusters:
         print(
-            "\n\nCurrent ICTV and VIRIDIC-algorithm predictions are consistent for the data that was used to compare against"
+            "\n\nCurrent ICTV and the clustering on genomic similarity algorithm predictions are consistent for the data that was used to compare against"
         )
 
     print_ok(
-        f"\nNumber of unique VIRIDIC-algorithm clusters at default cutoff of 70% is: {num_unique_viridic_genus_clusters}"
+        f"\nNumber of unique the clustering on genomic similarity algorithm clusters at default cutoff of 70% is: {num_unique_similarity_genus_clusters}"
     )
 
     print_ok(
@@ -776,7 +776,7 @@ def classification(
     print(f"\nSpecies cluster number is: {query_species_cluster_number}")
     print(f"Genus cluster number is: {query_genus_cluster_number}")
 
-    # list of VIRIDIC genus and species numbers
+    # list of similarity genus and species numbers
     list_ICTV_genus_clusters = merged_df["genus_cluster"].unique().tolist()
     list_ICTV_species_clusters = merged_df["species_cluster"].unique().tolist()
 
@@ -844,9 +844,9 @@ def classification(
     print(f"\nPredicted genus is: {predicted_genus_name}\n")
 
     # create a dict of species to species_cluster
-    # if number of ICTV genera and predicted VIRIDIC genera match:
-    if num_unique_ICTV_genera == num_unique_viridic_genus_clusters:
-        message = "Current ICTV taxonomy and VIRIDIC-algorithm output appear to be consistent at the genus level"
+    # if number of ICTV genera and predicted VIRIDIC-like genera match:
+    if num_unique_ICTV_genera == num_unique_similarity_genus_clusters:
+        message = "Current ICTV taxonomy and the clustering on genomic similarity algorithm output appear to be consistent at the genus level"
         
         print(message)
 
@@ -863,8 +863,8 @@ def classification(
             message=message,
         )
 
-    # if number of VIRIDIC genera is greater than ICTV genera
-    elif num_unique_ICTV_genera != num_unique_viridic_genus_clusters:
+    # if number of VIRIDIC-like genera is greater than ICTV genera
+    elif num_unique_ICTV_genera != num_unique_similarity_genus_clusters:
         print_error(f"""{summary_statement_inconsitent}\n""")
 
         message = "The number of expected genera is different from the predicted number of genus clusters. It will require more manual curation"

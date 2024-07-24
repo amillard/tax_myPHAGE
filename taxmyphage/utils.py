@@ -126,8 +126,8 @@ statement_current_genus_sp = (
 
 summary_statement_inconsitent = (
     "The number of expected genera based on current ICTV classification is different from the predicted "
-    "number of genus clusters as predicted by VIRIDIC-algorithm.\nThis does not mean the current ICTV "
-    "classification is wrong (it might be) or that VIRIDIC-algorithm is wrong.\nIt could be an edge "
+    "number of genus clusters as predicted by clustering on genomic similarity algorithm.\nThis does not mean the current ICTV "
+    "classification is wrong (it might be) or that clustering on genomic similarity algorithm is wrong.\nIt could be an edge "
     "case that automated process cannot distinguish. It will require more manual curation to look "
     "at the output files." 
 )

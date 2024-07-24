@@ -4,16 +4,16 @@ import os
 import shutil
 import pytest
 import pandas as pd
-from taxmyphage.pmv import PoorMansViridic
+from taxmyphage.pmv import ClusteringOnGenomicSimilarity
 
 
-class TestPoorMansViridic:
+class TestClusteringOnGenomicSimilarity:
 
-    # Given a file and a reference, when running PoorMansViridic, it should create a blastn database, blast against itself, parse the blastn file, calculate distances, cluster all, and return a tuple of a pandas dataframe and a string
+    # Given a file and a reference, when running ClusteringOnGenomicSimilarity, it should create a blastn database, blast against itself, parse the blastn file, calculate distances, cluster all, and return a tuple of a pandas dataframe and a string
     def test_run(self, tmpdir):
         test_file_dir = os.path.dirname(__file__)
 
-        # Create an instance of PoorMansViridic
+        # Create an instance of ClusteringOnGenomicSimilarity
         reference = os.path.join(test_file_dir,
                                  "dummy_genome",
                                  "Results_per_genome",
@@ -24,7 +24,7 @@ class TestPoorMansViridic:
         
         reference_copy = shutil.copyfile(reference, tmpdir / "pmv_in.fa")
 
-        pmv = PoorMansViridic(reference_copy, reference, output_dir=tmpdir)
+        pmv = ClusteringOnGenomicSimilarity(reference_copy, reference, output_dir=tmpdir)
 
         # Call the run method
         result = pmv.run()
@@ -34,11 +34,11 @@ class TestPoorMansViridic:
         assert isinstance(result[0], pd.DataFrame)
         assert isinstance(result[1], str)
 
-    # Given a file and a reference, when running PoorMansViridic with a genus threshold of 0, it should return a dataframe with all genomes as same cluster
+    # Given a file and a reference, when running ClusteringOnGenomicSimilarity with a genus threshold of 0, it should return a dataframe with all genomes as same cluster
     def test_genus_threshold_zero(self, tmpdir):
         test_file_dir = os.path.dirname(__file__)
 
-        # Create an instance of PoorMansViridic
+        # Create an instance of ClusteringOnGenomicSimilarity
         reference = os.path.join(test_file_dir,
                                  "dummy_genome",
                                  "Results_per_genome",
@@ -50,7 +50,7 @@ class TestPoorMansViridic:
         reference_copy = shutil.copyfile(reference, tmpdir / "pmv_in.fa")
 
 
-        pmv = PoorMansViridic(reference_copy, reference, genus_threshold=0, output_dir=tmpdir)
+        pmv = ClusteringOnGenomicSimilarity(reference_copy, reference, genus_threshold=0, output_dir=tmpdir)
 
         # Call the run method
         result = pmv.run()
@@ -65,11 +65,11 @@ class TestPoorMansViridic:
         assert len(df) == len(pmv.size_dict)
         assert df['genus_cluster'].nunique() == 1
 
-    # Given a file and a reference, when running PoorMansViridic with a genus threshold of 100, it should return a dataframe with all genomes in a single genus cluster
+    # Given a file and a reference, when running ClusteringOnGenomicSimilarity with a genus threshold of 100, it should return a dataframe with all genomes in a single genus cluster
     def test_genus_threshold_100(self, tmpdir):
         test_file_dir = os.path.dirname(__file__)
 
-        # Create an instance of PoorMansViridic
+        # Create an instance of ClusteringOnGenomicSimilarity
         reference = os.path.join(test_file_dir,
                                  "dummy_genome",
                                  "Results_per_genome",
@@ -81,7 +81,7 @@ class TestPoorMansViridic:
         reference_copy = shutil.copyfile(reference, tmpdir / "pmv_in.fa")
 
 
-        pmv = PoorMansViridic(reference_copy, reference, genus_threshold=100, output_dir=tmpdir)
+        pmv = ClusteringOnGenomicSimilarity(reference_copy, reference, genus_threshold=100, output_dir=tmpdir)
 
         # Call the run method
         result = pmv.run()
@@ -96,17 +96,17 @@ class TestPoorMansViridic:
         assert len(df) == len(pmv.size_dict)
         assert df['genus_cluster'].nunique() == 3
 
-    # Given a file and a reference, when running PoorMansViridic with a non-existent file, it should raise a FileNotFoundError
+    # Given a file and a reference, when running ClusteringOnGenomicSimilarity with a non-existent file, it should raise a FileNotFoundError
     def test_nonexistent_file(self):
         with pytest.raises(FileNotFoundError):
-            pmv = PoorMansViridic('nonexistent_file', 'reference')
+            pmv = ClusteringOnGenomicSimilarity('nonexistent_file', 'reference')
             pmv.run()
 
-    # Given a file and a reference, when running PoorMansViridic with a non-existent reference, it should raise a FileNotFoundError
+    # Given a file and a reference, when running ClusteringOnGenomicSimilarity with a non-existent reference, it should raise a FileNotFoundError
     def test_nonexistent_reference(self):
         test_file_dir = os.path.dirname(__file__)
 
-        # Create an instance of PoorMansViridic
+        # Create an instance of ClusteringOnGenomicSimilarity
         first_file = os.path.join(test_file_dir,
                                  "dummy_genome",
                                  "Results_per_genome",
@@ -115,15 +115,15 @@ class TestPoorMansViridic:
                                  "pmv_in.fa"
                                  )
         
-        # Assert that running the PoorMansViridic raises a FileNotFoundError
+        # Assert that running the ClusteringOnGenomicSimilarity raises a FileNotFoundError
         with pytest.raises(FileNotFoundError):
-            pmv = PoorMansViridic(first_file, 'nonexistent_reference')
+            pmv = ClusteringOnGenomicSimilarity(first_file, 'nonexistent_reference')
             pmv.run()
 
     def test_good_df_returned(self, tmpdir):
         test_file_dir = os.path.dirname(__file__)
 
-        # Create an instance of PoorMansViridic
+        # Create an instance of ClusteringOnGenomicSimilarity
         reference = os.path.join(test_file_dir,
                                  "dummy_genome",
                                  "Results_per_genome",
@@ -134,7 +134,7 @@ class TestPoorMansViridic:
         
         reference_copy = shutil.copyfile(reference, tmpdir / "pmv_in.fa")
 
-        pmv = PoorMansViridic(reference_copy, reference, output_dir=tmpdir)
+        pmv = ClusteringOnGenomicSimilarity(reference_copy, reference, output_dir=tmpdir)
 
         # Call the run method
         result = pmv.run()
