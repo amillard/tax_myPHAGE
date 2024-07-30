@@ -72,6 +72,7 @@ class ClusteringOnGenomicSimilarity:
         self.dfT = pd.DataFrame()
         self.db_blast = reference
         self.blastn_result_file = ''
+        self.similarity_identical = file == reference
 
         self.existing_files()
 
@@ -201,13 +202,22 @@ class ClusteringOnGenomicSimilarity:
             self.result_dir, os.path.basename(self.file) + ".blastn_vs2_self.tab.gz"
         )
         if not os.path.exists(outfile):
-            cmd = (
-                f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} '
-                f'-word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} '
-                f'-db {self.db_blast} '
-                '-outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" '
-                f'| gzip -c > {outfile}'
-            )
+            if self.similarity_identical:
+                cmd = (
+                    f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} '
+                    f'-word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} '
+                    f'-db {self.db_blast} '
+                    '-outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" '
+                    f'| sort | uniq | gzip -c > {outfile}'
+                )                    
+            else:
+                cmd = (
+                    f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} '
+                    f'-word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} '
+                    f'-db {self.db_blast} '
+                    '-outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" '
+                    f'| gzip -c > {outfile}'
+                )
 
             ic("Blasting against itself:", cmd)
             ic(cmd)
