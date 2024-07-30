@@ -315,6 +315,7 @@ def clustering_on_genomic_similarity(args: Namespace, threads: int, verbose: boo
         verbose=verbose,
         blastn_exe=args.blastn,
         makeblastdb_exe=args.makeblastdb,
+        similarity_module=True,
     )
 
     dfT, pmv_outfile = pmv.run()

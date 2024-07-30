@@ -40,6 +40,7 @@ class ClusteringOnGenomicSimilarity:
         blastn_exe: str = "blastn",
         makeblastdb_exe: str = "makeblastdb",
         output_dir: str = "",
+        similarity_module: bool = False,
     ):
         """
         Args:
@@ -53,6 +54,7 @@ class ClusteringOnGenomicSimilarity:
             blastn_exe (str, optional): Path to the blastn executable. Defaults to "blastn".
             makeblastdb_exe (str, optional): Path to the makeblastdb executable. Defaults to "makeblastdb".
             output_dir (str, optional): Path to the output directory. Defaults to "".
+            similarity_module (bool, optional): Whether to use the similarity module. Defaults to False.
             
         Returns:
             None
@@ -72,7 +74,7 @@ class ClusteringOnGenomicSimilarity:
         self.dfT = pd.DataFrame()
         self.db_blast = reference
         self.blastn_result_file = ''
-        self.similarity_identical = file == reference
+        self.similarity_module = similarity_module
 
         self.existing_files()
 
@@ -202,7 +204,7 @@ class ClusteringOnGenomicSimilarity:
             self.result_dir, os.path.basename(self.file) + ".blastn_vs2_self.tab.gz"
         )
         if not os.path.exists(outfile):
-            if self.similarity_identical:
+            if self.similarity_module:
                 cmd = (
                     f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} '
                     f'-word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {self.file} '
