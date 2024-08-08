@@ -42,6 +42,7 @@ What it wont do:
 
 ------
 
+
 ## QUICK start and test
 
 ```
@@ -77,6 +78,46 @@ Output of the test should have the following lines at the bottom
 
 
 ----------
+
+
+## Manual update for new VMR 
+
+With the relase of a new VMR the databases for taxmyphage need to be updated. While we work on an automated solution , the following can be done. Install taxmyphage using any of the methods listed below. 
+
+Then update the database files with the links below.  
+
+New Genome databsae [here](https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL39_v1.fasta.gz)
+New MASH database [here] (https://https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL39v1.msh) 
+
+Find the files Bacteriophages_genomes.fasta.gz in the conda installation  eg 
+```
+find ~/miniconda/ -name "Bacteriophage_genomes*"
+```
+
+Do the same for ICTV.msh
+
+```
+> find ~/miniconda/ -name "ICTV*"
+```
+
+and the VMR.xlsx file 
+
+```
+find ~/miniconda/ -name "VMR*"
+```
+
+Delete these files and replace with files downloaded above and rename them
+
+```
+mv Bacteriophage_genomes_MSL39_v1.fasta.gz  Bacteriophage_genomes.fasta.gz
+```
+
+```
+mv ICTV_MSL39v1.msh ICTV.msh
+```
+
+It will now run with the latest version of the ICTV taxonomy 
+
 
 ## Requirements 
 
