@@ -38,7 +38,7 @@ What it wont do:
 - Compare against every single phage genome in Genbank. It is designed for classification , so compares against currently classified phages.
 
 
-*A web version will be available soon.*
+*Webversion is [here](https://ptax.ku.dk/)*
 
 ------
 
@@ -80,14 +80,16 @@ Output of the test should have the following lines at the bottom
 ----------
 
 
-## Manual update for new VMR 
+# Manual update for new VMR 
 
-With the relase of a new VMR the databases for taxmyphage need to be updated. While we work on an automated solution , the following can be done. Install taxmyphage using any of the methods listed below. 
+With the relase of a new VMR the databases for taxmyphage need to be updated if you installed prior to the 17th May 2024. For new installs you will also need to do the following to use the current [VMR](https://ictv.global/vmr).  While we work on an automated solution, the following can be done. 
+
+Install taxmyphage using any of the methods listed below. 
 
 Then update the database files with the links below.  
 
-New Genome databsae [here](https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL39_v1.fasta.gz)
-New MASH database [here] (https://https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL39v1.msh) 
+New Genome database [here](https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL39_v1.fasta.gz)
+New MASH database [here](https://https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL39v1.msh) 
 
 Find the files Bacteriophages_genomes.fasta.gz in the conda installation  eg 
 ```
@@ -97,16 +99,20 @@ find ~/miniconda/ -name "Bacteriophage_genomes*"
 Do the same for ICTV.msh
 
 ```
-> find ~/miniconda/ -name "ICTV*"
+> find ~/miniconda*/ -name "ICTV*"
 ```
 
 and the VMR.xlsx file 
 
 ```
-find ~/miniconda/ -name "VMR*"
+find ~/miniconda*/ -name "VMR*"
 ```
 
-Delete these files and replace with files downloaded above and rename them
+Delete these files and then replace with files downloaded above and rename them.
+
+my files are in
+
+/home/andrew/miniconda3/envs/taxmyphage/lib/python3.12/site-packages/taxmyphage/database/ICTV_2023.msh
 
 ```
 mv Bacteriophage_genomes_MSL39_v1.fasta.gz  Bacteriophage_genomes.fasta.gz
@@ -115,6 +121,8 @@ mv Bacteriophage_genomes_MSL39_v1.fasta.gz  Bacteriophage_genomes.fasta.gz
 ```
 mv ICTV_MSL39v1.msh ICTV.msh
 ```
+
+Or just create softlinks to the oringinal name.  
 
 It will now run with the latest version of the ICTV taxonomy 
 
