@@ -283,7 +283,10 @@ def clustering_on_genomic_similarity(args: Namespace, threads: int, verbose: boo
     tmp_fasta = os.path.join(args.output, "pmv.fasta")
 
     num_genomes = create_files_and_result_paths(args.in_fasta, tmp_fasta)
-
+    if num_genomes <= 1:
+        print_error("Cannot create similarity matrix with one genome only.")
+        return
+    
     # Check if reference is provided
     if args.reference:
         print_ok(f"\nUsing {args.reference} as reference\n")
@@ -314,7 +317,8 @@ def clustering_on_genomic_similarity(args: Namespace, threads: int, verbose: boo
     pmv = ClusteringOnGenomicSimilarity(
         file=tmp_fasta,
         reference=reference,
-        nthreads=threads,
+        db_dir='',
+        use_precomputed=False,        nthreads=threads,
         verbose=verbose,
         blastn_exe=args.blastn,
         makeblastdb_exe=args.makeblastdb,

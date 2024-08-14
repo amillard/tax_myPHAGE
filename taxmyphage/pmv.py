@@ -233,6 +233,7 @@ class ClusteringOnGenomicSimilarity:
 
         if not os.path.exists(outfile):
             if self.similarity_module:
+                print("ARGGGGGG, we shouldn't get here")
                 cmd = (
                     f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} '
                     f'-word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {query} '
