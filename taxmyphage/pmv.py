@@ -18,6 +18,9 @@ import pandas as pd
 import networkx as nx
 from tqdm import tqdm
 from icecream import ic
+# precomputed code addition
+from Bio.SeqIO.FastaIO import SimpleFastaParser
+import pickle
 
 
 ####################################################################################################
@@ -33,6 +36,9 @@ class ClusteringOnGenomicSimilarity:
         self,
         file: str,
         reference: str,
+        # precomputed code addition
+        db_dir: str,
+        use_precomputed: bool = False,
         genus_threshold: float = 70,
         species_threshold: float = 95,
         nthreads: int = 1,
@@ -62,6 +68,9 @@ class ClusteringOnGenomicSimilarity:
 
         self.verbose = verbose
         self.file = file
+        # precomputed code addition
+        self.db_dir = db_dir
+        self.use_precomputed = use_precomputed
         self.reference = reference
         self.result_dir = os.path.dirname(self.file)
         self.nthreads = nthreads
@@ -75,7 +84,8 @@ class ClusteringOnGenomicSimilarity:
         self.db_blast = reference
         self.blastn_result_file = ''
         self.similarity_module = similarity_module
-
+        # precomputed code addition        
+        self.dfM = pd.DataFrame()
         self.existing_files()
 
     def existing_files(self):
@@ -95,6 +105,13 @@ class ClusteringOnGenomicSimilarity:
         if not os.path.exists(self.reference):
             raise FileNotFoundError(f"File {self.reference} does not exist")
 
+    def check_if_number_of_seqs_is_more_than(self, max_n = 2):
+        from Bio.SeqIO.FastaIO import SimpleFastaParser
+        handle = gzip.open(self.file, 'rt') if self.file.endswith('.gz') else open(self.file)
+        for n, (name, seq) in enumerate(SimpleFastaParser(handle)):
+            if n >= max_n: return True
+        return False
+ 
     def run(self) -> Tuple[pd.DataFrame, str]:
         """
         Runs the clusteringSimilarityGenome pipeline
@@ -108,8 +125,25 @@ class ClusteringOnGenomicSimilarity:
         """
         ic(f"Running clusteringSimilarityGenome on {self.file}\n")
         self.makeblastdb()
-        self.blastn()
-        self.parse_blastn_file()
+
+        # precomputed code addition
+        M_file = os.path.join(self.db_dir, 'M.pa')
+        if not os.path.exists(M_file): self.use_precomputed = False
+        if self.similarity_module: self.use_precomputed = False
+        
+        if self.use_precomputed:
+            self.use_precomputed = self.check_if_number_of_seqs_is_more_than(2)
+            
+        if self.use_precomputed:
+            print("Running on pre computed")
+            self.blastn_cached()
+            self.parse_blastn_file()
+            self.merge_cached_results()
+        else:
+            print("Running full blast")
+            self.blastn()
+            self.parse_blastn_file()
+
         self.calculate_distances()
         self.cluster_all()
         return self.dfT, self.pmv_outfile
@@ -189,6 +223,38 @@ class ClusteringOnGenomicSimilarity:
         res = subprocess.getoutput(cmd)
         ic(res)
 
+    # precomputed code addition
+    # unnecessary code duplication, could be done smarter    
+    def blastn_cached(self):
+        query = os.path.join(os.path.dirname(os.path.dirname(self.file)), 'query.fasta')
+        outfile = os.path.join(
+            self.result_dir, os.path.basename(query) + ".blastn_vs2_self.tab.gz"
+        )
+
+        if not os.path.exists(outfile):
+            if self.similarity_module:
+                cmd = (
+                    f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} '
+                    f'-word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {query} '
+                    f'-db {self.db_blast} '
+                    '-outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" '
+                    f'| sort | uniq | gzip -c > {outfile}'
+                )                    
+            else:
+                cmd = (
+                    f'{self.blastn_exe} -evalue 1 -max_target_seqs 10000 -num_threads {self.nthreads} '
+                    f'-word_size 7 -reward 2 -penalty -3 -gapopen 5 -gapextend 2 -query {query} '
+                    f'-db {self.db_blast} '
+                    '-outfmt "6 qseqid sseqid pident length qlen slen mismatch nident gapopen qstart qend sstart send qseq sseq evalue bitscore" '
+                    f'| gzip -c > {outfile}'
+                )
+
+            ic("Blasting against itself:", cmd)
+            ic(cmd)
+            res = subprocess.getoutput(cmd)
+
+        self.blastn_result_file = outfile
+        
     def blastn(self):
         """
         Runs blastn against itself
@@ -303,11 +369,36 @@ class ClusteringOnGenomicSimilarity:
                 # add the values to the matrix
                 M[key][int(qstart) - 1 : int(qend)] += v[idx]
 
-        # Convert the last pair of the matrix to identity values
-        M[previous_pair] = np.where(M[previous_pair] != 0, 1, 0)
-        M[previous_pair] = np.sum(M[previous_pair])
+        # precomputed code addition
+        # I think this is needed also in the non-precomputed
+        if previous_pair:
+            # Convert the last pair of the matrix to identity values
+            M[previous_pair] = np.where(M[previous_pair] != 0, 1, 0)
+            M[previous_pair] = np.sum(M[previous_pair])
 
         self.M = M
+
+    # precomputed code addition
+    def merge_cached_results(self):
+        M_file = os.path.join(self.db_dir, 'M.pa')
+        
+        file = self.reference
+        handle = gzip.open(file, 'rt') if file.endswith('.gz') else open(file)
+        entries = list(SimpleFastaParser(handle))
+
+        self.size_dict = {name:len(seq) for name, seq in entries}
+        names = list(self.size_dict.keys())
+        dfM = pd.read_parquet(M_file)
+        
+            
+        genome_arr = np.array(list(self.M.keys()))
+        dfMs = pd.DataFrame(genome_arr, columns=["A", "B"])
+        dfMs["idAB"] = self.M.values()
+        dfMs = dfMs['A B idAB'.split()]
+        dfM = pd.concat([dfM['A B idAB'.split()], dfMs['A B idAB'.split()]])
+        dfM = dfM[dfM.A.isin(names) & dfM.B.isin(names)]
+
+        self.dfM = dfM
 
     def calculate_distances(self):
         """
@@ -319,15 +410,20 @@ class ClusteringOnGenomicSimilarity:
         Returns:
             None
         """
+        # precomputed code addition
+        if self.dfM.empty:
+            M = self.M
+            genome_arr = np.array(list(M.keys()))
 
+            dfM = pd.DataFrame(genome_arr, columns=["A", "B"])
+
+            dfM["idAB"] = M.values()
+        else:
+            dfM = self.dfM
+        
         M = self.M
         size_dict = self.size_dict
 
-        genome_arr = np.array(list(M.keys()))
-
-        dfM = pd.DataFrame(genome_arr, columns=["A", "B"])
-
-        dfM["idAB"] = M.values()
 
         # creating a dictionary of genome name identity
         # As the blast is double sided need to check the identity of both genomes by looking at the opposite pair

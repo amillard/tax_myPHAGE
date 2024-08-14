@@ -105,13 +105,13 @@ def read_VMR(VMR_path: str) -> pd.DataFrame:
     taxa_df = pd.read_excel(VMR_path, sheet_name=0)
 
     # Print the DataFrame and rename a column
-    ic(taxa_df.head())
+    # ic(taxa_df.head())
 
     # Rename the columns depending on the version of the VMR
     taxa_df = taxa_df.rename(
         columns={"Virus GENBANK accession": "Genbank", "Genome_id": "Genbank"}
     )
-    taxa_df["Genbank"].fillna("", inplace=True)
+    taxa_df["Genbank"] = taxa_df["Genbank"].fillna("")
 
     return taxa_df
 

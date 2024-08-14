@@ -18,6 +18,7 @@ from taxmyphage import cli
 from taxmyphage.download_check import (
     check_blastDB,
     check_mash_index,
+    check_blastn_dataframe,
     check_VMR,
     install_db,
 )
@@ -54,7 +55,8 @@ def main():
     vmr_path = os.path.join(args.db_folder, "VMR.xlsx")
     blastdb_path = os.path.join(args.db_folder, "Bacteriophage_genomes.fasta")
     mash_index_path = os.path.join(args.db_folder, "ICTV_2023.msh")
-
+    blastn_df_path = os.path.join(args.db_folder, "M.pa")
+    
     # Check if the user wants to install the database
     if args.command == "install":
         CheckSoftware(args.makeblastdb)
@@ -63,6 +65,7 @@ def main():
             VMR_path=vmr_path,
             blastdb_path=blastdb_path,
             mash_index_path=mash_index_path,
+            blastn_df_path=blastn_df_path,
             output=args.db_folder,
             makeblastdb=args.makeblastdb,
         )
@@ -107,6 +110,9 @@ def main():
 
         # Check if the mash index exists
         check_mash_index(mash_index_path)
+
+        # Check if the precomputed blastn dataframe exists
+        check_blastn_dataframe(blastn_df_path)
 
         # Check if the blastDB file exists
         all_phages_name = check_blastDB(

@@ -50,7 +50,7 @@ def run_mash(
 
     # run mash to get top hit and read into a pandas dataframe
     cmd = f"{mash_exe} dist -d {dist} -p {threads} {mash_index_path} {query}"
-    ic(cmd)
+    #ic(cmd)
     mash_output = subprocess.getoutput(cmd)
     # mash_output = subprocess.check_output(['mash', 'dist', '-d', dist, '-p', threads, mash_index_path, query])
 
@@ -151,8 +151,8 @@ def classification_mash(
     # copy top 10 hits to a new dataframe
     top_10 = mash_df.iloc[:filter_hits].copy()
 
-    ic(mash_df.head(10))
-    ic(top_10)
+    # ic(mash_df.head(10))
+    # ic(top_10)
 
     # reindex
     top_10.reset_index(drop=True, inplace=True)
@@ -258,6 +258,10 @@ def classification_mash(
 def classification_similarity(
     known_taxa_path: str,
     query: str,
+    # precomputed code addition
+    db_dir:str,
+    use_precomputed: bool,
+        
     taxa_df: pd.DataFrame,
     taxa_csv_output_path: str,
     results_path: str,
@@ -311,6 +315,9 @@ def classification_similarity(
     pmv = ClusteringOnGenomicSimilarity(
         file=similarity_in_path,
         reference=similarity_in_path,
+        # precomputed code addition
+        db_dir = db_dir,
+        use_precomputed = use_precomputed,
         nthreads=threads,
         verbose=verbose,
         blastn_exe=blastn_exe,
@@ -318,9 +325,9 @@ def classification_similarity(
     )
     df1, pmv_outfile = pmv.run()
 
-    ic(df1)
-    ic(pmv_outfile)
-    ic(pmv.dfM)
+    # ic(df1)
+    # ic(pmv_outfile)
+    # ic(pmv.dfM)
 
     # heatmap and distances
     if Figure:

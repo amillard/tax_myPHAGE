@@ -167,6 +167,12 @@ def cli(args=None):
         default=1,
         help="Maximum number of threads that will be used by BLASTn. (Default is 1)",
     )
+    general_subparser.add_argument(
+        "-P",
+        "--precomputed",
+        action="store_true",
+        help="Use the precomputed blastn matrix to significantly speedup",
+    )
 
     ####################################################################################################
     # MASH options

@@ -173,6 +173,9 @@ def all_classification(
         merged_df, query_merged_df, closest_genome = classification_similarity(
             known_taxa_path=known_taxa_path,
             query=query,
+            # precomputed code addition
+            db_dir=os.path.dirname(blastdb_path),
+            use_precomputed=args.precomputed,
             taxa_df=taxa_df,
             taxa_csv_output_path=taxa_csv_output_path,
             results_path=results_path,

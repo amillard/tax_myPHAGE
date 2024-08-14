@@ -218,6 +218,38 @@ def check_mash_index(mash_index_path: str, install: bool = False) -> None:
 
 ####################################################################################################
 
+def check_blastn_dataframe(blastn_df_path: str, install: bool = False) -> None:
+    """
+    Checks if the precomputed blastn dataframe  is present and if not downloads it
+
+    """
+
+
+    if os.path.exists(blastn_df_path):
+        print_ok(f"Found {blastn_df_path} as expected")
+    else:
+        if install:
+            print_error(
+                f"File {blastn_df_path} does not exist will create database now  "
+            )
+            print_error("Will download the database now and create database")
+
+            url = "https://millardlab-taxmyphage.s3.climb.ac.uk/M.pa"
+
+            create_folder(os.path.dirname(blastn_df_path))
+
+            # Download the file from the URL to the output directory
+            download(url, blastn_df_path)
+        else:
+            print_error(
+                f"File {blastn_df_path} does not exist. Please download the dataframe or precomputed will not be used ."
+                "Or use the --install flag to download and create the dataframe."
+            )
+            sys.exit()
+
+
+####################################################################################################
+
 
 def check_VMR(VMR_path: str, install: bool = False) -> None:
     """
@@ -260,6 +292,7 @@ def install_db(
     VMR_path: str,
     blastdb_path: str,
     mash_index_path: str,
+    blastn_df_path: str,
     output: str,
     makeblastdb: str,
 ) -> None:
@@ -270,6 +303,7 @@ def install_db(
         VMR_path (str): Path to the VMR
         blastdb_path (str): Path to the blastDB
         mash_index_path (str): Path to the mash index
+        blastn_df_path (str): Path to the precomputed blastn results
         output (str): Path to the output directory
         makeblastdb (str): Path to the makeblastdb executable
 
@@ -283,6 +317,9 @@ def install_db(
     # Check if the mash index exists
     check_mash_index(mash_index_path, install=True)
 
+    # Check if the mash index exists
+    check_blastn_dataframe(blastn_df_path, install=True)
+    
     # Download the VMR and create the mash index
     check_blastDB(blastdb_path, output, makeblastdb, install=True)
 
