@@ -89,7 +89,7 @@ Install taxmyphage using any of the methods listed below.
 Then update the database files with the links below.  
 
 New Genome database [here](https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL39_v1.fasta.gz)
-New MASH database [here](https://https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL39v1.msh) 
+New MASH database [here](https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL39v1.msh) 
 
 Find the files Bacteriophages_genomes.fasta.gz in the conda installation  eg 
 ```
