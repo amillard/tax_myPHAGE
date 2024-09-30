@@ -89,7 +89,7 @@ Install taxmyphage using any of the methods listed below.
 Then update the database files with the links below.  
 
 New Genome database [here](https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL39_v1.fasta.gz)
-New MASH database [here](https://https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL39v1.msh) 
+New MASH database [here](https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL39v1.msh) 
 
 Find the files Bacteriophages_genomes.fasta.gz in the conda installation  eg 
 ```
@@ -125,6 +125,11 @@ mv ICTV_MSL39v1.msh ICTV.msh
 Or just create softlinks to the oringinal name.  
 
 It will now run with the latest version of the ICTV taxonomy 
+
+
+### Change to VMR format September 29th 2024
+
+An update to the format of VMR file produced by the ICTV and released ~20 th  September 2024 , has different format to their previous files. If you install after this date, it will download the latest version of the VMR (VMR_MSL39_v2.xlsx) and cause taxMyPhage to not run correctly. We are working on a solution to correctly format the newest VMR format to our input needs for taxMyPhage. In the mean time the easiest solution is to manually download and install VMR_MSL39_v1.xlsx rather than VMR_MSL39_v2.xlsx and rename the file accordingly , as above. 
 
 
 ## Requirements 
