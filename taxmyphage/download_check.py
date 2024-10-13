@@ -141,7 +141,7 @@ def check_blastDB(
                 )
                 print_error("Will download the database now and create database")
 
-                url = "https://millardlab-inphared.s3.climb.ac.uk/Bacteriophage_genomes.fasta.gz"
+                url = "https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL39v1.fasta.gz"
 
                 create_folder(os.path.dirname(blastdb_path))
 
@@ -202,7 +202,7 @@ def check_mash_index(mash_index_path: str, install: bool = False) -> None:
             )
             print_error("Will download the database now and create database")
 
-            url = "https://millardlab-inphared.s3.climb.ac.uk/ICTV_2023.msh"
+            url = "https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL39v1.msh"
 
             create_folder(os.path.dirname(mash_index_path))
 

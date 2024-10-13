@@ -101,8 +101,15 @@ def read_VMR(VMR_path: str) -> pd.DataFrame:
     Returns:
         pd.DataFrame: DataFrame containing the VMR data
     """
+    #update to VMR means sheet posistion changes- change below to 1 or find automatically
+    #taxa_df = pd.read_excel(VMR_path, sheet_name=0)
+    
+    excel_file = pd.ExcelFile(VMR_path)
+    sheet_names = excel_file.sheet_names
+    # Find the first sheet number that contains 'VMR'
+    vmr_sheet_index = next((index for index, sheet in enumerate(sheet_names) if 'VMR' in sheet), None)
 
-    taxa_df = pd.read_excel(VMR_path, sheet_name=0)
+    taxa_df = pd.read_excel(VMR_path, sheet_name=vmr_sheet_index)
 
     # Print the DataFrame and rename a column
     # ic(taxa_df.head())
