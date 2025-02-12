@@ -135,6 +135,7 @@ def main():
             mash_index_path=mash_index_path,
             mash_dist=mash_dist,
             verbose=verbose,
+            force_overwrite=args.force_overwrite,
         )
 
     elif args.command == "similarity":

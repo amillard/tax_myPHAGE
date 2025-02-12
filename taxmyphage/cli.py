@@ -174,7 +174,7 @@ def cli(args=None):
         default=1,
         help="Maximum number of threads that will be used by BLASTn. (Default is 1)",
     )
-    general_subparser.add_argument(
+    general_option.add_argument(
         "--no-precomputed",
         action="store_true",
         dest="no_precomputed",

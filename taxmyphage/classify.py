@@ -260,8 +260,7 @@ def classification_similarity(
     query: str,
     # precomputed code addition
     db_dir:str,
-    use_precomputed: bool,
-        
+    dont_use_precomputed: bool,
     taxa_df: pd.DataFrame,
     taxa_csv_output_path: str,
     results_path: str,
@@ -317,7 +316,7 @@ def classification_similarity(
         reference=similarity_in_path,
         # precomputed code addition
         db_dir = db_dir,
-        use_precomputed = use_precomputed,
+        dont_use_precomputed = dont_use_precomputed,
         nthreads=threads,
         verbose=verbose,
         blastn_exe=blastn_exe,

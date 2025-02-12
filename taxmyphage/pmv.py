@@ -38,7 +38,7 @@ class ClusteringOnGenomicSimilarity:
         reference: str,
         # precomputed code addition
         db_dir: str,
-        use_precomputed: bool = False,
+        dont_use_precomputed: bool = False,
         genus_threshold: float = 70,
         species_threshold: float = 95,
         nthreads: int = 1,
@@ -70,7 +70,7 @@ class ClusteringOnGenomicSimilarity:
         self.file = file
         # precomputed code addition
         self.db_dir = db_dir
-        self.use_precomputed = use_precomputed
+        self.dont_use_precomputed = dont_use_precomputed
         self.reference = reference
         self.result_dir = os.path.dirname(self.file)
         self.nthreads = nthreads
@@ -128,21 +128,21 @@ class ClusteringOnGenomicSimilarity:
 
         # precomputed code addition
         M_file = os.path.join(self.db_dir, 'M.pa')
-        if not os.path.exists(M_file): self.use_precomputed = False
-        if self.similarity_module: self.use_precomputed = False
+        if not os.path.exists(M_file): self.dont_use_precomputed = True
+        if self.similarity_module: self.dont_use_precomputed = True
         
-        if self.use_precomputed:
-            self.use_precomputed = self.check_if_number_of_seqs_is_more_than(2)
+        # if self.use_precomputed:
+        #     self.use_precomputed = self.check_if_number_of_seqs_is_more_than(2)
             
-        if self.use_precomputed:
+        if self.dont_use_precomputed:
+            print("Running full blast")
+            self.blastn()
+            self.parse_blastn_file()
+        else:
             print("Running on pre computed")
             self.blastn_cached()
             self.parse_blastn_file()
             self.merge_cached_results()
-        else:
-            print("Running full blast")
-            self.blastn()
-            self.parse_blastn_file()
 
         self.calculate_distances()
         self.cluster_all()

@@ -45,7 +45,8 @@ def all_classification(
     threads: int,
     verbose: bool,
     max_entries: int=0,
-) -> pd.DataFrame:
+    force_overwrite: bool=0,
+        ) -> pd.DataFrame:
     """
     This function will run all the classification methods and return the result
 
@@ -109,6 +110,15 @@ def all_classification(
                 genome_id = genome_id.replace(char, "_")
 
         results_path = os.path.join(args.output, "Results_per_genome", genome_id)
+
+        if os.path.exists(results_path):
+            print(f"\n\nResult folder {results_path} exists.\n")
+            if force_overwrite:
+                print(f"\n\nForcefully overwriting {results_path}.\n")
+            else:
+                print(f"\n\nTo overwrite, add the -f flag. Ignoring {genome_id}.\n")
+                continue
+            
         print(f"\n\nClassifying {genome.id} in result folder {results_path}\n")
 
         timer_start = time.time()
@@ -175,7 +185,7 @@ def all_classification(
             query=query,
             # precomputed code addition
             db_dir=os.path.dirname(blastdb_path),
-            use_precomputed=args.precomputed,
+            dont_use_precomputed=args.no_precomputed,
             taxa_df=taxa_df,
             taxa_csv_output_path=taxa_csv_output_path,
             results_path=results_path,
@@ -318,7 +328,8 @@ def clustering_on_genomic_similarity(args: Namespace, threads: int, verbose: boo
         file=tmp_fasta,
         reference=reference,
         db_dir='',
-        use_precomputed=False,        nthreads=threads,
+        dont_use_precomputed=False,
+        nthreads=threads,
         verbose=verbose,
         blastn_exe=args.blastn,
         makeblastdb_exe=args.makeblastdb,
