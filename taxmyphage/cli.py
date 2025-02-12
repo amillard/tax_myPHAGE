@@ -150,6 +150,13 @@ def cli(args=None):
         help="Path to the output directory. (Default is current directory)",
     )
     general_option.add_argument(
+        "-f",
+        "--force",
+        action="store_true",
+        dest="force_overwrite",
+        help="Overwrites the genome output directory",
+    )
+    general_option.add_argument(
         "-p",
         "--prefix",
         type=str,
@@ -168,10 +175,10 @@ def cli(args=None):
         help="Maximum number of threads that will be used by BLASTn. (Default is 1)",
     )
     general_subparser.add_argument(
-        "-P",
-        "--precomputed",
+        "--no-precomputed",
         action="store_true",
-        help="Use the precomputed blastn matrix to significantly speedup",
+        dest="no_precomputed",
+        help="Don't use the precomputed blastn matrix",
     )
 
     ####################################################################################################
