@@ -54,7 +54,7 @@ def main():
     # this is the location of where the script and the databases are stored
     vmr_path = os.path.join(args.db_folder, "VMR.xlsx")
     blastdb_path = os.path.join(args.db_folder, "Bacteriophage_genomes.fasta")
-    mash_index_path = os.path.join(args.db_folder, "ICTV_2023.msh")
+    mash_index_path = os.path.join(args.db_folder, "ICTV_2024.msh")
     blastn_df_path = os.path.join(args.db_folder, "M.pa")
     
     # Check if the user wants to install the database
