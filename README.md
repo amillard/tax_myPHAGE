@@ -8,6 +8,14 @@
 
 ----------
 
+# March 13th Update 2025
+
+With the releas of the new VMR, taxmyphage requires updating to use VMR_MSL40 to be in line with the latest ICTV taxonomy. Installations before 12.03.2025, will be using VMR_MSL39 or earlier. The current github version uses the latest VMR_40 and provides databases linked to this VMR (should be avalible via conda very shortly). 
+The easiest way to update, is to delete previous installations and start again.  
+
+
+----------
+
 Developed by [Andrew Millard](https://github.com/amillard) , [Thomas Sicheritz-Ponten](https://github.com/tsp-kucbd) and [Remi Denise](https://github.com/rdenise)
 
 Script to assign taxonomy to a bacteriophage at the genus and species level. It will identify the most similar genomes in the set of currently classified ICTV genomes that are present in the VMR. 
