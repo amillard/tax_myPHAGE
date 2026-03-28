@@ -7,6 +7,15 @@
 [![Conda Downloads](https://img.shields.io/conda/dn/bioconda/taxmyphage)](https://pepy.tech/project/taxmyphage)
 
 ----------
+# March 28th Update 2026
+
+With the release of the new VMR we are in the process of updating the databases for taxMyPhage to use the VMR_MSL41 dataset. Should be done with a few days as we pre-compute all the comparisons. 
+
+For those that want to run the command line verision. Swapping the following files in with the latest VMR file, will allow it to be run on CLI. Auto update and Web versions coming soon
+https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL41v1.msh
+https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL41v1.fasta.gz
+
+
 
 # March 13th Update 2025
 
