@@ -13,6 +13,7 @@ import os
 import sys
 import time
 import io
+import shutil
 from datetime import timedelta
 from argparse import Namespace
 from icecream import ic
@@ -115,6 +116,8 @@ def all_classification(
             print(f"\n\nResult folder {results_path} exists.\n")
             if force_overwrite:
                 print(f"\n\nForcefully overwriting {results_path}.\n")
+                shutil.rmtree(results_path)
+                ic(f"Removed existing results directory: {results_path}")
             else:
                 print(f"\n\nTo overwrite, add the -f flag. Ignoring {genome_id}.\n")
                 continue

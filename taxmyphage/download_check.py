@@ -142,9 +142,11 @@ def check_blastDB(
                 print_error("Will download the database now and create database")
 
                 #url = "https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL39v1.fasta.gz"
-                #
-                url = "https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL40v1.fasta.gz"
-
+                #MSL39above
+                #MSL40below
+                #url = "https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL40v1.fasta.gz"
+                #MSLV41  
+                url ="https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL41v1.fasta.gz"
                 create_folder(os.path.dirname(blastdb_path))
 
                 # Download the file from the URL to the output directory
@@ -207,7 +209,8 @@ def check_mash_index(mash_index_path: str, install: bool = False) -> None:
 
             #url = "https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL39v1.msh"
             #Left the previous version in forbackward compatability 
-            url = "https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL40v1.msh"
+            #url = "https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL40v1.msh"
+            url = "https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL41v1.msh"
 
             create_folder(os.path.dirname(mash_index_path))
 
@@ -238,7 +241,7 @@ def check_blastn_dataframe(blastn_df_path: str, install: bool = False) -> None:
                 f"File {blastn_df_path} does not exist will create database now  "
             )
             print_error("Will download the database now and create database")
-
+            #changed the name of the backups that are on S3  
             url = "https://millardlab-taxmyphage.s3.climb.ac.uk/M.pa"
 
             create_folder(os.path.dirname(blastn_df_path))
@@ -276,8 +279,8 @@ def check_VMR(VMR_path: str, install: bool = False) -> None:
             print_error(f"File {VMR_path} does not exist will try downloading now")
             print_error("Will download the current VMR now")
 
-            url = "https://ictv.global/vmr/current"
-
+            #url = "https://ictv.global/vmr/current"
+            url = "https://zenodo.org/records/19154144/files/VMR_MSL41.v1.20260320.xlsx?download=1"  
             create_folder(os.path.dirname(VMR_path))
 
             # Download the file from the URL to the output directory
