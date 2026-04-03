@@ -19,6 +19,12 @@ from Bio import SeqIO
 
 from taxmyphage.utils import print_error, print_ok, create_folder
 
+DATABASE_BASE_URL = "https://millardlab-taxmyphage.s3.climb.ac.uk"
+
+
+def _database_url(db_version: str, filename: str) -> str:
+    return f"{DATABASE_BASE_URL}/{db_version}/{filename}"
+
 ####################################################################################################
 # Functions
 ####################################################################################################
@@ -99,7 +105,11 @@ def unzip_file(file_path: str, output_path: str) -> None:
 
 
 def check_blastDB(
-    blastdb_path: str, output: str, makeblastdb_exe: str, install: bool = False
+    blastdb_path: str,
+    output: str,
+    makeblastdb_exe: str,
+    install: bool = False,
+    db_version: str = "current",
 ) -> List[str]:
     """
     Checks if the blastDB is present and if not downloads it and creates the database
@@ -140,17 +150,13 @@ def check_blastDB(
                     f"File {blastdb_path} does not exist will create database now  "
                 )
                 print_error("Will download the database now and create database")
-
-                #url = "https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL39v1.fasta.gz"
-                #MSL39above
-                #MSL40below
-                #url = "https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL40v1.fasta.gz"
-                #MSLV41  
-                url ="https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL41v1.fasta.gz"
                 create_folder(os.path.dirname(blastdb_path))
 
                 # Download the file from the URL to the output directory
-                download(url, f"{blastdb_path}.gz")
+                download(
+                    _database_url(db_version, "Bacteriophage_genomes.fasta.gz"),
+                    f"{blastdb_path}.gz",
+                )
 
                 # Gunzip the file
                 unzip_file(f"{blastdb_path}.gz", blastdb_path)
@@ -184,7 +190,9 @@ def check_blastDB(
 ####################################################################################################
 
 
-def check_mash_index(mash_index_path: str, install: bool = False) -> None:
+def check_mash_index(
+    mash_index_path: str, install: bool = False, db_version: str = "current"
+) -> None:
     """
     Checks if the mash index is present and if not downloads it and creates the index
 
@@ -206,16 +214,10 @@ def check_mash_index(mash_index_path: str, install: bool = False) -> None:
             )
             print_error("Will download the database now and create database")
 
-
-            #url = "https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL39v1.msh"
-            #Left the previous version in forbackward compatability 
-            #url = "https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL40v1.msh"
-            url = "https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL41v1.msh"
-
             create_folder(os.path.dirname(mash_index_path))
 
             # Download the file from the URL to the output directory
-            download(url, mash_index_path)
+            download(_database_url(db_version, "ICTV.msh"), mash_index_path)
         else:
             print_error(
                 f"File {mash_index_path} does not exist. Please download the database and create the database."
@@ -226,7 +228,9 @@ def check_mash_index(mash_index_path: str, install: bool = False) -> None:
 
 ####################################################################################################
 
-def check_blastn_dataframe(blastn_df_path: str, install: bool = False) -> None:
+def check_blastn_dataframe(
+    blastn_df_path: str, install: bool = False, db_version: str = "current"
+) -> None:
     """
     Checks if the precomputed blastn dataframe  is present and if not downloads it
 
@@ -241,13 +245,11 @@ def check_blastn_dataframe(blastn_df_path: str, install: bool = False) -> None:
                 f"File {blastn_df_path} does not exist will create database now  "
             )
             print_error("Will download the database now and create database")
-            #changed the name of the backups that are on S3  
-            url = "https://millardlab-taxmyphage.s3.climb.ac.uk/M.pa"
 
             create_folder(os.path.dirname(blastn_df_path))
 
             # Download the file from the URL to the output directory
-            download(url, blastn_df_path)
+            download(_database_url(db_version, "M.pa"), blastn_df_path)
         else:
             print_error(
                 f"File {blastn_df_path} does not exist. Please download the dataframe or precomputed will not be used ."
@@ -259,7 +261,9 @@ def check_blastn_dataframe(blastn_df_path: str, install: bool = False) -> None:
 ####################################################################################################
 
 
-def check_VMR(VMR_path: str, install: bool = False) -> None:
+def check_VMR(
+    VMR_path: str, install: bool = False, db_version: str = "current"
+) -> None:
     """
     Checks if the VMR is present and if not downloads it
 
@@ -278,13 +282,10 @@ def check_VMR(VMR_path: str, install: bool = False) -> None:
         if install:
             print_error(f"File {VMR_path} does not exist will try downloading now")
             print_error("Will download the current VMR now")
-
-            #url = "https://ictv.global/vmr/current"
-            url = "https://zenodo.org/records/19154144/files/VMR_MSL41.v1.20260320.xlsx?download=1"  
             create_folder(os.path.dirname(VMR_path))
 
             # Download the file from the URL to the output directory
-            download(url, VMR_path)
+            download(_database_url(db_version, "VMR.xlsx"), VMR_path)
         else:
             print_error(
                 f"File {VMR_path} does not exist. Please download the database and create the database."
@@ -303,6 +304,7 @@ def install_db(
     blastn_df_path: str,
     output: str,
     makeblastdb: str,
+    db_version: str = "current",
 ) -> None:
     """
     Install the databases and quit
@@ -320,16 +322,22 @@ def install_db(
     """
 
     # Check if the VMR file exists
-    check_VMR(VMR_path, install=True)
+    check_VMR(VMR_path, install=True, db_version=db_version)
 
     # Check if the mash index exists
-    check_mash_index(mash_index_path, install=True)
+    check_mash_index(mash_index_path, install=True, db_version=db_version)
 
     # Check if the mash index exists
-    check_blastn_dataframe(blastn_df_path, install=True)
+    check_blastn_dataframe(blastn_df_path, install=True, db_version=db_version)
     
     # Download the VMR and create the mash index
-    check_blastDB(blastdb_path, output, makeblastdb, install=True)
+    check_blastDB(
+        blastdb_path,
+        output,
+        makeblastdb,
+        install=True,
+        db_version=db_version,
+    )
 
     print_ok("All databases installed successfully!\n")
 

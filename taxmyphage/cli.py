@@ -99,6 +99,13 @@ def cli(args=None):
         default=os.path.join(os.path.dirname(__file__), "database"),
         help=f"Path to the database directory where the databases are stored. (Default is {os.path.join(os.path.dirname(__file__), 'database')})",
     )
+    database_option.add_argument(
+        "--db_version",
+        dest="db_version",
+        choices=["current", "2024", "2023"],
+        default="current",
+        help="Database release to download when using the install command. Local filenames remain fixed. (Default is current)",
+    )
 
     ####################################################################################################
     # Install subparser
