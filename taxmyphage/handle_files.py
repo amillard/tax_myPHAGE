@@ -118,8 +118,14 @@ def read_VMR(VMR_path: str) -> pd.DataFrame:
     taxa_df = taxa_df.rename(
         columns={"Virus GENBANK accession": "Genbank", "Genome_id": "Genbank"}
     )
-    taxa_df["Genbank"] = taxa_df["Genbank"].fillna("")
-
+    #taxa_df["Genbank"] = taxa_df["Genbank"].fillna("")
+    #edit to remove the version of the accession number
+    taxa_df["Genbank"] = (
+        taxa_df["Genbank"]
+       .fillna("")
+       .astype(str)
+       .str.replace(r"\.\d+$", "", regex=True)
+    )
     return taxa_df
 
 
