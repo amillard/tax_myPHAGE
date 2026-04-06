@@ -7,15 +7,38 @@
 [![Conda Downloads](https://img.shields.io/conda/dn/bioconda/taxmyphage)](https://pepy.tech/project/taxmyphage)
 
 ----------
-# March 28th Update 2026
+# April 6th Update 2026
 
-With the release of the new VMR we are in the process of updating the databases for taxMyPhage to use the VMR_MSL41 dataset. Should be done with a few days as we pre-compute all the comparisons. 
+Databases have been updated for the latest Master Specices List v41 (MSL41). Going forward we will now save all files in a directory called current. It will contain four files, making it easier for us to maintain the code as new updates to the MSL are released and have multiple databases. 
 
-For those that want to run the command line verision. Swapping the following files in with the latest VMR file, will allow it to be run on CLI. Auto update and Web versions coming soon
-https://millardlab-taxmyphage.s3.climb.ac.uk/ICTV_MSL41v1.msh
-https://millardlab-taxmyphage.s3.climb.ac.uk/Bacteriophage_genomes_MSL41v1.fasta.gz
+The four files are 
 
+- VMR.xlsx  - a copy of the VMR linked to the current version 
+- Bacteriophage_genomes.fasta.gz - all dsDNA phage genomes assigned taxonomy by ICTV 
+- M.pa - precomputed similiarities for rapid searching
+- ICTV.msh - mash sketches of all ICTV classified genomes
 
+Minor edits to the code to use the new "current" database structure, rather than specific links for each version of the VMR and associated database files 
+
+**To update**
+
+-delete current install and start again :-) 
+
+-or delete all files in database
+
+cd /path/to/taxmyphage/database
+```
+rm Bacteriophage_genomes.fasta.gz
+rm Bacteriophage_genomes.fasta.n*
+rm ICTV*
+rm M.pa*
+```
+then 
+cd /path/to/taxmyphage/
+```
+git pull
+taxmyphage install
+```
 
 # March 13th Update 2025
 
