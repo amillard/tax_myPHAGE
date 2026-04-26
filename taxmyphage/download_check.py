@@ -14,7 +14,7 @@ import subprocess
 import gzip
 import shutil
 from typing import List
-import wget
+from urllib.request import Request, urlopen
 from Bio import SeqIO
 
 from taxmyphage.utils import print_error, print_ok, create_folder
@@ -40,11 +40,19 @@ def download(url: str, output: str) -> None:
 
     Returns:
         None
+    
+    Note:
+        This function uses a user-agent header to mimic a browser request, which can help avoid issues with some servers that block non-browser requests.
     """
 
     try:
-        wget.download(url, output)
+        req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urlopen(req) as response, open(output, "wb") as out_file:
+            shutil.copyfileobj(response, out_file)
+
+
         print(f"\n{url} downloaded successfully!")
+
     except Exception as e:
         print(f"An error occurred while downloading {url}: {e}")
         sys.exit()
